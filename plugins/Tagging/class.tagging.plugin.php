@@ -109,15 +109,18 @@ class TaggingPlugin extends Gdn_Plugin {
       $Sender->SetData('Tag', $Tag, TRUE);
       $Sender->Title(T('Tagged with ').htmlspecialchars($Tag));
       $Sender->Head->Title($Sender->Head->Title());
+      $UrlTag = rawurlencode($Tag);
       if (urlencode($Tag) == $Tag) {
-         $Sender->CanonicalUrl(Url(ConcatSep('/', 'discussions/tagged/'.urlencode($Tag), PageNumber($Offset, $Limit, TRUE)), TRUE));
+         $Sender->CanonicalUrl(Url(ConcatSep('/', "/discussions/tagged/$UrlTag", PageNumber($Offset, $Limit, TRUE)), TRUE));
+         $FeedUrl = Url(ConcatSep('/', "/discussions/tagged/$UrlTag/feed.rss", PageNumber($Offset, $Limit, TRUE, FALSE)), '//');
       } else {
-         $Sender->CanonicalUrl(Url(ConcatSep('/', 'discussions/tagged', PageNumber($Offset, $Limit, TRUE)).'?Tag='.urlencode($Tag), TRUE));
+         $Sender->CanonicalUrl(Url(ConcatSep('/', 'discussions/tagged', PageNumber($Offset, $Limit, TRUE)).'?Tag='.$UrlTag, TRUE));
+         $FeedUrl = Url(ConcatSep('/', 'discussions/tagged', PageNumber($Offset, $Limit, TRUE, FALSE), 'feed.rss').'?Tag='.$UrlTag, '//');
       }
 
       if ($Sender->Head) {
          $Sender->AddJsFile('discussions.js');
-         $Sender->Head->AddRss($Sender->SelfUrl.'/feed.rss', $Sender->Head->Title());
+         $Sender->Head->AddRss($FeedUrl, $Sender->Head->Title());
       }
       
       if (!is_numeric($Offset) || $Offset < 0)
@@ -164,15 +167,6 @@ class TaggingPlugin extends Gdn_Plugin {
          $Sender->SetJson('LessRow', $Sender->Pager->ToString('less'));
          $Sender->SetJson('MoreRow', $Sender->Pager->ToString('more'));
          $Sender->View = 'discussions';
-      }
-      
-      // Set a definition of the user's current timezone from the db. jQuery
-      // will pick this up, compare to the browser, and update the user's
-      // timezone if necessary.
-      $CurrentUser = Gdn::Session()->User;
-      if (is_object($CurrentUser)) {
-         $ClientHour = $CurrentUser->HourOffset + date('G', time());
-         $Sender->AddDefinition('SetClientHour', $ClientHour);
       }
       
       // Render the controller
@@ -491,7 +485,7 @@ class TaggingPlugin extends Gdn_Plugin {
       
       $Sender->Form->Method = 'get';
       $Sender->Form->InputPrefix = '';
-      $Sender->Form->Action = '/settings/tagging';
+      //$Sender->Form->Action = '/settings/tagging';
 
       list($Offset, $Limit) = OffsetLimit($Sender->Request->Get('Page'), 100);
       $Sender->SetData('_Limit', $Limit);

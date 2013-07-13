@@ -82,6 +82,10 @@ class DiscussionController extends VanillaController {
       $this->SetData('CategoryID', $this->CategoryID = $this->Discussion->CategoryID, TRUE);
       $this->SetData('Breadcrumbs', CategoryModel::GetAncestors($this->CategoryID));
       
+      $Category = CategoryModel::Categories($this->Discussion->CategoryID);
+      if ($CategoryCssClass = GetValue('CssClass', $Category))
+         Gdn_Theme::Section($CategoryCssClass);
+      
       // Setup
       $this->Title($this->Discussion->Name);
 
@@ -125,7 +129,7 @@ class DiscussionController extends VanillaController {
       $this->SetData('_LatestItem', $LatestItem);
       
       // Set the canonical url to have the proper page title.
-      $this->CanonicalUrl(DiscussionUrl($this->Discussion, PageNumber($this->Offset, $Limit, FALSE)));
+      $this->CanonicalUrl(DiscussionUrl($this->Discussion, PageNumber($this->Offset, $Limit, 0, FALSE)));
       
 //      Url(ConcatSep('/', 'discussion/'.$this->Discussion->DiscussionID.'/'. Gdn_Format::Url($this->Discussion->Name), PageNumber($this->Offset, $Limit, TRUE, Gdn::Session()->UserID != 0)), TRUE), Gdn::Session()->UserID == 0);
       
@@ -463,7 +467,7 @@ class DiscussionController extends VanillaController {
       $this->Render();         
    }
    
-   protected function SendOptions($Discussion) {
+   public function SendOptions($Discussion) {
       require_once $this->FetchViewLocation('helper_functions', 'Discussion');
       ob_start();
       WriteDiscussionOptions($Discussion);

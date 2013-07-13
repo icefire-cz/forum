@@ -6,9 +6,13 @@ function WriteActivity($Activity, &$Sender, &$Session) {
    $ActivityType = explode(' ', $Activity->ActivityType); // Make sure you strip out any extra css classes munged in here
    $ActivityType = $ActivityType[0];
    $Author = UserBuilder($Activity, 'Activity');
-   $PhotoAnchor = Anchor(
-      Img($Activity->Photo, array('class' => 'ProfilePhoto ProfilePhotoMedium')),
-      $Activity->PhotoUrl, 'PhotoWrap');
+   $PhotoAnchor = '';
+   
+   if ($Activity->Photo) {
+      $PhotoAnchor = Anchor(
+         Img($Activity->Photo, array('class' => 'ProfilePhoto ProfilePhotoMedium')),
+         $Activity->PhotoUrl, 'PhotoWrap');
+   }
    
    $CssClass = 'Item Activity Activity-'.$ActivityType;
    if ($PhotoAnchor != '')
@@ -59,7 +63,7 @@ function WriteActivity($Activity, &$Sender, &$Session) {
    <?php } ?>
    <div class="ItemContent Activity">
       <?php echo $Title; ?>
-      <div class="Excerpt"><?php echo $Excerpt; ?></div>
+      <?php echo WrapIf($Excerpt, 'div', array('class' => 'Excerpt')); ?>
       <?php 
       $Sender->EventArguments['Activity'] = $Activity;
       $Sender->FireAs('ActivityController')->FireEvent('AfterActivityBody'); 
@@ -131,6 +135,8 @@ function WriteActivity($Activity, &$Sender, &$Session) {
 <?php
 }
 
+if (!function_exists('WriteActivityComment')):
+
 function WriteActivityComment($Comment, &$Sender, &$Session) {
    $Author = UserBuilder($Comment, 'Insert');
    $PhotoAnchor = UserPhoto($Author, 'Photo');
@@ -157,6 +163,8 @@ function WriteActivityComment($Comment, &$Sender, &$Session) {
 </li>
 <?php
 }
+
+endif;
 
 function WriteActivityTabs() {
    $Sender = Gdn::Controller();

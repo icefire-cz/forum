@@ -148,10 +148,17 @@ class CategoryModel extends Gdn_Model {
          $Category['CountAllComments'] = $Category['CountComments'];
          $Category['Url'] = self::CategoryUrl($Category, FALSE, '//');
          $Category['ChildIDs'] = array();
-         if ($Category['Photo'])
+         if (GetValue('Photo', $Category))
             $Category['PhotoUrl'] = Gdn_Upload::Url($Category['Photo']);
          else
             $Category['PhotoUrl'] = '';
+         
+         if ($Category['DisplayAs'] == 'Default') {
+            if ($Category['Depth'] <= C('Vanilla.Categories.NavDepth', 0))
+               $Category['DisplayAs'] = 'Categories';
+            else
+               $Category['DisplayAs'] = 'Discussions';
+         }
          
          if (!GetValue('CssClass', $Category))
             $Category['CssClass'] = 'Category-'.$Category['UrlCode'];
@@ -350,6 +357,7 @@ class CategoryModel extends Gdn_Model {
          if ($Discussion) {
             $Row['LastTitle'] = Gdn_Format::Text($Discussion['Name']);
             $Row['LastUserID'] = $Discussion['InsertUserID'];
+            $Row['LastDiscussionUserID'] = $Discussion['InsertUserID'];
             $Row['LastDateInserted'] = $Discussion['DateInserted'];
             $NameUrl = Gdn_Format::Text($Discussion['Name'], TRUE);
             $Row['LastUrl'] = DiscussionUrl($Discussion, FALSE, '//').'#latest';
@@ -364,10 +372,61 @@ class CategoryModel extends Gdn_Model {
          
          TouchValue('LastTitle', $Row, '');
          TouchValue('LastUserID', $Row, NULL);
+         TouchValue('LastDiscussionUserID', $Row, NULL);
          TouchValue('LastDateInserted', $Row, NULL);
          TouchValue('LastUrl', $Row, NULL);
       }
       return $Joined;
+   }
+   
+   public static function JoinRecentChildPosts(&$Category = NULL, &$Categories = NULL) {
+      if ($Categories === NULL)
+         $Categories =& self::$Categories;
+      
+      if ($Category === NULL)
+         $Category =& $Categories[-1];
+      
+      if (!isset($Category['ChildIDs']))
+         return;
+      
+      $LastTimestamp = Gdn_Format::ToTimestamp($Category['LastDateInserted']);;
+      $LastCategoryID = NULL;
+      
+      if ($Category['DisplayAs'] == 'Categories') {
+         // This is an overview category so grab it's recent data from it's children.
+         foreach ($Category['ChildIDs'] as $CategoryID) {
+            if (!isset($Categories[$CategoryID]))
+               continue;
+            
+            $ChildCategory =& $Categories[$CategoryID];
+            if ($ChildCategory['DisplayAs'] == 'Categories') {
+               self::JoinRecentChildPosts($ChildCategory, $Categories);
+            }
+            $Timestamp = Gdn_Format::ToTimestamp($ChildCategory['LastDateInserted']);
+            
+            if ($LastTimestamp === FALSE || $LastTimestamp < $Timestamp) {
+               $LastTimestamp = $Timestamp;
+               $LastCategoryID = $CategoryID;
+            }
+         }
+         
+         if ($LastCategoryID) {
+            $LastCategory = $Categories[$LastCategoryID];
+            
+            $Category['LastCommentID'] = $LastCategory['LastCommentID'];
+            $Category['LastDiscussionID'] = $LastCategory['LastDiscussionID'];
+            $Category['LastDateInserted'] = $LastCategory['LastDateInserted'];
+            $Category['LastTitle'] = $LastCategory['LastTitle'];
+            $Category['LastUserID'] = $LastCategory['LastUserID'];
+            $Category['LastDiscussionUserID'] = $LastCategory['LastDiscussionUserID'];
+            $Category['LastUrl'] = $LastCategory['LastUrl'];
+            $Category['LastCategoryID'] = $LastCategory['CategoryID'];
+//            $Category['LastName'] = $LastCategory['LastName'];
+//            $Category['LastName'] = $LastCategory['LastName'];
+//            $Category['LastEmail'] = $LastCategory['LastEmail'];
+//            $Category['LastPhoto'] = $LastCategory['LastPhoto'];
+         }
+      }
    }
    
    /**
@@ -530,12 +589,11 @@ class CategoryModel extends Gdn_Model {
                ->Put();
          } else {
             // Delete comments in this category
-            // Resorted to Query because of incompatibility of aliasing in MySQL 5.5 -mlr 2011-12-13
-            $Sql = "delete c from :_Comment c 
-               join :_Discussion d on c.DiscussionID = d.DiscussionID 
-               where d.CategoryID = :CategoryID";
-            $Sql = str_replace(':_', $this->Database->DatabasePrefix, $Sql);
-            $this->Database->Query($Sql, array(':CategoryID' => $Category->CategoryID));
+            $this->SQL
+               ->From('Comment c')
+               ->Join('Discussion d', 'c.DiscussionID = d.DiscussionID')
+               ->Where('d.CategoryID', $Category->CategoryID)
+               ->Delete();
                
             // Delete discussions in this category
             $this->SQL->Delete('Discussion', array('CategoryID' => $Category->CategoryID));
@@ -631,7 +689,7 @@ class CategoryModel extends Gdn_Model {
     */
    public function GetAll() {
       $CategoryData = $this->SQL
-         ->Select('c.ParentCategoryID, c.CategoryID, c.TreeLeft, c.TreeRight, c.Depth, c.Name, c.Description, c.CountDiscussions, c.CountComments, c.AllowDiscussions, c.UrlCode, c.PermissionCategoryID')
+         ->Select('c.*')
          ->From('Category c')
          ->OrderBy('TreeLeft', 'asc')
          ->Get();
@@ -782,6 +840,11 @@ class CategoryModel extends Gdn_Model {
             unset($Categories[$ID]);
          elseif (is_array($CategoryID) && !in_array($ID, $CategoryID))
             unset($Categories[$ID]);
+      }
+      
+      foreach ($Categories as &$Category) {
+         if ($Category['ParentCategoryID'] <= 0)
+            self::JoinRecentChildPosts($Category, $Categories);
       }
       
       Gdn::UserModel()->JoinUsers($Categories, array('LastUserID'));
@@ -935,7 +998,7 @@ class CategoryModel extends Gdn_Model {
       if ($Root) {
          $Root = (array)$Root;
          // Make the tree out of this category as a subtree.
-         $Result = self::_MakeTreeChildren($Root, $Categories);
+         $Result = self::_MakeTreeChildren($Root, $Categories, -$Root['Depth']);
       } else {
          // Make a tree out of all categories.
          foreach ($Categories as $Category) {
@@ -949,12 +1012,13 @@ class CategoryModel extends Gdn_Model {
       return $Result;
    }
    
-   protected static function _MakeTreeChildren($Category, $Categories) {
+   protected static function _MakeTreeChildren($Category, $Categories, $DepthAdj = -1) {
       $Result = array();
       foreach ($Category['ChildIDs'] as $ID) {
          if (!isset($Categories[$ID]))
             continue;
          $Row = $Categories[$ID];
+         $Row['Depth'] += $DepthAdj;
          $Row['Children'] = self::_MakeTreeChildren($Row, $Categories);
          $Result[] = $Row;
       }

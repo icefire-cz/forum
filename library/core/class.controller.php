@@ -665,6 +665,11 @@ class Gdn_Controller extends Gdn_Pluggable {
          }
          $this->_Definitions['SignedIn'] = $SignedIn;
       }
+      
+      if (Gdn::Session()->IsValid()) {
+         // Tell the client what our hour offset is so it can compare it to the user's real offset.
+         TouchValue('SetHourOffset', $this->_Definitions, Gdn::Session()->User->HourOffset);
+      }
 
       if (!array_key_exists('ConfirmHeading', $this->_Definitions))
          $this->_Definitions['ConfirmHeading'] = T('Confirm');
@@ -1541,8 +1546,11 @@ class Gdn_Controller extends Gdn_Pluggable {
          $Data['Data'] = $this->Data;
       }
       
+      // Try cleaning out any notices or errors.
+      @@ob_clean();
+      
 
-      if ($Code >= 100 && $Code <= 505)
+      if ($Code >= 400 && $Code <= 505)
          header("HTTP/1.0 $Code", TRUE, $Code);
       else
          header('HTTP/1.0 500', TRUE, 500);
@@ -1603,7 +1611,7 @@ class Gdn_Controller extends Gdn_Pluggable {
             $this->FireEvent('BeforeAddCss');
             
             $ETag = AssetModel::ETag();
-            $DebugAssets = C('DebugAssets');
+            $CombineAssets = C('Garden.CombineAssets');
             
             // And now search for/add all css files.
             foreach ($this->_CssFiles as $CssInfo) {
@@ -1611,7 +1619,7 @@ class Gdn_Controller extends Gdn_Pluggable {
                
                // style.css and admin.css deserve some custom processing.
                if (in_array($CssFile, array('style.css', 'admin.css'))) {
-                  if ($DebugAssets) {
+                  if (!$CombineAssets) {
                      // Grab all of the css files from the asset model.
                      $AssetModel = new AssetModel();
                      $CssFiles = $AssetModel->GetCssFiles(ucfirst(substr($CssFile, 0, -4)), $ETag);
@@ -1621,7 +1629,7 @@ class Gdn_Controller extends Gdn_Pluggable {
                   } else {
                      $Basename = substr($CssFile, 0, -4);
                      
-                     $this->Head->AddCss("/utility/css/$Basename/$Basename-$ETag.css", 'all', FALSE, $CssInfo['Options']);
+                     $this->Head->AddCss(Url("/utility/css/$Basename/$Basename-$ETag.css", '//'), 'all', FALSE, $CssInfo['Options']);
                   }
                   continue;
                }

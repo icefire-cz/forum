@@ -156,7 +156,7 @@ class AssetModel extends Gdn_Model {
             break;
       }
 		
-      $this->FireEvent('AfterGetCssFiles');
+		$this->FireEvent('AfterGetCssFiles');
       
       // Hunt the css files down.
       $Paths = array();
@@ -252,7 +252,7 @@ class AssetModel extends Gdn_Model {
          $Data[strtolower("{$Info['Index']}-app-{$Info['Version']}")] = TRUE;
       }
       
-      $Info = Gdn::ThemeManager()->EnabledThemeInfo();
+      $Info = Gdn::ThemeManager()->GetThemeInfo(Gdn::ThemeManager()->CurrentTheme());
       if (!empty($Info)) {
          $Version = GetValue('Version', $Info, 'v0');
          $Data[strtolower("{$Info['Index']}-theme-{$Version}")] = TRUE;

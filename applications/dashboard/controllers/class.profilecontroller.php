@@ -571,13 +571,14 @@ class ProfileController extends Gdn_Controller {
          exit();
       }
       
-      $this->AddJsFile('password.js');
+      Gdn::UserModel()->AddPasswordStrength($this);
       
       // Get user data and set up form
       $this->GetUserInfo();
       
       $this->Form->SetModel($this->UserModel);
       $this->Form->AddHidden('UserID', $this->User->UserID);
+      $this->AddDefinition('Username', $this->User->Name);
       
       if ($this->Form->AuthenticatedPostBack() === TRUE) {
          $this->UserModel->DefineSchema();
@@ -764,7 +765,7 @@ class ProfileController extends Gdn_Controller {
       );
       
       // Allow email notification of applicants (if they have permission & are using approval registration)
-      if (CheckPermission('Garden.Applicants.Manage') && C('Garden.Registration.Method') == 'Approval')
+      if (CheckPermission('Garden.Users.Approve') && C('Garden.Registration.Method') == 'Approval')
          $this->Preferences['Notifications']['Email.Applicant'] = array(T('NotifyApplicant', 'Notify me when anyone applies for membership.'), 'Meta');
       
       $this->FireEvent('AfterPreferencesDefined');
@@ -817,6 +818,7 @@ class ProfileController extends Gdn_Controller {
          }
       }
       $CurrentPrefs = array_merge($CurrentPrefs, $MetaPrefs);
+      $CurrentPrefs = array_map('intval', $CurrentPrefs);
       $this->SetData('Preferences', $CurrentPrefs);
       
       if (UserModel::NoEmail()) {
@@ -856,6 +858,8 @@ class ProfileController extends Gdn_Controller {
          
          $this->UserModel->SavePreference($this->User->UserID, $UserPrefs);
          UserModel::SetMeta($this->User->UserID, $NewMetaPrefs, 'Preferences.');
+         
+         $this->SetData('Preferences', array_merge($this->Data('Preferences', array()), $UserPrefs, $NewMetaPrefs));
          
          if (count($this->Form->Errors() == 0))
             $this->InformMessage(Sprite('Check', 'InformSprite').T('Your preferences have been saved.'), 'Dismissable AutoDismiss HasSprite');

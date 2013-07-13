@@ -191,6 +191,7 @@ function WriteDiscussion($Discussion, &$Sender, &$Session) {
          ?>
       </div>
    </div>
+   <?php $Sender->FireEvent('AfterDiscussionContent'); ?>
 </li>
 <?php
 }
@@ -256,7 +257,7 @@ function Tag($Discussion, $Column, $Code, $CssClass = FALSE) {
    if (!$CssClass)
       $CssClass = "Tag-$Code";
 
-   return ' <span class="Tag '.$CssClass.'">'.T($Code).'</span> ';
+   return ' <span class="Tag '.$CssClass.'" title="'.htmlspecialchars(T($Code)).'">'.T($Code).'</span> ';
 }
 endif;
 
@@ -383,7 +384,8 @@ function OptionsList($Discussion) {
       if ($Session->CheckPermission('Vanilla.Discussions.Delete', TRUE, 'Category', $Discussion->PermissionCategoryID))
          $Sender->Options .= '<li>'.Anchor(T('Delete'), '/discussion/delete?discussionid='.$Discussion->DiscussionID, 'DeleteDiscussion Popup') . '</li>';
       
-      // Allow plugins to add options
+      // Allow plugins to add options.
+      $Sender->EventArguments['Discussion'] = $Discussion;
       $Sender->FireEvent('DiscussionOptions');
       
       if ($Sender->Options != '') {

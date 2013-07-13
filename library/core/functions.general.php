@@ -173,9 +173,10 @@ if (!function_exists('ArrayTranslate')) {
     *
     * @param array $Array The input array to translate.
     * @param array $Mappings The mappings to translate the array.
+    * @param bool $AddRemaining Whether or not to add the remaining items to the array.
     * @return array
     */
-   function ArrayTranslate($Array, $Mappings) {
+   function ArrayTranslate($Array, $Mappings, $AddRemaining = FALSE) {
       $Array = (array)$Array;
       $Result = array();
       foreach ($Mappings as $Index => $Value) {
@@ -186,11 +187,26 @@ if (!function_exists('ArrayTranslate')) {
             $Key = $Index;
             $NewKey = $Value;
          }
-         if (isset($Array[$Key]))
+         if ($NewKey === NULL) {
+            unset($Array[$Key]);
+            continue;
+         }
+         
+         if (isset($Array[$Key])) {
             $Result[$NewKey] = $Array[$Key];
-         else
+            unset($Array[$Key]);
+         } else {
             $Result[$NewKey] = NULL;
+         }
       }
+      
+      if ($AddRemaining) {
+         foreach ($Array as $Key => $Value) {
+            if (!isset($Result[$Key]))
+               $Result[$Key] = $Value;
+         }
+      }
+      
       return $Result;
    }
 }
@@ -249,7 +265,7 @@ if (!function_exists('Asset')) {
     */
    function Asset($Destination = '', $WithDomain = FALSE, $AddVersion = FALSE) {
       $Destination = str_replace('\\', '/', $Destination);
-      if (substr($Destination, 0, 7) == 'http://' || substr($Destination, 0, 8) == 'https://') {
+      if (IsUrl($Destination)) {
          $Result = $Destination;
       } else {
          $Parts = array(Gdn_Url::WebRoot($WithDomain), $Destination);
@@ -618,6 +634,30 @@ if (!function_exists('filter_input')) {
    }
 }
 
+if (!function_exists('DateCompare')) {
+   /**
+    * Compare two dates.
+    * This function compares two dates in a way that is similar to strcmp().
+    * 
+    * @param int|string $Date1
+    * @param int|string $Date2
+    * @return int
+    * @since 2.1
+    */
+   function DateCompare($Date1, $Date2) {
+      if (!is_numeric($Date1))
+         $Date1 = strtotime($Date1);
+      if (!is_numeric($Date2))
+         $Date2 = strtotime($Date2);
+      
+      if ($Date1 == $Date2)
+         return 0;
+      if ($Date1 > $Date2)
+         return 1;
+      return -1;
+   }
+}
+
 if (!function_exists('Debug')) {
    function Debug($Value = NULL) {
       static $Debug = FALSE;
@@ -914,6 +954,27 @@ if (!function_exists('fnmatch')) {
    }
 }
 
+if (!function_exists('ForceIPv4')) {
+   /**
+    * Force a string into ipv4 notation.
+    * 
+    * @param string $IP
+    * @return string
+    * @since 2.1
+    */
+   function ForceIPv4($IP) {
+      if ($IP === '::1')
+         return '127.0.0.1';
+      elseif (strpos($IP, ':')) {
+         return '0.0.0.1';
+      } elseif (strpos($IP, '.') === FALSE) {
+         return '0.0.0.1';
+      } else {
+         return substr($IP, 0, 15);
+      }
+   }
+}
+
 /**
  * If a ForeignID is longer than 32 characters, use its hash instead.
  *
@@ -1154,9 +1215,13 @@ function _FormatStringCallback($Match, $SetArgs = FALSE) {
                }
             } else {
                $User = Gdn::UserModel()->GetID($Value);
-               $User->Name = FormatUsername($User, $Format, $ContextUserID);
+               if ($User) {
+                  $User->Name = FormatUsername($User, $Format, $ContextUserID);
                
-               $Result = UserAnchor($User);
+                  $Result = UserAnchor($User);
+               } else {
+                  $Result = '';
+               }
             }
                
             $Args = $ArgsBak;
@@ -1557,11 +1622,14 @@ if (!function_exists('InSubArray')) {
 }
 
 if (!function_exists('IsMobile')) {
-   function IsMobile() {
-      static $IsMobile = 'unset';
+   function IsMobile($Value = NULL) {
+      static $IsMobile = NULL;
+      
+      if ($Value !== NULL)
+         $IsMobile = $Value;
       
       // Short circuit so we only do this work once per pageload
-      if ($IsMobile != 'unset') return $IsMobile;
+      if ($IsMobile !== NULL) return $IsMobile;
       
       // Start out assuming not mobile
       $Mobile = 0;
@@ -1891,7 +1959,7 @@ if (!function_exists('SignInPopup')) {
     * into modal in-page popups.
     */
    function SignInPopup() {
-      return C('Garden.SignIn.Popup') && !IsMobile();
+      return C('Garden.SignIn.Popup');
    }
 }
 
@@ -3025,6 +3093,8 @@ if (!function_exists('PasswordStrength')) {
     * @param string $Username
     */
    function PasswordStrength($Password, $Username) {
+      $Translations = explode(',', T('Password Translations', 'Too Short,Contains Username,Very Weak,Weak,Ok,Good,Strong'));
+      
       // calculate $Entropy
       $Alphabet = 0;
       if ( preg_match('/[0-9]/', $Password) )
@@ -3039,7 +3109,7 @@ if (!function_exists('PasswordStrength')) {
       $Length = strlen($Password);
       $Entropy = log(pow($Alphabet, $Length), 2);
       
-      $RequiredLength = C('Garden.Password.MinLength', 8);
+      $RequiredLength = C('Garden.Password.MinLength', 6);
       $RequiredScore = C('Garden.Password.MinScore', 2);
       $Response = array(
          'Pass'      => FALSE,
@@ -3050,49 +3120,36 @@ if (!function_exists('PasswordStrength')) {
          'Score'     => 0
       );
       
-      // password1 == username
-      if (strtolower($Password) == strtolower($Username)) {
-         $Response['Reason'] = 'similar';
-         return $Response;
-      }
-      
-      // divide into entropy buckets
-      $EntropyBuckets = array(10,26,36,41,52,62,83,93);
-      $EntropyBucket = 1; $nEntropyBuckets = sizeof($EntropyBuckets);
-      for ($i=0; $i < $nEntropyBuckets; $i++) {
-         if ($Entropy >= $EntropyBuckets[$i]) {
-            $EntropyBucket = $i+1;
-         }
-      }
-      $EntropyBucket = floor($EntropyBucket / 2);
-      
-      // reject on length
       if ($Length < $RequiredLength) {
-         $Response['Reason'] = 'short';
+         $Response['Reason'] = $Translations[0];
          return $Response;
       }
       
-      // divide into length buckets
-      $LengthBuckets = array(8,11,12,15);
-      $LengthBucket = 1; $nLengthBuckets = sizeof($LengthBuckets);
-      for ($i=0; $i < $nLengthBuckets; $i++) {
-         if ($Length >= $LengthBuckets[$i]) {
-            $LengthBucket = $i+1;
-         }
+      // password1 == username
+      if (strpos(strtolower($Username), strtolower($Password)) !== FALSE) {
+         $Response['Reason'] = $Translations[1];
+         return $Response;
       }
       
-      // apply length modifications
-      $ZeroBucket = ceil($nLengthBuckets / 2);
-      $BucketMod = $LengthBucket - $ZeroBucket;
-      $FinalBucket = $EntropyBucket + $BucketMod;
+      if ($Entropy < 30) {
+         $Response['Score'] = 1;
+         $Response['Reason'] = $Translations[2];
+      } else if ($Entropy < 40) {
+         $Response['Score'] = 2;
+         $Response['Reason'] = $Translations[3];
+      } else if ($Entropy < 55) {
+         $Response['Score'] = 3;
+         $Response['Reason'] = $Translations[4];
+      } else if ($Entropy < 70) {
+         $Response['Score'] = 4;
+         $Response['Reason'] = $Translations[5];
+      } else {
+         $Response['Score'] = 5;
+         $Response['Reason'] = $Translations[6];
+      }
       
-      // Normalize
-      if ($FinalBucket < 1) $FinalBucket = 1;
-      if ($FinalBucket > 5) $FinalBucket = 5;
+      $Response['Pass'] = $Response['Score'] >= $RequiredScore;
       
-      $Response['Score'] = $FinalBucket;
-      if ($FinalBucket >= $RequiredScore)
-         $Response['Pass'] = TRUE;
       return $Response;
    }
 }

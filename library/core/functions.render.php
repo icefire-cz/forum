@@ -258,6 +258,8 @@ function CssClass($Row, $InList = TRUE) {
    // Category list classes
    if (array_key_exists('UrlCode', $Row))
       $CssClass .= ' Category-'.Gdn_Format::AlphaNumeric($Row['UrlCode']);
+   if (GetValue('CssClass', $Row))
+      $CssClass .= ' Item-'.$Row['CssClass'];
 
    if (array_key_exists('Depth', $Row))
       $CssClass .= " Depth{$Row['Depth']} Depth-{$Row['Depth']}";
@@ -314,6 +316,35 @@ function CssClass($Row, $InList = TRUE) {
 
    return trim($CssClass);
 }
+endif;
+
+if (!function_exists('DateUpdated')):
+
+function DateUpdated($Row, $Wrap = NULL) {
+   $Result = '';
+   $DateUpdated = GetValue('DateUpdated', $Row);
+   $UpdateUserID = GetValue('UpdateUserID', $Row);
+   
+   if ($DateUpdated) {
+      $Result = '';
+      
+      $UpdateUser = Gdn::UserModel()->GetID($UpdateUserID);
+      if ($UpdateUser)
+         $Title = sprintf(T('Edited by %s on %s.'), GetValue('Name', $UpdateUser), Gdn_Format::DateFull($DateUpdated));
+      else
+         $Title = sprintf(T('Edited on %s.'), Gdn_Format::DateFull($DateUpdated));
+      
+      $Result = ' <span title="'.htmlspecialchars($Title).'" class="DateUpdated">'.
+              sprintf(T('edited %s'), Gdn_Format::Date($DateUpdated)).
+              '</span> ';
+      
+      if ($Wrap)
+         $Result = $Wrap[0].$Result.$Wrap[1];
+   }
+   
+   return $Result;
+}
+   
 endif;
 
 /**
@@ -476,7 +507,7 @@ if (!function_exists('Img')) {
       if ($Attributes == '')
          $Attributes = array();
 
-      if ($Image != '' && substr($Image, 0, 7) != 'http://' && substr($Image, 0, 8) != 'https://')
+      if (!IsUrl($Image))
          $Image = SmartAsset($Image, $WithDomain);
 
       return '<img src="'.$Image.'"'.Attribute($Attributes).' />';
@@ -662,7 +693,7 @@ if (!function_exists('UserPhoto')) {
          $Photo = UserPhotoDefaultUrl($User, $ImgClass);
 
       if ($Photo) {
-         if (!isUrl($Photo, '//')) {
+         if (!isUrl($Photo)) {
             $PhotoUrl = Gdn_Upload::Url(ChangeBasename($Photo, 'n%s'));
          } else {
             $PhotoUrl = $Photo;

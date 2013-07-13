@@ -86,6 +86,10 @@ class MessagesController extends ConversationsController {
                   $RecipientUserIDs[] = $User->UserID;
             }
          }
+         
+         $this->EventArguments['Recipients'] = $RecipientUserIDs;
+         $this->FireEvent('BeforeAddConversation');
+         
          $this->Form->SetFormValue('RecipientUserID', $RecipientUserIDs);
          $ConversationID = $this->Form->Save($this->ConversationMessageModel);
          if ($ConversationID !== FALSE) {
@@ -100,6 +104,7 @@ class MessagesController extends ConversationsController {
       if ($Target = Gdn::Request()->Get('Target'))
             $this->Form->AddHidden('Target', $Target);
 
+      Gdn_Theme::Section('PostConversation');
       $this->Title(T('New Conversation'));
       $this->SetData('Breadcrumbs', array(array('Name' => T('Inbox'), 'Url' => '/messages/inbox'), array('Name' => $this->Data('Title'), 'Url' => 'messages/add')));
       $this->Render();      
@@ -120,6 +125,12 @@ class MessagesController extends ConversationsController {
       
       if ($this->Form->AuthenticatedPostBack()) {
          $ConversationID = $this->Form->GetFormValue('ConversationID', '');
+         $Conversation = $this->ConversationModel->GetID($ConversationID, Gdn::Session()->UserID);   
+         
+         $this->EventArguments['Conversation'] = $Conversation;
+         $this->EventArguments['ConversationID'] = $ConversationID;
+         $this->FireEvent('BeforeAddMessage');
+         
          $NewMessageID = $this->Form->Save();
          
          if ($NewMessageID) {
@@ -134,7 +145,6 @@ class MessagesController extends ConversationsController {
                $LastMessageID = $NewMessageID - 1;
             
             $Session = Gdn::Session();
-            $Conversation = $this->ConversationModel->GetID($ConversationID, $Session->UserID);   
             $MessageData = $this->ConversationMessageModel->GetNew($ConversationID, $LastMessageID);
             $this->Conversation = $Conversation;
             $this->MessageData = $MessageData;
@@ -372,6 +382,14 @@ class MessagesController extends ConversationsController {
       $this->AddModule($InThisConversationModule);
       
       $this->AddModule('AddPeopleModule');
+      
+      $Subject = $this->Data('Conversation.Subject');
+      if (!$Subject)
+         $Subject = T('Message');
+      
+      $this->Data['Breadcrumbs'][] = array(
+          'Name' => $Subject,
+          Url('', '//'));
       
       // Render view
       $this->Render();

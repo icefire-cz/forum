@@ -524,7 +524,7 @@ class EntryController extends Gdn_Controller {
                Gdn::UserModel()->FireEvent('AfterSignIn');
 
                // Send the welcome email.
-               if (C('Garden.Registration.SendConnectEmail', TRUE)) {
+               if (C('Garden.Registration.SendConnectEmail', FALSE)) {
                   try {
                      $UserModel->SendWelcomeEmail($UserID, '', 'Connect', array('ProviderName' => $this->Form->GetFormValue('ProviderName', $this->Form->GetFormValue('Provider', 'Unknown'))));
                   } catch (Exception $Ex) {
@@ -710,6 +710,7 @@ class EntryController extends Gdn_Controller {
          
          // Sign the user right out.
          Gdn::Session()->End();
+         $this->SetData('SignedOut', TRUE);
          
          $this->EventArguments['SignoutUser'] = $User;
          $this->FireEvent("SignOut");
@@ -768,10 +769,6 @@ class EntryController extends Gdn_Controller {
             if (!$User) {
                $this->Form->AddError('@'.sprintf(T('User not found.'), strtolower(T(UserModel::SigninLabelCode()))));
             } else {
-               $ClientHour = $this->Form->GetFormValue('ClientHour');
-               $HourOffset = Gdn_Format::ToTimestamp($ClientHour) - time();
-               $HourOffset = round($HourOffset / 3600);
-
                // Check the password.
                $PasswordHash = new Gdn_PasswordHash();
                $Password = $this->Form->GetFormValue('Password');
@@ -794,6 +791,12 @@ class EntryController extends Gdn_Controller {
                         $this->Form->AddError('ErrorPermission');
                         Gdn::Session()->End();
                      } else {
+                     $ClientHour = $this->Form->GetFormValue('ClientHour');
+                     $HourOffset = Gdn::Session()->User->HourOffset;
+                     if (is_numeric($ClientHour) && $ClientHour >= 0 && $ClientHour < 24) {
+                        $HourOffset = $ClientHour - date('G', time());
+                     }
+                     
                         if ($HourOffset != Gdn::Session()->User->HourOffset) {
                            Gdn::UserModel()->SetProperty(Gdn::Session()->UserID, 'HourOffset', $HourOffset);
                         }
@@ -1128,7 +1131,7 @@ class EntryController extends Gdn_Controller {
     * @since 2.0.0
     */
    private function RegisterApproval() {
-      $this->AddJsFile('password.js');
+      Gdn::UserModel()->AddPasswordStrength($this);
       
       // If the form has been posted back...
       if ($this->Form->IsPostBack()) {
@@ -1190,7 +1193,7 @@ class EntryController extends Gdn_Controller {
     * @since 2.0.0
     */
    private function RegisterBasic() {
-      $this->AddJsFile('password.js');
+      Gdn::UserModel()->AddPasswordStrength($this);
       
       if ($this->Form->IsPostBack() === TRUE) {
          // Add validation rules that are not enforced by the model
@@ -1260,7 +1263,7 @@ class EntryController extends Gdn_Controller {
     * @since 2.0.0
     */
    private function RegisterCaptcha() {
-      $this->AddJsFile('password.js');
+      Gdn::UserModel()->AddPasswordStrength($this);
       
       include(CombinePaths(array(PATH_LIBRARY, 'vendors/recaptcha', 'functions.recaptchalib.php')));
       if ($this->Form->IsPostBack() === TRUE) {
@@ -1335,7 +1338,7 @@ class EntryController extends Gdn_Controller {
     * @since 2.0.0
     */
    private function RegisterInvitation($InvitationCode) {
-      $this->AddJsFile('password.js');
+      Gdn::UserModel()->AddPasswordStrength($this);
       
       if ($this->Form->IsPostBack() === TRUE) {
          $this->InvitationCode = $this->Form->GetValue('InvitationCode');

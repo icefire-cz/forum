@@ -1,15 +1,47 @@
 // This file contains javascript that is global to the entire Garden application
+
+
+// Global vanilla library function.
+(function(window, $) {
+
+var Vanilla = function() { };
+
+Vanilla.fn = Vanilla.prototype;
+
+if (!window.console)
+   window.console = { log: function() {} };
+
+// Add a stub for embedding.
+Vanilla.parent = function() {};
+Vanilla.parent.callRemote = function(func, args, success, failure) { console.log("callRemote stub: "+func, args); };
+
+window.Vanilla = Vanilla;
+
+})(window, jQuery);
+
+
+// Stuff to fire on document.ready().
 jQuery(document).ready(function($) {
    if ($.browser.msie) {
       $('body').addClass('MSIE');
    }
    
-   var d = new Date();
-   var clientDate = d.getFullYear()+'-'+(d.getMonth() + 1)+'-'+d.getDate()+' '+d.getHours()+':'+d.getMinutes();
+   var d = new Date()
+   var hourOffset = -Math.round(d.getTimezoneOffset() / 60);
 
    // Set the ClientHour if there is an input looking for it.
-   $('input:hidden[name$=ClientHour]').livequery(function() {
-      $(this).val(clientDate);
+   $('input:hidden[name$=HourOffset]').livequery(function() {
+      $(this).val(hourOffset);
+   });
+   
+   // Ajax/Save the ClientHour if it is different from the value in the db.
+   $('input:hidden[id$=SetHourOffset]').livequery(function() {
+      if (hourOffset != $(this).val()) {
+         $.post(
+            gdn.url('/utility/sethouroffset.json'),
+            { HourOffset: hourOffset, TransientKey: gdn.definition('TransientKey') }
+         );
+      }
    });
    
    // Add "checked" class to item rows if checkboxes are checked within.
@@ -22,16 +54,6 @@ jQuery(document).ready(function($) {
    }
    $('.Item :checkbox').each(checkItems);
    $('.Item :checkbox').change(checkItems);
-
-   // Ajax/Save the ClientHour if it is different from the value in the db.
-   $('input:hidden[id$=SetClientHour]').livequery(function() {
-      if (d.getHours() != $(this).val()) {
-         $.get(
-            gdn.url('/utility/setclienthour'),
-            {'ClientDate': clientDate, 'TransientKey': gdn.definition('TransientKey'), 'DeliveryType': 'BOOL'}
-         );
-      }
-   });
    
    // Hide/Reveal the "forgot your password" form if the ForgotPassword button is clicked.
    $(document).delegate('a.ForgotPassword', 'click', function() {
@@ -240,6 +262,8 @@ jQuery(document).ready(function($) {
    
    // password strength check
    gdn.password = function(password, username) {
+      var translations = gdn.definition('PasswordTranslations', 'Too Short,Contains Username,Very Weak,Weak,Ok,Good,Strong').split(',');
+      
       // calculate entropy
       var alphabet = 0;
       if ( password.match(/[0-9]/) )
@@ -260,57 +284,42 @@ jQuery(document).ready(function($) {
          score: 0
       };
       
+      // reject on length
+      var length = password.length;
+      response.length = length;
+      var requiredLength = gdn.definition('MinPassLength', 6);
+      var requiredScore = gdn.definition('MinPassScore', 2);
+      response.required = requiredLength;
+      if (length < requiredLength) {
+         response.reason = translations[0];
+         return response;
+      }
+      
       // password1 == username
       if (username) {
-         if (password.toLowerCase() == username.toLowerCase()) {
-            response.reason = 'similar';
+         if (password.toLowerCase().indexOf(username.toLowerCase()) >= 0) {
+            response.reason = translations[1];
             return response;
          }
       }
       
-      // divide into entropy buckets
-      var entropyBuckets = [10,26,36,41,52,57,83,93];
-      var entropyBucket = 1;
-      for (var i=0;i<entropyBuckets.length;i++) {
-         if (entropy >= entropyBuckets[i]) {
-            entropyBucket = i+1;
-         }
-      }
-      entropyBucket = Math.floor(parseFloat(entropyBucket) / parseFloat(2));
-      response.entropyBucket = entropyBucket;
-      
-      // reject on length
-      var length = password.length;
-      response.length = length;
-      var requiredLength = gdn.definition('MinPassLength', 8);
-      var requiredScore = gdn.definition('MinPassScore', 2);
-      response.required = requiredLength;
-      if (length < requiredLength) {
-         response.reason = 'short';
-         return response;
+      if (entropy < 30) {
+         response.score = 1;
+         response.reason = translations[2]; // very weak
+      } else if (entropy < 40) {
+         response.score = 2;
+         response.reason = translations[3]; // weak
+      } else if (entropy < 55) {
+         response.score = 3;
+         response.reason = translations[4]; // ok
+      } else if (entropy < 70) {
+         response.score = 4;
+         response.reason = translations[5]; // good
+      } else {
+         response.score = 5;
+         response.reason = translations[6]; // strong
       }
       
-      // divide into length buckets
-      var lengthBuckets = [5,7,11,15];
-      var lengthBucket = 1;
-      for (var i=0; i < lengthBuckets.length; i++) {
-         if (length >= lengthBuckets[i]) {
-            lengthBucket = i+1;
-         }
-      }
-      
-      // apply length modifications
-      var zeroBucket = Math.ceil(lengthBuckets.length / 2);
-      var bucketMod = lengthBucket - zeroBucket;
-      var finalBucket = entropyBucket + bucketMod;
-      
-      // normalize
-      if (finalBucket < 1) finalBucket = 1;
-      if (finalBucket > 5) finalBucket = 5;
-      
-      response.score = finalBucket;
-      if (finalBucket >= requiredScore)
-         response.pass = true;
       return response;
    }
 
@@ -1077,7 +1086,7 @@ jQuery(document).ready(function($) {
       if (message == '')
          message = 'There was an error performing your request. Please try again.';
       
-      gdn.informMessage('<span class="InformSprite Lightbulb Error'+code+'"></span>'+message, 'HasSprite Dismissable AutoDismiss');
+      gdn.informMessage('<span class="InformSprite Lightbulb Error'+code+'"></span>'+message, 'HasSprite Dismissable');
    }
    
 	// Pick up the inform message stack and display it on page load
