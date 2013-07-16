@@ -1,0 +1,1080 @@
+// Import the Bootstrap Framework
+// ------------------------------------------------------------------------- //
+
+@import "bootstrap/bootstrap";
+@import "bootstrap/responsive";
+@import "bootstrap/docs";
+
+
+// Import stylesheets for plugins
+// ------------------------------------------------------------------------- //
+
+// jQuery plugins
+@import "plugins/chosen";
+@import "plugins/prettify";
+
+// Vanilla plugins
+@import "plugins/buttonbar";
+@import "plugins/qna";
+@import "plugins/signatures";
+@import "plugins/tagging";
+
+
+// Basic HTML Elements
+// ------------------------------------------------------------------------- //
+
+* {
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: always;
+    word-wrap: break-word;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+ol, ul {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+}
+
+h1.H {
+    margin-top: 0;
+}
+
+form {
+    margin: 0;
+}
+
+
+// Buttons, Inputs and Textareas
+// ------------------------------------------------------------------------- //
+
+// Basic Buttons
+// ------------------------------------------------------------------------- //
+
+.BigButton.btn {
+    display: block;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+// Grouped Buttons
+// ------------------------------------------------------------------------- //
+
+.ButtonGroup {
+    .btn {
+        height: 30px;
+        .box-sizing(border-box);
+        &:first-child {
+            display: block;
+            margin-right: 25px;
+        }
+    }
+    .Handle {
+        float: right;
+        width: 26px;
+        max-width: 26px;
+        margin-top: -30px;
+    }
+    &.Big {
+        .btn {
+            height: 40px;
+            &:first-child {
+                display: block;
+                margin-right: 35px;
+            }
+        }
+        .Handle {
+            width: 36px;
+            max-width: 36px;
+            margin-top: -40px;
+        }
+        .Dropdown {
+            width: 100%;
+            .box-sizing(border-box);
+        }
+    }
+}
+
+// Inputs and textareas
+// ------------------------------------------------------------------------- //
+
+input, textarea {
+    .box-sizing(border-box);
+    &:focus {
+        background-color: @inputBackground; }
+    &.DateBox,
+    &.InputBox,
+    &.SmallInput,
+    textarea {
+        min-height: 30px;
+        font-family: @sansFontFamily;
+    }
+}
+
+input {
+    height: auto !important;
+    &.InputBox:focus {
+        background-color: @inputBackground;
+    }
+    &.search-query {
+        min-height: 30px;
+    }
+}
+
+.TextBoxWrapper {
+    padding-right: 0;
+    position: relative;
+}
+
+// Labels
+// ------------------------------------------------------------------------- //
+
+.DiscussionForm .PostOptions label {
+    display: inline-block;
+}
+
+body.Entry form ul li label {
+    &.checkbox, &.radio {
+        padding: 0 0 0 18px;
+    }
+}
+
+
+// Main Navigation
+// ------------------------------------------------------------------------- //
+
+.navbar-fixed-top {
+    a {
+        i {
+            .opacity(50);
+        }
+        &:hover i {
+            .opacity(100);
+        }
+    }
+    .search-query {
+        min-width: 260px;
+    }
+}
+
+
+// Subheader Content
+// ------------------------------------------------------------------------- //
+
+.subhead {
+    border-bottom: none;
+}
+
+.bs-docs-social {
+    padding: 0;
+    text-align: left;
+    .border-radius(0);
+    .Breadcrumbs {
+        display: inline-block;
+        padding: 9px 0 11px;
+        text-shadow: 0 1px 0 @white;
+        .Crumb {
+            padding: 0 5px;
+            .hide-text;
+            &:after {
+                color: @grayLight;
+                font-family: @sansFontFamily;
+                font-size: 14px;
+                content: "/ ";
+            }
+        }
+        .CrumbLabel:last-child a {
+            color: @grayLight;
+        }
+    }
+    li {
+        display: block;
+    }
+    .dropdown-menu {
+        a {
+            color: @dropdownLinkColor;
+            font-weight: normal;
+            text-shadow: none;
+        }
+    }
+}
+
+
+// Main Container
+// ------------------------------------------------------------------------- //
+
+body > .bs-docs-canvas > .container {
+    padding-top: 20px;
+}
+
+
+// Content Pane
+// ------------------------------------------------------------------------- //
+
+#content .BoxFilter {
+    display: none;
+}
+
+// Discussions
+// ------------------------------------------------------------------------- //
+
+.Discussion .PageTitle h1 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.DiscussionHeader {
+    margin-bottom: 0;
+}
+
+.ItemDiscussion {
+    padding: 8px 0;
+    margin: 0;
+    .Message {
+        font-size: 100%;
+        padding-top: 5px;
+    }
+}
+
+.MessageForm h2 {
+    margin-top: 0;
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.BeforeCommentHeading {
+    margin-bottom: 10px;
+}
+
+h2.CommentHeading {
+    margin-top: 0;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+
+.MessageList .Message {
+    padding-top: 0;
+    margin-top: 8px;
+}
+
+.Message {
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.Category label {
+    display: inline;
+}
+
+.AdminCheck input {
+    vertical-align: top;
+}
+
+.PageControls {
+    display: none;
+    visibility: hidden;
+}
+
+.HomepageTitle {
+    margin-bottom: 22px;
+}
+
+// Data Tables
+// ------------------------------------------------------------------------- //
+
+.DataTable {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    thead td {
+        padding: 8px 4px;
+        vertical-align: middle;
+        border-top: 1px solid lighten(@tableBorder, 6%);
+        border-bottom: 1px solid lighten(@tableBorder, 6%);
+    }
+    tbody .BlockColumn {
+        padding: 12px 4px;
+    }
+    td {
+        vertical-align: middle;
+        border-bottom: 1px solid lighten(@tableBorder, 6%);
+        .Wrap {
+            position: relative;
+            .box-sizing(border-box);
+            .Options {
+                height: 1px;
+            }
+        }
+    }
+    &.CategoryTable tbody td {
+        vertical-align: middle;
+    }
+    .Item {
+        &.Read {
+            background: transparent;
+        }
+    }
+}
+
+// Data and Message Lists
+// ------------------------------------------------------------------------- //
+
+.DataList {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    &.Comments .Item {
+        padding: 15px 0px;
+        margin: 0;
+        .Message {
+            margin: 10px 0 0;
+        }
+    }
+    .Item {
+        &.Activity {
+            padding: 15px 0;
+        }
+        &.Read {
+            background: transparent;
+        }
+        &:first-child {
+            border-top-width: 1px;
+        }
+    }
+    .Item-Header {
+        overflow: auto;
+        margin-bottom: 10px;
+    }
+    .Meta {
+        overflow: auto;
+    }
+}
+
+.MessageList {
+    &.DataList {
+        margin: 15px 0;
+    }
+    .Item-Header {
+        overflow: auto;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    .Item {
+        padding: 0 0 15px;
+        margin: 15px 0 0;
+    }
+}
+
+.Foot + * {
+    margin: 15px 0 0;
+}
+
+// Category Tables
+// ------------------------------------------------------------------------- //
+
+.CategoryTable {
+    h2 {
+        font-size: 18px;
+    }
+    .CategoryDescription {
+        margin-bottom: 10px;
+    }
+}
+
+.PageDescription {
+    margin: 15px 0;
+    &:empty {
+        display: none;
+    }
+}
+
+.PageControls {
+    min-height: 30px;
+    &:empty {
+        display: none;
+    }
+}
+
+.ChildCategoryList {
+    .Item {
+        padding: 0;
+    }
+    &:nth-child(2) {
+        border-top-width: 1px;
+    }
+    .ItemContent {
+        padding: 8px 0;
+    }
+}
+
+// Leave a Comment
+// ------------------------------------------------------------------------- //
+
+.CommentFormWrap {
+    textarea.TextBox {
+        .transition(min-height 0.2s ease);
+        &.Active {
+            min-height: 80px;
+        }
+    }
+}
+
+.CommentForm {
+    .H {
+        display: none;
+    }
+    .FormWrapper {
+        padding: 0 0 0 50px;
+        background: transparent;
+    }
+}
+
+.Form-Header .Author .PhotoWrap {
+    margin: 0;
+}
+
+.MarkupHelp {
+    color: @textColor;
+    margin-right: 15px;
+    line-height: 2.2;
+}
+
+.Buttons {
+    line-height: 30px;
+    .btn {
+        vertical-align: top;
+    }
+}
+
+// Options Menus
+// ------------------------------------------------------------------------- //
+
+.OptionsMenu {
+    font-size: 100%;
+}
+.OptionsMenu .Flyout {
+    right: -5px;
+    left: auto;
+    &:before,
+    &:after {
+        right: 10px;
+    }
+    &:before {
+        border-bottom: 7px solid @dropdownBorder;
+    }
+    &:after {
+        border-bottom-color: @dropdownBackground;
+    }
+}
+
+// Profile Page
+// ------------------------------------------------------------------------- //
+
+.Photo .ProfilePhotoLarge {
+    width: 100%;
+    .box-sizing(border-box);
+}
+
+.Thumbnail img {
+    max-width: inherit;
+}
+
+.ProfileOptions .btn {
+    vertical-align: top;
+}
+
+table.PreferenceGroup, .Info {
+    width: 100% !important;
+    .box-sizing(border-box);
+}
+
+// Search Page
+// ------------------------------------------------------------------------- //
+
+.SearchForm {
+    margin-top: 0;
+    padding: 10px;
+    background: rgba(0,0,0,0.05);
+    .border-radius(4px);
+    form {
+        margin-bottom: 0;
+    }
+    .SiteSearch {
+        max-width: 100%;
+    }
+    input.InputBox {
+        margin: 0;
+        padding-right: 97px;
+        .border-radius(3px);
+    }
+    input.btn {
+        float: right;
+        width: 90px;
+        position: relative;
+        margin-top: -34px;
+        padding: 6px 14px;
+        .border-radius(0 3px 3px 0);
+    }
+}
+
+// Messages Page
+// ------------------------------------------------------------------------- //
+
+textarea.MultiComplete {
+    height: 30px;
+}
+
+.ac_results {
+    width: auto !important;
+    border: none;
+    background: none;
+    overflow: visible;
+    ul {
+        display: block;
+        position: relative;
+        margin-top: 2px;
+        padding: 5px 0;
+        li {
+            padding: 3px 20px;
+            font-size: 100%;
+            line-height: 20px;
+            border-bottom: none; }
+    }
+    strong {
+        background: none; }
+    .ac_over {
+        color: @dropdownLinkColorHover;
+        background-color: @dropdownLinkBackgroundHover;
+        #gradient > .vertical(@dropdownLinkBackgroundHover,
+        darken(@dropdownLinkBackgroundHover, 5%));
+    }
+}
+
+.Conversation {
+    .Item:first-child {
+        border-top: none;
+    }
+}
+
+// Pagination
+// ------------------------------------------------------------------------- //
+
+.Pager a,
+.Pager span {
+    margin: 0;
+}
+
+
+// Sidebar Pane
+// ------------------------------------------------------------------------- //
+
+// Profile Menu
+// ------------------------------------------------------------------------- //
+
+.MeBox {
+    display: inline-block;
+    margin: 0;
+    .WhoIs,
+    .Username,
+    .MeMenu {
+        display: inline-block;
+    }
+    .Username {
+        padding: 10px 8px 11px;
+    }
+    .MeMenu {
+        padding: 8px;
+    }
+    .ProfilePhoto {
+        width: 28px;
+        height: 28px;
+        margin-top: 6px;
+        .border-radius(2px);
+    }
+    .Flyout {
+        left: inherit;
+        right: -4px;
+        .box-sizing(border-box);
+        ul {
+            line-height: 20px;
+        }
+        &.FlyoutMenu {
+            padding: 0;
+            .border-radius(3px);
+            a {
+                padding: 0;
+                clear: none;
+                display: inline-block;
+            }
+            a:hover {
+                background: none;
+                color: @linkColorHover;
+            }
+            .PopList .Center {
+                border-bottom: none;
+                a {
+                    padding: 6px;
+                    display: block;
+                }
+            }
+            .ProfilePhoto {
+                margin-top: 0;
+                width: 34px;
+                height: 34px;
+            }
+        }
+        &:before,
+        &:after {
+            right: 9px;
+            left: auto;
+        }
+        &:before {
+            border-bottom: 7px solid @dropdownBorder;
+        }
+        &:after {
+            border-bottom-color: @dropdownBackground;
+        }
+    }
+}
+
+.Profile .MeBox {
+    display: inline-block;
+}
+
+.MeBox-SignIn {
+    display: none !important;
+}
+
+// Filter Menu
+// ------------------------------------------------------------------------- //
+
+.FilterMenu {
+    margin: 20px 0;
+    i:before {
+        font-weight: bold;
+    }
+    .active {
+        .Count {
+            background: none;
+        }
+    }
+}
+
+// Panel Panes
+// ------------------------------------------------------------------------- //
+
+.Box {
+    margin: 15px 0;
+    h4 {
+        border-bottom: 1px solid rgba(0,0,0,.05);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        margin-top: 0;
+    }
+    &.GuestBox {
+        margin-top: 0;
+    }
+}
+
+.Aside {
+    position: relative;
+    float: right;
+    top: -1px;
+}
+
+.PanelInfo {
+    .nav-header {
+        padding: 3px 15px;
+    }
+    > li {
+        border: none;
+        margin: 0;
+        padding: 0;
+        &:first-child {
+            border: none;
+        }
+        &.active {
+            .Count {
+                background: none;
+            }
+        }
+    }
+    .Heading {
+        padding: 5px 0;
+    }
+    .ProfilePhotoSmall {
+        float: left;
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.PanelCategories {
+    .Depth2, .Depth3, .Depth4, .Depth5, .Depth6,
+    .Depth7, .Depth8, .Depth9, .Depth10, .Depth11, .Depth12 {
+        padding-left: 0;
+    }
+    .Depth2 a {
+        padding-left: 15px + 4px * 0;
+    }
+    .Depth3 a {
+        padding-left: 15px + 4px * 1;
+    }
+    .Depth4 a {
+        padding-left: 15px + 4px * 2;
+    }
+    .Depth5 a {
+        padding-left: 15px + 4px * 3;
+    }
+    .Depth6 a {
+        padding-left: 15px + 4px * 4;
+    }
+    .Depth7 a {
+        padding-left: 15px + 4px * 5;
+    }
+    .Depth8 a {
+        padding-left: 15px + 4px * 6;
+    }
+    .Depth9 a {
+        padding-left: 15px + 4px * 7;
+    }
+    .Depth10 a {
+        padding-left: 15px + 4px * 8;
+    }
+    .Depth11 a {
+        padding-left: 15px + 4px * 9;
+    }
+    .Depth12 a {
+        padding-left: 15px + 4px * 10;
+    }
+}
+
+
+// Modal Windows
+// ------------------------------------------------------------------------- //
+
+.Loading {
+    width: 40px;
+    margin: 0 auto;
+}
+
+.Overlay {
+    display: none;
+    #translucent > .background(black, 0.8);
+    filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr=#CC000000,endColorstr=#CC000000);
+}
+
+#Popup {
+    .Border {
+        padding: 0;
+    }
+    .Body {
+        background: @bodyBackground;
+        padding: 0;
+    }
+    .modal-header {
+        margin: 0;
+    }
+    .modal-body {
+        padding: 15px;
+    }
+    .Content {
+        .modal-header {
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 40px;
+            margin-bottom: 0;
+        }
+    }
+    .Footer {
+        .modal-footer;
+    }
+    a.Close {
+        top: 12px;
+        right: 15px;
+    }
+    .close {
+        font-size: 22px;
+    }
+    p:not(.modal-body) {
+        padding: 0;
+    }
+    .radio {
+        margin: 0;
+    }
+}
+
+.Buttons-Confirm {
+    text-align: left;
+}
+
+// Alerts
+// ------------------------------------------------------------------------- //
+
+// Error Messages
+// ------------------------------------------------------------------------- //
+
+#bootstrap-container, #Popup {
+    .Errors ul, .Warning:not(.btn) {
+        padding: 8px 35px 8px 14px;
+        margin-bottom: @baseLineHeight;
+        text-shadow: 0 1px 0 rgba(255,255,255,.5) !important;
+        background-color: @errorBackground !important;
+        border: 1px solid @errorBorder !important;
+        .border-radius(4px) !important;
+        color: @errorText !important;
+        li {
+            background-color: transparent !important;
+            color: @errorText !important;
+        }
+    }
+}
+
+.InformMessages {
+    .alert, .InformMessage {
+        display: none;
+        position: relative;
+        margin-bottom: 0;
+        a.Icon {
+            display: block;
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            height: 28px;
+            width: 28px;
+        }
+        a.Icon img {
+            height: 28px;
+            width: 28px;
+        }
+        .close {
+            font-family: @sansFontFamily;
+        }
+    }
+    .InformWrapper.HasIcon .alert {
+        padding-left: 50px !important;
+        min-height: 20px;
+    }
+    .InformWrapper.HasSprite .alert {
+        padding-left: 40px !important;
+    }
+    span.InformSprite {
+        top: 3px;
+        left: 4px;
+    }
+}
+
+
+// Forms
+// ------------------------------------------------------------------------- //
+
+.MainForm,
+#Popup .MainForm {
+    float: none !important;
+    width: auto !important;
+    padding: 15px;
+    .InputBox {
+        max-width: none;
+    }
+}
+
+// Sign-in Popup form
+// ------------------------------------------------------------------------- //
+
+.SingleEntryMethod,
+.MultipleEntryMethods,
+#Popup .SingleEntryMethod,
+#Popup .MultipleEntryMethods {
+    input {
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 0;
+        &[type="password"] {
+            margin-bottom: 0;
+            padding-right: 77px;
+        }
+        &[type="checkbox"] {
+            width: auto;
+        }
+    }
+    label {
+        margin-bottom: 9px;
+    }
+    li {
+        clear: both;
+        &:first-child label {
+            margin-top: 0;
+        }
+    }
+    input.btn {
+        width: auto;
+        float: right;
+    }
+    .Buttons {
+        width: 100%;
+        line-height: 30px;
+        margin-top: 9px;
+    }
+    .SignInRememberMe {
+        height: 30px;
+        margin: 0 5px 0 0;
+    }
+}
+
+.SingleEntryMethod #Form_User_SignIn,
+.MultipleEntryMethods #Form_User_SignIn,
+#Popup .SingleEntryMethod #Form_User_SignIn,
+#Popup .MultipleEntryMethods #Form_User_SignIn {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 350px;
+    a.ForgotPassword {
+        float: right;
+        position: relative;
+        margin-top: -30px;
+        .border-radius(0 3px 3px 0);
+    }
+    .CreateAccount {
+        clear: both;
+        color: rgba(0,0,0,.5);
+    }
+}
+
+.SingleEntryMethod #Form_User_Password,
+.MultipleEntryMethods #Form_User_Password,
+#Popup .SingleEntryMethod #Form_User_Password,
+#Popup .MultipleEntryMethods #Form_User_Password {
+    margin: 0 auto;
+    padding: 0;
+    max-width: 350px;
+    .btn {
+        .box-sizing(border-box);
+    }
+    .Buttons {
+        overflow: auto;
+    }
+    a.ForgotPassword {
+        margin-left: 0;
+        float: left;
+    }
+}
+
+// Multiple Entry Sign-in
+// ------------------------------------------------------------------------- //
+
+.MultipleEntryMethods .Methods {
+    margin: 0 auto;
+    max-width: 350px;
+    .Method {
+        width: 50%;
+        min-width: 155px;
+        display: inline-block;
+        .box-sizing(border-box);
+    }
+    b {
+        display: inline-block;
+        margin-bottom: 9px;
+    }
+}
+
+// Registration
+// ------------------------------------------------------------------------- //
+
+.Entry.register #content {
+    input {
+        width: 100%;
+        &[type="radio"],
+        &[type="checkbox"] {
+            width: auto;
+            height: 18px;
+            margin-right: 5px;
+        }
+    }
+    .FormWrapper {
+        padding: 15px 25px;
+        .border-radius(5px);
+    }
+    .CaptchaInput {
+        margin-bottom: 10px;
+    }
+}
+
+
+// Mobile Styles
+// ------------------------------------------------------------------------- //
+
+@media (max-width: 480px) {
+    body {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .navbar-fixed-top,
+    .navbar-fixed-bottom,
+    .jumbotron,
+    .bs-docs-social {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+    .bootstrap-container {
+        padding-top: 5px;
+    }
+    footer {
+        display: none;
+    }
+    .modal {
+        height: 500px; // Set a default max height of the modal
+        position: fixed; // Display modal in the centre of your screen
+        overflow-y: scroll; //    Ensure that the modal is scroll-able
+        -webkit-overflow-scrolling: touch; // Avoid having to use 2 finger
+                                           // scroll on iOS
+    }
+    .modal.fade.in{
+        top: 5px; // Use more screen real estate
+    }
+    .modal-body{
+        // Increase the max height of the modal body to try & avoid both it,
+        // and the modal container having scroll bars which results
+        // in odd behavior
+        max-height: 2400px;
+    }
+}
+
+@media (max-width: 480px) {
+    // Hide Elements
+    .InfoMessage,
+    .DraftButton,
+    .AlertMessage,
+    .PreviewButton,
+    .HomepageTitle,
+    .CasualMessage,
+    .WarningMessage,
+    .BlockColumn-User,
+    .DataTable .Category,
+    .CommentForm .Buttons > a,
+    .CommentForm .Buttons .Back {
+        display: none;
+        visibility: hidden;
+    }
+
+}
+
+// Now adjust the height so it handles various screen sizes & orientations
+// You could make this as granular as you like, or have it more granular at
+// common screen sizes but it should start at the height we set on .modal
+// (i.e. 500px) & work down
+@media (max-width: 480px) and (max-height: 500px){.modal{ height: 450px}}
+@media (max-width: 480px) and (max-height: 450px){.modal{ height: 400px}}
+@media (max-width: 480px) and (max-height: 400px){.modal{ height: 350px}}
+@media (max-width: 480px) and (max-height: 350px){.modal{ height: 300px}}
+@media (max-width: 480px) and (max-height: 300px){.modal{ height: 250px}}
+@media (max-width: 480px) and (max-height: 250px){.modal{ height: 200px}}
+@media (max-width: 480px) and (max-height: 200px){.modal{ height: 150px}}
