@@ -1,5 +1,5 @@
 <?php if (!defined('APPLICATION')) exit();
-$Session = Gdn::Session(); 
+$Session = Gdn::Session();
 if (!function_exists('WriteComment'))
    include $this->FetchViewLocation('helper_functions', 'discussion');
 
@@ -25,15 +25,11 @@ echo "</div>\n\n";
 
 $this->FireEvent('AfterDiscussionTitle');
 
-// Write the initial discussion.
-if ($this->Data('Page') == 1) {
-   include $this->FetchViewLocation('discussion', 'discussion');
-   echo '</div>'; // close discussion wrap
-   
-   $this->FireEvent('AfterDiscussion');
-} else {
-   echo '</div>'; // close discussion wrap
-}
+// Always write the initial discussion.
+include $this->FetchViewLocation('discussion', 'discussion');
+echo '</div>'; // close discussion wrap
+
+$this->FireEvent('AfterDiscussion');
 
 echo '<div class="CommentsWrap">';
 
