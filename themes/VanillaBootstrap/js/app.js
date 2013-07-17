@@ -256,12 +256,6 @@ jQuery(document).ready(function() {
 		$(this).find('.Dropdown').addClass('dropdown-menu');
 	});
 
-	//Notifications
-	$('.InformMessage').livequery(function() {
-		$(this).toggleClass('InformMessage alert').fadeIn(200);
-		$(this).find('.Close').addClass('close');
-	});
-
 	// Plugin specific Javascript
 	// ------------------
 

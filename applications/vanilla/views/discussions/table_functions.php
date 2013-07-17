@@ -1,13 +1,12 @@
 <?php if (!defined('APPLICATION')) exit();
 
 if (!function_exists('WriteDiscussionHeading')):
-   
+
    function WriteDiscussionHeading() {
    ?>
    <tr>
       <?php echo AdminCheck(NULL, array('<td class="CheckBoxColumn"><div class="Wrap">', '</div></td>')); ?>
       <td class="DiscussionName"><div class="Wrap"><?php echo DiscussionHeading() ?></div></td>
-      <td class="BlockColumn BlockColumn-User FirstUser"><div class="Wrap"><?php echo T('Started By'); ?></div></td>
       <td class="BigCount CountReplies"><div class="Wrap"><?php echo T('Replies'); ?></div></td>
       <td class="BigCount CountViews"><div class="Wrap"><?php echo T('Views'); ?></div></td>
       <td class="BlockColumn BlockColumn-User LastUser"><div class="Wrap"><?php echo T('Most Recent Comment', 'Most Recent'); ?></div></td>
@@ -27,14 +26,14 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 
    $CssClass = CssClass($Discussion);
    $DiscussionUrl = $Discussion->Url;
-   
+
    if ($Session->UserID)
       $DiscussionUrl .= '#latest';
-   
+
    $Sender->EventArguments['DiscussionUrl'] = &$DiscussionUrl;
    $Sender->EventArguments['Discussion'] = &$Discussion;
    $Sender->EventArguments['CssClass'] = &$CssClass;
-   
+
    $First = UserBuilder($Discussion, 'First');
    if ($Discussion->LastUserID)
       $Last = UserBuilder($Discussion, 'Last');
@@ -43,13 +42,13 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
    }
 //   $Sender->EventArguments['FirstUser'] = &$First;
 //   $Sender->EventArguments['LastUser'] = &$Last;
-//   
+//
 //   $Sender->FireEvent('BeforeDiscussionName');
-   
+
    $DiscussionName = $Discussion->Name;
    if ($DiscussionName == '')
       $DiscussionName = T('Blank Discussion Topic');
-      
+
    $Sender->EventArguments['DiscussionName'] = &$DiscussionName;
 	$Discussion->CountPages = ceil($Discussion->CountComments / $Sender->CountCommentsPerPage);
 
@@ -67,38 +66,27 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
             ?>
          </span>
 			<?php
-         
-         
+
+
 			echo Anchor($DiscussionName, $DiscussionUrl, 'Title').' ';
 			$Sender->FireEvent('AfterDiscussionTitle');
-         
+
 			WriteMiniPager($Discussion);
 			echo NewComments($Discussion);
          if ($Sender->Data('_ShowCategoryLink', TRUE))
             echo CategoryLink($Discussion, ' '.T('in').' ');
-         
+
 			// Other stuff that was in the standard view that you may want to display:
          echo '<div class="Meta Meta-Discussion">';
 			WriteTags($Discussion);
          echo '</div>';
-			
+
 //			if ($Source = GetValue('Source', $Discussion))
 //				echo ' '.sprintf(T('via %s'), T($Source.' Source', $Source));
-//	
+//
 			?>
 		</div>
 	</td>
-	<td class="BlockColumn BlockColumn-User FirstUser">
-		<div class="Block Wrap">
-			<?php
-				echo UserPhoto($First, array('Size' => 'Small'));
-				echo UserAnchor($First, 'UserLink BlockTitle');
-            echo '<div class="Meta">';
-				echo Anchor(Gdn_Format::Date($Discussion->FirstDate, 'html'), $FirstPageUrl, 'CommentDate MItem');
-            echo '</div>';
-			?>
-		</div>
-   </td>
 	<td class="BigCount CountComments">
       <div class="Wrap">
          <?php
@@ -143,7 +131,7 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 endif;
 
 if (!function_exists('WriteDiscussionTable')) :
-   
+
 function WriteDiscussionTable() {
    $c = Gdn::Controller();
 ?>
@@ -165,7 +153,7 @@ function WriteDiscussionTable() {
 				WriteDiscussionRow($Discussion, $c, $Session, $Alt);
 			}
 		}
-		
+
 		$Alt = '';
       $Discussions = $c->Data('Discussions');
       if (is_a($Discussions, 'Gdn_DataSet')) {
@@ -181,5 +169,5 @@ function WriteDiscussionTable() {
 </div>
 <?php
 }
-   
+
 endif;
