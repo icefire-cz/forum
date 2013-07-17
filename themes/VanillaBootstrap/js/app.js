@@ -10,9 +10,6 @@ jQuery(document).ready(function() {
 		$(this).autosize();
 	});
 
-	// Make videos fluid
-	$('.Video').fitVids();
-
 	// Stop auto drafts
 	$.fn.autosave = function(opts) {
 		return;
