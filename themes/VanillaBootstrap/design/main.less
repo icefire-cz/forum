@@ -5,13 +5,16 @@
 @import "bootstrap/responsive";
 @import "bootstrap/docs";
 
+// Define variables
+// ------------------------------------------------------------------------- //
+@img-dir: "../img";
+
 
 // Import stylesheets for plugins
 // ------------------------------------------------------------------------- //
 
 // jQuery plugins
 @import "plugins/chosen";
-@import "plugins/prettify";
 
 // Vanilla plugins
 @import "plugins/buttonbar";
@@ -47,6 +50,10 @@ h1.H {
 
 form {
     margin: 0;
+}
+
+hr {
+    margin: 5px 0;
 }
 
 
@@ -602,9 +609,6 @@ textarea.MultiComplete {
         left: inherit;
         right: -4px;
         .box-sizing(border-box);
-        ul {
-            line-height: 20px;
-        }
         &.FlyoutMenu {
             padding: 0;
             .border-radius(3px);

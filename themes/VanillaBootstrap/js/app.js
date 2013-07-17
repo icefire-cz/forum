@@ -132,7 +132,7 @@ jQuery(document).ready(function() {
 		var $text = '<span class="Aside">'+$.trim($text)+'</span>';
 		var $img = $(this).find('img').outerHTML();
 		var $link = $(this).find('a:not(.PhotoWrap)').outerHTML();
-		$(this).empty().append($link).find('a').append($img + $aside + $text);
+		$(this).empty().append($link).find('a').append($img + $text);
 		$(this).find('.Aside:empty, .badge:empty').remove();
 	});
 	$('.PanelInfo li.Heading').each(function() {
@@ -165,6 +165,15 @@ jQuery(document).ready(function() {
 	});
 	$('body.Conversations.add #panel, body.Vanilla.Post #panel').remove();
 	$('body.Conversations.add #content, body.Vanilla.Post #content').toggleClass('span9 span10 offset1');
+
+	// Lazy load images
+	$('img:not(#cropbox):not(#preview)').each(function() {
+		$(this).attr('data-original', $(this).attr('src'));
+		$(this).attr('src', 'http://www.placehold.it/1x1');
+	});
+	$('img').lazyload({
+		effect : 'fadeIn'
+	});
 
 	// Livequery based markup changes
 	// ------------------------------
@@ -272,6 +281,18 @@ jQuery.fn.outerHTML = function(s) {
 	return s ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
 };
 
+// Recaptcha
+var RecaptchaOptions = {
+	theme : 'clean'
+};
+
+// OuterHTML function
+jQuery.fn.outerHTML = function(s) {
+	return s
+		? this.before(s).remove()
+		: jQuery("<p>").append(this.eq(0).clone()).html();
+};
+
 // Detect clicks outside elements
 (function(jQuery) {
 	jQuery.fn.clickOutside = function(callback) {
@@ -285,270 +306,5 @@ jQuery.fn.outerHTML = function(s) {
 			outside = 1;
 		});
 		return $(this);
-	};
-})(jQuery);
-
-! function (e) {
-    "use strict";
-    var t = function (e, t) {
-        this.init("tooltip", e, t);
-    };
-    t.prototype = {
-        constructor: t,
-        init: function (t, n, r) {
-            var i, s;
-            this.type = t;
-            this.$element = e(n);
-            this.options = this.getOptions(r);
-            this.enabled = !0;
-            if (this.options.trigger == "click") this.$element.on("click." + this.type, this.options.selector, e.proxy(this.toggle, this));
-            else if (this.options.trigger != "manual") {
-                i = this.options.trigger == "hover" ? "mouseenter" : "focus";
-                s = this.options.trigger == "hover" ? "mouseleave" : "blur";
-                this.$element.on(i + "." + this.type, this.options.selector, e.proxy(this.enter, this));
-                this.$element.on(s + "." + this.type, this.options.selector, e.proxy(this.leave, this));
-            }
-            this.options.selector ? this._options = e.extend({}, this.options, {
-                trigger: "manual",
-                selector: ""
-            }) : this.fixTitle()
-        },
-        getOptions: function (t) {
-            t = e.extend({}, e.fn[this.type].defaults, t, this.$element.data());
-            t.delay && typeof t.delay == "number" && (t.delay = {
-                show: t.delay,
-                hide: t.delay
-            });
-            return t;
-        },
-        enter: function (t) {
-            var n = e(t.currentTarget)[this.type](this._options).data(this.type);
-            if (!n.options.delay || !n.options.delay.show) return n.show();
-            clearTimeout(this.timeout);
-            n.hoverState = "in";
-            this.timeout = setTimeout(function () {
-                n.hoverState == "in" && n.show()
-            }, n.options.delay.show);
-        },
-        leave: function (t) {
-            var n = e(t.currentTarget)[this.type](this._options).data(this.type);
-            this.timeout && clearTimeout(this.timeout);
-            if (!n.options.delay || !n.options.delay.hide) return n.hide();
-            n.hoverState = "out";
-            this.timeout = setTimeout(function () {
-                n.hoverState == "out" && n.hide()
-            }, n.options.delay.hide);
-        },
-        show: function () {
-            var e, t, n, r, i, s, o;
-            if (this.hasContent() && this.enabled) {
-                e = this.tip();
-                this.setContent();
-                this.options.animation && e.addClass("fade");
-                s = typeof this.options.placement == "function" ? this.options.placement.call(this, e[0], this.$element[0]) : this.options.placement;
-                t = /in/.test(s);
-                e.remove().css({
-                    top: 0,
-                    left: 0,
-                    display: "block"
-                }).appendTo(t ? this.$element : document.body);
-                n = this.getPosition(t);
-                r = e[0].offsetWidth;
-                i = e[0].offsetHeight;
-                switch (t ? s.split(" ")[1] : s) {
-                case "bottom":
-                    o = {
-                        top: n.top + n.height,
-                        left: n.left + n.width / 2 - r / 2
-                    };
-                    break;
-                case "top":
-                    o = {
-                        top: n.top - i,
-                        left: n.left + n.width / 2 - r / 2
-                    };
-                    break;
-                case "left":
-                    o = {
-                        top: n.top + n.height / 2 - i / 2,
-                        left: n.left - r
-                    };
-                    break;
-                case "right":
-                    o = {
-                        top: n.top + n.height / 2 - i / 2,
-                        left: n.left + n.width
-                    };
-                }
-                e.css(o).addClass(s).addClass("in");
-            }
-        },
-        setContent: function () {
-            var e = this.tip(),
-                t = this.getTitle();
-            e.find(".tooltip-inner")[this.options.html ? "html" : "text"](t);
-            e.removeClass("fade in top bottom left right");
-        },
-        hide: function () {
-            function r() {
-                var t = setTimeout(function () {
-                    n.off(e.support.transition.end).remove();
-                }, 500);
-                n.one(e.support.transition.end, function () {
-                    clearTimeout(t);
-                    n.remove();
-                });
-            }
-            var t = this,
-                n = this.tip();
-            n.removeClass("in");
-            e.support.transition && this.$tip.hasClass("fade") ? r() : n.remove();
-            return this;
-        },
-        fixTitle: function () {
-            var e = this.$element;
-            (e.attr("title") || typeof e.attr("data-original-title") != "string") && e.attr("data-original-title", e.attr("title") || "").removeAttr("title")
-        },
-        hasContent: function () {
-            return this.getTitle();
-        },
-        getPosition: function (t) {
-            return e.extend({}, t ? {
-                top: 0,
-                left: 0
-            } : this.$element.offset(), {
-                width: this.$element[0].offsetWidth,
-                height: this.$element[0].offsetHeight
-            });
-        },
-        getTitle: function () {
-            var e, t = this.$element,
-                n = this.options;
-            e = t.attr("data-original-title") || (typeof n.title == "function" ? n.title.call(t[0]) : n.title);
-            return e;
-        },
-        tip: function () {
-            return this.$tip = this.$tip || e(this.options.template);
-        },
-        validate: function () {
-            if (!this.$element[0].parentNode) {
-                this.hide();
-                this.$element = null;
-                this.options = null;
-            }
-        },
-        enable: function () {
-            this.enabled = !0;
-        },
-        disable: function () {
-            this.enabled = !1;
-        },
-        toggleEnabled: function () {
-            this.enabled = !this.enabled;
-        },
-        toggle: function () {
-            this[this.tip().hasClass("in") ? "hide" : "show"]();
-        },
-        destroy: function () {
-            this.hide().$element.off("." + this.type).removeData(this.type);
-        }
-    };
-    e.fn.tooltip = function (n) {
-        return this.each(function () {
-            var r = e(this),
-                i = r.data("tooltip"),
-                s = typeof n == "object" && n;
-            i || r.data("tooltip", i = new t(this, s));
-            typeof n == "string" && i[n]();
-        });
-    };
-    e.fn.tooltip.Constructor = t;
-    e.fn.tooltip.defaults = {
-        animation: !0,
-        placement: "top",
-        selector: !1,
-        template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-        trigger: "hover",
-        title: "",
-        delay: 0,
-        html: !0
-    };
-}(window.jQuery);
-! function (e) {
-    "use strict";
-    var t = function (e, t) {
-        this.init("popover", e, t);
-    };
-    t.prototype = e.extend({}, e.fn.tooltip.Constructor.prototype, {
-        constructor: t,
-        setContent: function () {
-            var e = this.tip(),
-                t = this.getTitle(),
-                n = this.getContent();
-            e.find(".popover-title")[this.options.html ? "html" : "text"](t);
-            e.find(".popover-content > *")[this.options.html ? "html" : "text"](n);
-            e.removeClass("fade top bottom left right in");
-        },
-        hasContent: function () {
-            return this.getTitle() || this.getContent();
-        },
-        getContent: function () {
-            var e, t = this.$element,
-                n = this.options;
-            e = t.attr("data-content") || (typeof n.content == "function" ? n.content.call(t[0]) : n.content);
-            return e;
-        },
-        tip: function () {
-            this.$tip || (this.$tip = e(this.options.template));
-            return this.$tip
-        },
-        destroy: function () {
-            this.hide().$element.off("." + this.type).removeData(this.type);
-        }
-    });
-    e.fn.popover = function (n) {
-        return this.each(function () {
-            var r = e(this),
-                i = r.data("popover"),
-                s = typeof n == "object" && n;
-            i || r.data("popover", i = new t(this, s));
-            typeof n == "string" && i[n]();
-        });
-    };
-    e.fn.popover.Constructor = t;
-    e.fn.popover.defaults = e.extend({}, e.fn.tooltip.defaults, {
-        placement: "right",
-        trigger: "click",
-        content: "",
-        template: '<div class="popover"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
-    })
-}(window.jQuery);
-(function (e) {
-    e.fn.fitVids = function (t) {
-        var n = {
-            customSelector: null
-        }, r = document.createElement("div"),
-            i = document.getElementsByTagName("base")[0] || document.getElementsByTagName("script")[0];
-        r.className = "fit-vids-style";
-        r.innerHTML = "&shy;<style>.fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}</style>";
-        i.parentNode.insertBefore(r, i);
-        t && e.extend(n, t);
-        return this.each(function () {
-            var t = ["iframe[src*='player.vimeo.com']", "iframe[src*='www.youtube.com']", "iframe[src*='www.kickstarter.com']", "object", "embed"];
-            n.customSelector && t.push(n.customSelector);
-            var r = e(this).find(t.join(","));
-            r.each(function () {
-                var t = e(this);
-                if (this.tagName.toLowerCase() == "embed" && t.parent("object").length || t.parent(".fluid-width-video-wrapper").length) return;
-                var n = this.tagName.toLowerCase() == "object" ? t.attr("height") : t.height(),
-                    r = n / t.width();
-                if (!t.attr("id")) {
-                    var i = "fitvid" + Math.floor(Math.random() * 999999);
-                    t.attr("id", i);
-                }
-                t.wrap('<div class="fluid-width-video-wrapper"></div>').parent(".fluid-width-video-wrapper").css("padding-top", r * 100 + "%");
-                t.removeAttr("height").removeAttr("width");
-            });
-        });
-    };
+	}
 })(jQuery);

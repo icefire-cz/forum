@@ -10,7 +10,7 @@
 	{/literal}
 
 </head>
-<body id="{$BodyID}" class="{$BodyClass}" onload="prettyPrint()">
+<body id="{$BodyID}" class="{$BodyClass}">
 
 	<!-- Navbar
 	================================================== -->
