@@ -1,9 +1,10 @@
-/*!
-	Autosize v1.17.1 - 2013-06-23
-	Automatically adjust textarea height based on user input.
-	(c) 2013 Jack Moore - http://www.jacklmoore.com/autosize
-	license: http://www.opensource.org/licenses/mit-license.php
+/*
+* Autosize v1.17.1 - 2013-06-23
+* Automatically adjust textarea height based on user input.
+* (c) 2013 Jack Moore - http://www.jacklmoore.com/autosize
+* license: http://www.opensource.org/licenses/mit-license.php
 */
+
 (function ($) {
 	var
 	defaults = {
@@ -162,7 +163,7 @@
 
 				height += boxOffset;
 
-				if (original !== height) {						
+				if (original !== height) {
 					ta.style.height = height + 'px';
 					if (callback) {
 						options.callback.call(ta,ta);
@@ -211,9 +212,9 @@
 
 			// Event for manual triggering that also forces the styles to update as well.
 			// Should only be needed if one of typography styles of the textarea change, and the textarea is already the target of the adjust method.
-			$ta.on('autosize.resizeIncludeStyle', function() { 
-				mirrored = null; 
-				adjust(); 
+			$ta.on('autosize.resizeIncludeStyle', function() {
+				mirrored = null;
+				adjust();
 			});
 
 			$ta.on('autosize.destroy', function(){

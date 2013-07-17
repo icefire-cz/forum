@@ -1,6 +1,4 @@
-/*global jQuery */
-/*jshint multistr:true browser:true */
-/*!
+/*
 * FitVids 1.0
 *
 * Copyright 2011, Chris Coyier - http://css-tricks.com + Dave Rupert - http://daverupert.com

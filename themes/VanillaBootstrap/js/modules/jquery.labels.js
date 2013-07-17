@@ -1,5 +1,4 @@
-/*global console */
-/*!
+/*
  *	Title: jQuery Super Labels Plugin - Give your forms a helping of awesome!
  *	Author: Rémy Bach
  *	Version: 2.0.3
