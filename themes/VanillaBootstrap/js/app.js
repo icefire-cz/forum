@@ -120,22 +120,6 @@ jQuery(document).ready(function() {
 		//$(this).find('li a').append('<i class="icon-chevron-right"></i>');
 	});
 
-	// Change structure of panels
-	$('.PanelInfo li:not(.Heading)').each(function() {
-		var $text = $(this).contents()
-			.filter(function() {
-				return this.nodeType == Node.TEXT_NODE;
-			}).text();
-		var $text = '<span class="Aside">'+$.trim($text)+'</span>';
-		var $img = $(this).find('img').outerHTML();
-		var $link = $(this).find('a:not(.PhotoWrap)').outerHTML();
-		$(this).empty().append($link).find('a').append($img + $text);
-		$(this).find('.Aside:empty, .badge:empty').remove();
-	});
-	$('.PanelInfo li.Heading').each(function() {
-		$(this).toggleClass('Heading nav-header');
-	});
-
 	// Grouped Buttons
 	$('.ButtonGroup').each(function() {
 		$(this).addClass('btn-group');

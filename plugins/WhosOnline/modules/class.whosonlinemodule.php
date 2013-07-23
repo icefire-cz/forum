@@ -12,7 +12,7 @@ class WhosOnlineModule extends Gdn_Module {
 
 	public function GetData() {
 		$SQL = Gdn::SQL();
-		$Session = Gdn::Session();   
+		$Session = Gdn::Session();
 
 		$Frequency = C('WhosOnline.Frequency', 4);
 		$History = time() - $Frequency;
@@ -39,10 +39,7 @@ class WhosOnlineModule extends Gdn_Module {
 		if ($this->_OnlineUsers->NumRows() > 0) {
 			foreach($this->_OnlineUsers->Result() as $User) {
 				if($User->Invisible != 1) {
-                    $date = Wrap(Wrap(Gdn_Format::Date($User->Timestamp),
-                                      'span', array('class' => 'Count')),
-                                'span', array('class' => 'Aside'));
-					$String .= Wrap(Wrap(UserAnchor($User), 'strong').' '.$date, 'li');
+					$String = Wrap(UserAnchor($User), 'li');
 				}
 			}
 

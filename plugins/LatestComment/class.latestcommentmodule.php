@@ -14,11 +14,11 @@ class LatestCommentModule extends Gdn_Module {
                    ->From('Discussion p')
                    ->OrderBy('p.DateLastComment', 'desc')
                    ->Get()
-                   ->ResultArray();         
+                   ->ResultArray();
 	}
 
 	public function GetData() {
-		$SQL = Gdn::SQL();		
+		$SQL = Gdn::SQL();
 		$Limit = Gdn::Config('LatestComment.Limit');
 		$LatestOrMost = Gdn::Config('LatestComment.LatestOrMost');
 		$Limit = (!$Limit || $Limit ==0)?10:$Limit;
@@ -38,7 +38,7 @@ class LatestCommentModule extends Gdn_Module {
             $this->_NewCommentsCount[$Discussion->DiscussionID] = $Discussion->CountComments - $NewCount;
         }
 	}
-	
+
 	public function getLatestComments(){
 		return $this->_LatestComments;
 	}
@@ -54,23 +54,25 @@ class LatestCommentModule extends Gdn_Module {
 		$LatestOrMost = Gdn::Config('LatestComment.Show.LatestComment');
 		//Hide the top poster box id there's no post greater than 0
 		if($this->_LatestComments->NumRows() > 0) {
-		?>		
+		?>
 			<div id="LatestComment" class="Box BoxLatestComment">
 				<h4><?php if($LatestOrMost == "YES") echo T("Latest Commented"); else echo T("Most Commented"); ?></h4>
 				<ul class="PanelInfo PanelLatestComment">
 				<?php
 					$i =1;
 					foreach($this->_LatestComments->Result() as $Discussion) {
-                        $UnreadComments = $this->_NewCommentsCount[$Discussion->DiscussionID];
+                        $UnreadComments = Gdn_Format::BigNumber($this->_NewCommentsCount[$Discussion->DiscussionID]);
 						if ($UnreadComments > 0) {
 							$Count = ' <span class="Aside"><span class="Count">'.$UnreadComments.'</span></span>';
 						} else {
 							$Count = '';
-						}					
+						}
 				?>
-					<li><span><strong>
-		    			<a href="/forum/discussion/<?php echo $Discussion->DiscussionID; ?>#latest"><?php echo $Discussion->Name; ?></a>
-					</span></strong><?php echo $Count; ?></li>
+					<li>
+		    			<a href="/forum/discussion/<?php echo $Discussion->DiscussionID; ?>#latest">
+		    				<?php echo $Discussion->Name; ?><?php echo $Count; ?>
+		    			</a>
+					</li>
 				<?php
 					$i++;
 					}

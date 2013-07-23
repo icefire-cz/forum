@@ -56,7 +56,7 @@ ul.CheckBoxList li{	width:25%;line-height:1.5em;border-bottom:1px solid #ccc;flo
                      <td class="Alt"><?php echo Gdn::Translate("This show the plugin on only Profile pages"); ?></td>
                 </tr>
          </tbody>
-      </table>			
+      </table>
       <table class="AltRows">
          <thead>
             <tr>
@@ -69,24 +69,6 @@ ul.CheckBoxList li{	width:25%;line-height:1.5em;border-bottom:1px solid #ccc;flo
                <th><?php echo Gdn::Translate('Number of Latest Comments to show'); ?></th>
                <td class="Alt"><?php echo $this->Form->TextBox('LatestComment.Limit'); ?></td>
             </tr>
-         </tbody>		 
-      </table>
-	 <!-- <table class="AltRows">    
-		<thead>
-            <tr>
-               <th><?php echo Gdn::Translate('Display User with the topic'); ?></th>
-			   <th>Default: Yes</th>
-            </tr>
-         </thead>	  
-		 <tbody>
-            <tr>
-               <th><?php echo Gdn::Translate('Display User with the Topic'); ?></th>
-               <td class="Alt"><?php
-                     echo $this->Form->Radio('LatestComment.Show.User', "Yes", array('value' => 'YES', 'selected' => 'selected'));
-					 echo $this->Form->Radio('LatestComment.Show.User', "No", array('value' => 'NO'));
-                  ?></td>
-            </tr>
          </tbody>
-      </table>-->
-
+      </table>
 <?php echo $this->Form->Close('Save');
