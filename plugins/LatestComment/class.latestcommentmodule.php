@@ -37,43 +37,43 @@ class LatestCommentModule extends Gdn_Module {
                     ->Value('CountComments');
             $this->_NewCommentsCount[$Discussion->DiscussionID] = $Discussion->CountComments - $NewCount;
         }
-	}
+    }
 
-	public function getLatestComments(){
-		return $this->_LatestComments;
-	}
+    public function getLatestComments(){
+        return $this->_LatestComments;
+    }
 
-	public function AssetTarget() {
-		return 'Panel';
-	}
+    public function AssetTarget() {
+        return 'Panel';
+    }
 
-	public function ToString() {
-		$String = '';
-		$Session = Gdn::Session();
-		ob_start();
-		$LatestOrMost = Gdn::Config('LatestComment.Show.LatestComment');
-		//Hide the top poster box id there's no post greater than 0
-		if($this->_LatestComments->NumRows() > 0) {
-		?>
-			<div id="LatestComment" class="Box BoxLatestComment">
-				<h4><?php if($LatestOrMost == "YES") echo T("Latest Commented"); else echo T("Most Commented"); ?></h4>
-				<ul class="PanelInfo PanelLatestComment">
-				<?php
-					$i =1;
-					foreach($this->_LatestComments->Result() as $Discussion) {
+    public function ToString() {
+        $String = '';
+        $Session = Gdn::Session();
+        ob_start();
+        $LatestOrMost = Gdn::Config('LatestComment.Show.LatestComment');
+        //Hide the top poster box id there's no post greater than 0
+        if($this->_LatestComments->NumRows() > 0) {
+        ?>
+            <div id="LatestComment" class="Box BoxLatestComment">
+                <h4><?php if($LatestOrMost == "YES") echo T("Latest Commented"); else echo T("Most Commented"); ?></h4>
+                <ul class="PanelInfo PanelLatestComment">
+                <?php
+                    $i =1;
+                    foreach($this->_LatestComments->Result() as $Discussion) {
                         $UnreadComments = Gdn_Format::BigNumber($this->_NewCommentsCount[$Discussion->DiscussionID]);
-						if ($UnreadComments > 0) {
-							$Count = ' <span class="Aside"><span class="Count">'.$UnreadComments.'</span></span>';
-						} else {
-							$Count = '';
-						}
-				?>
-					<li>
-		    			<a href="/forum/discussion/<?php echo $Discussion->DiscussionID; ?>#latest">
-		    				<?php echo $Discussion->Name; ?><?php echo $Count; ?>
-		    			</a>
-					</li>
-				<?php
+                        if ($UnreadComments > 0) {
+                            $Count = ' <span class="Aside"><span class="Count">'.$UnreadComments.'</span></span>';
+                        } else {
+                            $Count = '';
+                        }
+                ?>
+                    <li>
+                        <a href="<?php echo DiscussionUrl($Discussion); ?>#latest">
+                            <?php echo $Discussion->Name; ?><?php echo $Count; ?>
+                        </a>
+                    </li>
+                <?php
 					$i++;
 					}
 				?>
