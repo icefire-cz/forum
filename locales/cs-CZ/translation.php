@@ -894,7 +894,7 @@ $Definition['minutes'] = 'minuty';
 $Definition['moderators'] = 'moderátoři';
 $Definition['months'] = 'měsíce';
 $Definition['n/a'] = 'n/a';
-$Definition['new discussion'] = 'nový';
+$Definition['new discussion'] = 'nové';
 $Definition['on'] = 'on';
 $Definition['or'] = 'nebo';
 $Definition['permalink'] = 'odkaz';
@@ -1028,12 +1028,12 @@ $Definition['%s comment'] = 'Komentářů: %s';
 $Definition['%s comments'] = 'Komentářů: %s';
 $Definition['%s Point'] = 'Bodů: %s';
 $Definition['%s Points'] = 'Bodů: %s';
-$Definition['%s New'] = 'Nových: %s';
-$Definition['%s New Plural'] = 'Nových: %s';
+$Definition['%s New'] = 'nové';
+$Definition['%s New Plural'] = 'nové';
 $Definition['%s Comment'] = 'Komentářů: %s';
 $Definition['%s Comments'] = 'Komentářů: %s';
-$Definition['%s new'] = 'Nových : %s';
-$Definition['%s new plural'] = 'Nových: %s';
+$Definition['%s new'] = 'nové';
+$Definition['%s new plural'] = 'nové';
 
 //plugins
 $Definition['Photo'] = 'Foto';

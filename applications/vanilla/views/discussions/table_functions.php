@@ -7,9 +7,9 @@ if (!function_exists('WriteDiscussionHeading')):
    <tr>
       <?php echo AdminCheck(NULL, array('<td class="CheckBoxColumn"><div class="Wrap">', '</div></td>')); ?>
       <td class="DiscussionName"><div class="Wrap"><?php echo DiscussionHeading() ?></div></td>
-      <td class="BigCount CountReplies"><div class="Wrap"><?php echo T('Replies'); ?></div></td>
-      <td class="BigCount CountViews"><div class="Wrap"><?php echo T('Views'); ?></div></td>
       <td class="BlockColumn BlockColumn-User LastUser"><div class="Wrap"><?php echo T('Most Recent Comment', 'Most Recent'); ?></div></td>
+      <td class="BigCount CountReplies"><div class="Wrap"><?php echo T('Replies'); ?></div></td>
+      <td class="BigCount CountView"><div class="Wrap"><?php echo T('Views'); ?></div></td>
    </tr>
    <?php
    }
@@ -71,22 +71,31 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 			echo Anchor($DiscussionName, $DiscussionUrl, 'Title').' ';
 			$Sender->FireEvent('AfterDiscussionTitle');
 
-			WriteMiniPager($Discussion);
+         echo '<div class="Meta Meta-Discussion">';
+			// WriteMiniPager($Discussion);
+         WriteTags($Discussion);
 			echo NewComments($Discussion);
          if ($Sender->Data('_ShowCategoryLink', TRUE))
             echo CategoryLink($Discussion, ' '.T('in').' ');
-
-			// Other stuff that was in the standard view that you may want to display:
-         echo '<div class="Meta Meta-Discussion">';
-			WriteTags($Discussion);
          echo '</div>';
-
-//			if ($Source = GetValue('Source', $Discussion))
-//				echo ' '.sprintf(T('via %s'), T($Source.' Source', $Source));
-//
 			?>
 		</div>
 	</td>
+   <td class="BlockColumn BlockColumn-User LastUser">
+      <div class="Block Wrap">
+         <?php
+         if ($Last) {
+            echo UserPhoto($Last, array('Size' => 'Small'));
+            echo UserAnchor($Last, 'UserLink BlockTitle');
+            echo '<div class="Meta">';
+            echo Anchor(Gdn_Format::Date($Discussion->LastDate, 'html'), $LastPageUrl, 'CommentDate MItem');
+            echo '</div>';
+         } else {
+            echo '&nbsp;';
+         }
+         ?>
+      </div>
+   </td>
 	<td class="BigCount CountComments">
       <div class="Wrap">
          <?php
@@ -108,21 +117,6 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
          echo BigPlural($Discussion->CountViews, '%s view');
          ?>
       </div>
-	</td>
-	<td class="BlockColumn BlockColumn-User LastUser">
-		<div class="Block Wrap">
-			<?php
-			if ($Last) {
-				echo UserPhoto($Last, array('Size' => 'Small'));
-				echo UserAnchor($Last, 'UserLink BlockTitle');
-            echo '<div class="Meta">';
-				echo Anchor(Gdn_Format::Date($Discussion->LastDate, 'html'), $LastPageUrl, 'CommentDate MItem');
-            echo '</div>';
-			} else {
-				echo '&nbsp;';
-			}
-			?>
-		</div>
 	</td>
 </tr>
 <?php
