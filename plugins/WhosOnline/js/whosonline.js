@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	function GetOnline() {
 		var url = gdn.url('/plugin/imonline');
-		
 		$.ajax({
 			url: url,
 			global: false,
@@ -9,12 +8,11 @@ $(document).ready(function() {
 			data: null,
 			dataType: "html",
 			success: function(Data){
-				$("#WhosOnline").replaceWith(Data);
+				//$("#WhosOnline").replaceWith(Data);
 				setTimeout(GetOnline, gdn.definition('WhosOnlineFrequency') * 1000);
 			}
 		});
 	}
-
 	GetOnline();
 });
 

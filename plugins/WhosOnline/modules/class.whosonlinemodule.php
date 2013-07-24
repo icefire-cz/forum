@@ -39,7 +39,7 @@ class WhosOnlineModule extends Gdn_Module {
 		if ($this->_OnlineUsers->NumRows() > 0) {
 			foreach($this->_OnlineUsers->Result() as $User) {
 				if($User->Invisible != 1) {
-					$String = Wrap(UserAnchor($User), 'li');
+					$String .= Wrap(UserAnchor($User), 'li');
 				}
 			}
 
