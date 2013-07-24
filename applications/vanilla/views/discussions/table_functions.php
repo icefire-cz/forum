@@ -70,9 +70,9 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 
 			echo Anchor($DiscussionName, $DiscussionUrl, 'Title').' ';
 			$Sender->FireEvent('AfterDiscussionTitle');
+         WriteMiniPager($Discussion);
 
          echo '<div class="Meta Meta-Discussion">';
-			// WriteMiniPager($Discussion);
          WriteTags($Discussion);
 			echo NewComments($Discussion);
          if ($Sender->Data('_ShowCategoryLink', TRUE))
