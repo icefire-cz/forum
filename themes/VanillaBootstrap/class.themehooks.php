@@ -30,15 +30,4 @@ class VanillaBootstrapThemeHooks implements Gdn_IPlugin {
 	public function CategoriesController_AfterDiscussionTitle_Handler($Sender) {
 		$this->DiscussionsController_AfterDiscussionTitle_Handler($Sender);
 	}
-
-	// Add input notifiers to comment form
-	public function DiscussionController_BeforeFormButtons_Handler($Sender) {
-		if (C('Garden.InputFormatter') == 'Markdown')
-			echo '<span class="MarkupHelp hidden-phone hidden-tablet">You can use <b><a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a></b> in your post</span>';
-		if (C('Garden.InputFormatter') == 'BBCode')
-			echo '<span class="MarkupHelp hidden-phone hidden-tablet">You can use <b><a href="http://en.wikipedia.org/wiki/BBCode">BBCode</a></b> in your post</span>';
-		if (C('Garden.InputFormatter') == 'Html')
-			echo '<span class="MarkupHelp hidden-phone hidden-tablet">You can use <b><a href="http://htmlguide.drgrog.com/cheatsheet.php">Simple Html</a></b> in your post</span>';
-	}
-
 }

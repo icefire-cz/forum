@@ -103,6 +103,7 @@
 	<header class="jumbotron subhead" id="bootstrap-header">
 		<div class="container">
 			<h1>IceFire Fórum</h1>
+            <p class="lead">Diskuzní fórum o knižní sáze Píseň ledu a ohně a seriálu Hra o trůny.</p>
 		</div>
 	</header>
 
@@ -128,31 +129,26 @@
 		</noscript>
 
 		<div class="row">
-			<div class="span3" id="panel">
-				{asset name="Panel"}
-			</div>
-			<div class="span9" id="content">
+			<div class="span8" id="content">
 				{asset name="Content"}
 			</div>
-		</div>
-	</div>
+			<div class="span4" id="panel">
+				{asset name="Panel"}
+			</div>
+        </div>
+    </div>
 
-	<!-- Footer
-	================================================== -->
+    <!-- Footer
+    ================================================== -->
 
-	<footer class="footer" id="bootstrap-footer">
-		<div class="container">
-			<p class="pull-right"><a href="#" class="back-to-top">Back to top</a></p>
-			{asset name="Foot"}
-			<p>VanillaBootstrap is built on <a href="http://twitter.github.com/bootstrap">Bootstrap by Twitter</a> and powered by <a href="http://vanillaforums.org">Vanilla</a></p>
-			<p>Twitter Bootstrap is made by <a href="http://twitter.com/mdo">@mdo</a> and <a href="http://twitter.com/fat">@fat</a> and licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a></p>
-			<p>The Twitter Bootstrap documentation styles is also created by <a href="http://twitter.com/mdo">@mdo</a> and <a href="http://twitter.com/fat">@fat</a></p>
-			<ul class="footer-links">
-				<li><a href="https://github.com/kasperisager/VanillaBootstrap/issues?state=open">Submit issues</a></li>
-				<li>Created by <a href="http://github.com/kasperisager">Kasper Kronborg Isager</a></li>
-			</ul>
-		</div>
-	</footer>
+    <footer class="footer" id="bootstrap-footer">
+        <div class="container">
+            {asset name="Foot"}
+            <p>Dotazy, náměty či nabídky spolupráce směřujte na alek/zav/icefire.cz.</p>
+            <p>Běží na <a href="http://vanillaforums.org">Vanille</a> s pomocí <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. Vývojový tým: Alek, Montezuma3, paulcz</p>
+            <p>Copyright &copy; 2006 - 2013 Ice &amp; Fire</p>
+        </div>
+    </footer>
 
 	{event name="AfterBody"}
 

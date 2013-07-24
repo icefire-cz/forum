@@ -40,11 +40,16 @@ hr {
 // Basic Buttons
 // ------------------------------------------------------------------------- //
 
+.btn {
+    text-shadow: none;
+    .box-shadow(none);
+}
+
 .BigButton.btn {
     display: block;
     padding: 10px 14px;
     margin-bottom: 10px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
 }
 
@@ -130,6 +135,13 @@ body.Entry form ul li label {
     }
 }
 
+.label,
+.badge {
+    font-weight: normal;
+    text-shadow: none;
+    padding-bottom: 3px;
+}
+
 
 // Main Navigation
 // ------------------------------------------------------------------------- //
@@ -163,7 +175,6 @@ body.Entry form ul li label {
     .Breadcrumbs {
         display: inline-block;
         padding: 9px 0 11px;
-        text-shadow: 0 1px 0 @white;
         .Crumb {
             padding: 0 5px;
             .hide-text;
@@ -294,10 +305,28 @@ h2.CommentHeading {
         border-top: 1px solid lighten(@tableBorder, 6%);
         border-bottom: 1px solid lighten(@tableBorder, 6%);
     }
-    tbody .BlockColumn {
-        padding: 12px 4px;
+    tbody {
+        .BlockColumn {
+            padding: 12px 4px;
+        }
+        .DiscussionName {
+            .Options {
+                margin-top: 16px;
+            }
+            .Meta-Discussion {
+                padding: 5px 10px 2px;
+            }
+            .Title {
+                font-weight: normal;
+                font-size: @baseFontSize;
+            }
+            .Wrap {
+                min-height: 53px;
+            }
+        }
     }
     td {
+        padding: 10px 8px;
         vertical-align: middle;
         border-bottom: 1px solid lighten(@tableBorder, 6%);
         .Wrap {
@@ -314,6 +343,14 @@ h2.CommentHeading {
     .Item {
         &.Read {
             background: transparent;
+        }
+    }
+    .CountViews,
+    .CountComments {
+        .Wrap {
+            background-color: @graySuperLight;
+            border: 1px solid @grayLighter;
+            padding: 12px 0;
         }
     }
 }
@@ -818,7 +855,6 @@ textarea.MultiComplete {
     .Errors ul, .Warning:not(.btn) {
         padding: 8px 35px 8px 14px;
         margin-bottom: @baseLineHeight;
-        text-shadow: 0 1px 0 rgba(255,255,255,.5) !important;
         background-color: @errorBackground !important;
         border: 1px solid @errorBorder !important;
         .border-radius(4px) !important;

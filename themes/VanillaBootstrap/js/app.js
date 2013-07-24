@@ -70,9 +70,6 @@ jQuery(document).ready(function() {
 	// Fix an annoying bug
 	$('body').removeClass('thumbnail');
 
-	// Icons
-	$('.Tag-Closed').html('<i class="icon-lock icon-white"></i> ');
-
 	// Buttons
 	$('.Button').toggleClass('Button btn');
 	$('.NavButton').toggleClass('NavButton btn');
@@ -117,7 +114,6 @@ jQuery(document).ready(function() {
 	$('.FilterMenu, .PanelInfo').each(function() {
 		$(this).toggleClass('nav nav-list');
 		$(this).find('.Active').toggleClass('Active active');
-		//$(this).find('li a').append('<i class="icon-chevron-right"></i>');
 	});
 
 	// Grouped Buttons
@@ -146,18 +142,6 @@ jQuery(document).ready(function() {
 	});
 	$('body.Conversations.add #panel, body.Vanilla.Post #panel').remove();
 	$('body.Conversations.add #content, body.Vanilla.Post #content').toggleClass('span9 span10 offset1');
-
-	// Lazy load images
-	$('img:not(#cropbox):not(#preview)').each(function() {
-		$(this).attr('data-original', $(this).attr('src'));
-		$(this).attr('src', 'http://www.placehold.it/1x1');
-	});
-	$('img').lazyload({
-		effect : 'fadeIn'
-	});
-
-	// Livequery based markup changes
-	// ------------------------------
 
 	// Icons
 	$('.Note.Closed').livequery(function() {
