@@ -8,6 +8,7 @@ $Session = Gdn::Session();
             <?php
             echo $this->Form->Open();
             echo $this->Form->Errors();
+            $this->FireEvent('BeforeBodyField');
             echo $this->Form->BodyBox('Body', array('Table' => 'Comment', 'tabindex' => 1));
             echo "<div class=\"Buttons\">\n";
             echo Wrap(Anchor(T('Cancel'), '/'), 'span class="Cancel"');
