@@ -193,6 +193,7 @@ $Definition['CategoriesViewingFollowed'] = 'Nyní jsou zobrazeny pouze sledovan�
 $Definition['CategoriesViewingUnfollowed'] = 'Nyní jsou zobrazeny pouze nesledované kategorie';
 $Definition['Category Management'] = 'Správa kategorií';
 $Definition['Category Notifications'] = 'Jednotlivé kategorie';
+$Definition['Category Filter'] = 'Filtrovat kategorie';
 $Definition['CategoryID'] = 'Kategorie';
 $Definition['Change'] = 'Změnit';
 $Definition['Change My Password'] = 'Změnit heslo';
