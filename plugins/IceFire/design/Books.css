@@ -4,11 +4,11 @@
     overflow: hidden;
     background: url(images/icons_books.gif);
 	display: inline-block;
-    margin: 0 1px;
+    margin: 0 1px -1px;
 }
 
 .UserBooks {
-    margin-left: 3px;
+    margin-left: 4px;
 }
 
 .Book1 {
@@ -49,8 +49,4 @@
 
 .Book5:hover {
 	background-position: -48px -12px;
-}
-
-.Mezera {
-    margin: 0 3px;
 }

@@ -34,11 +34,11 @@ class RoleBadgesPlugin extends Gdn_Plugin {
 
         $Books = GetValue('IceFire.Books', $UserPrefs, NULL);
 
-        if ($Comment == 1) {
-            echo '<span class="UserBooks">';
-        } else {
-            echo '<span class="UserBooks"><span class="Mezera"></span>';
+        if (!empty($Books)) {
+            echo '<i class="separator"></i>';
         }
+        echo '<span class="UserBooks">';
+
         for ($i = 1; $i <= 5; $i++) {
             if ($Books[$i] == '1') {
                 if ($i == 1) {
