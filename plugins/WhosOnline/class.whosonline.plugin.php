@@ -84,7 +84,6 @@ class WhosOnlinePlugin extends Gdn_Plugin {
 			case 'every':
 				$ShowOnController = array(
 					'discussioncontroller',
-					'categoriescontroller',
 					'discussionscontroller',
 					'profilecontroller',
 					'activitycontroller'
@@ -94,8 +93,7 @@ class WhosOnlinePlugin extends Gdn_Plugin {
 			default:
 				$ShowOnController = array(
 					'discussioncontroller',
-					'discussionscontroller',
-					'categoriescontroller'
+					'discussionscontroller'
 				);
 		}
 
