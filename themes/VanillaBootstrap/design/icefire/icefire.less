@@ -275,8 +275,12 @@ h2.CommentHeading {
 }
 
 .PageControls {
-    display: none;
-    visibility: hidden;
+    &.Top {
+        display: none;
+    }
+    .BoxButtons {
+        display: none;
+    }
 }
 
 .HomepageTitle {
@@ -368,7 +372,7 @@ h2.CommentHeading {
     margin-top: 10px;
     margin-bottom: 10px;
     &.Comments .Item {
-        padding: 15px 0px;
+        padding: 20px 5px 10px;
         margin: 0;
         .Message {
             margin: 10px 0 0;
@@ -376,7 +380,7 @@ h2.CommentHeading {
     }
     .Item {
         &.Activity {
-            padding: 15px 0;
+            padding: 20px 5px 10px;
         }
         &.Read {
             background: transparent;
@@ -403,14 +407,32 @@ h2.CommentHeading {
         margin-top: 0;
         margin-bottom: 10px;
     }
-    .Item {
-        padding: 0 0 15px;
-        margin: 15px 0 0;
+    .Reactions {
+        margin: 0;
+        padding: 5px 0 15px;
+    }
+    .Comment {
+        .MItem {
+            margin-left: 0;
+            &.Blink {
+                visibility: hidden;
+            }
+        }
+        &:hover .MItem {
+            &.Blink {
+                visibility: visible;
+            }
+        }
     }
 }
 
 .Foot + * {
     margin: 15px 0 0;
+}
+
+blockquote p {
+    font-size: @baseFontSize;
+    line-height: @baseLineHeight;
 }
 
 // Category Tables
