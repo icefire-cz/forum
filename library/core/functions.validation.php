@@ -2,7 +2,7 @@
 
 /**
  * Validation functions
- * 
+ *
  * All of these functions are used by ./class.validation.php to validate form
  * input strings. With the exception of ValidateRegex, each function receives
  * two parameters (the field value and the related database field properties)
@@ -66,7 +66,7 @@ if (!function_exists('ValidateMeAction')) {
 if (!function_exists('ValidateNoLinks')) {
    /**
     * Check whether or not a
-    * 
+    *
     * @param string $Value
     * @return bool
     * @since 2.1
@@ -127,7 +127,7 @@ if (!function_exists('ValidateEmail')) {
    function ValidateEmail($Value, $Field = '') {
       if (!ValidateRequired($Value))
          return TRUE;
-      
+
       $Result = PHPMailer::ValidateAddress($Value);
       $Result = (bool)$Result;
       return $Result;
@@ -138,7 +138,7 @@ if (!function_exists('ValidateWebAddress')) {
    function ValidateWebAddress($Value, $Field = '') {
       if ($Value == '')
          return TRUE; // Required picks up this error
-      
+
       return filter_var($Value, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED) !== FALSE;
    }
 }
@@ -146,13 +146,13 @@ if (!function_exists('ValidateWebAddress')) {
 if (!function_exists('ValidateUsernameRegex')) {
    function ValidateUsernameRegex() {
       static $ValidateUsernameRegex;
-      
+
       if (is_null($ValidateUsernameRegex)) {
          $ValidateUsernameRegex = sprintf("[%s]%s",
-            C("Garden.User.ValidationRegex","\d\w_"),
+            C("Garden.User.ValidationRegex","\d\w_\. "),
             C("Garden.User.ValidationLength","{3,20}"));
       }
-      
+
       return $ValidateUsernameRegex;
    }
 }
@@ -160,7 +160,7 @@ if (!function_exists('ValidateUsernameRegex')) {
 if (!function_exists('ValidateUsername')) {
    function ValidateUsername($Value, $Field = '') {
       $ValidateUsernameRegex = ValidateUsernameRegex();
-      
+
       return ValidateRegex(
          $Value,
          "/^({$ValidateUsernameRegex})?$/siu"
@@ -199,7 +199,7 @@ if (!function_exists('ValidateDate')) {
 				$Hour = ArrayValue(4, $Matches, 0);
 				$Minutes = ArrayValue(5, $Matches, 0);
 				$Seconds = ArrayValue(6, $Matches, 0);
-			   
+
             return checkdate($Month, $Day, $Year) && $Hour < 24 && $Minutes < 61 && $Seconds < 61;
          }
       }
@@ -274,7 +274,7 @@ if (!function_exists('ValidateLength')) {
          $Diff = mb_strlen($Value, 'UTF-8') - $Field->Length;
       else
          $Diff = strlen($Value) - $Field->Length;
-         
+
       if ($Diff <= 0) {
          return TRUE;
       } else {
@@ -332,7 +332,7 @@ if (!function_exists('ValidateMatch')) {
 if (!function_exists('ValidateStrength')) {
    /**
     * Validate a password's strength
-    * 
+    *
     * @param string $Value
     * @param string $Field
     * @param array $FormValues
