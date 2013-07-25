@@ -1,4 +1,4 @@
-<?php if (!defined('APPLICATION')) exit(); 
+<?php if (!defined('APPLICATION')) exit();
 $UserPhotoFirst = C('Vanilla.Comment.UserPhotoFirst', TRUE);
 
 $Discussion = $this->Data('Discussion');
@@ -11,7 +11,7 @@ $this->EventArguments['Author'] = &$Author;
 $this->EventArguments['CssClass'] = &$CssClass;
 
 // DEPRECATED ARGUMENTS (as of 2.1)
-$this->EventArguments['Object'] = &$Discussion; 
+$this->EventArguments['Object'] = &$Discussion;
 $this->EventArguments['Type'] = 'Discussion';
 
 // Discussion template event
@@ -36,7 +36,7 @@ $this->FireEvent('BeforeDiscussionDisplay');
                <?php
                echo WrapIf(htmlspecialchars(GetValue('Title', $Author)), 'span', array('class' => 'MItem AuthorTitle'));
                echo WrapIf(htmlspecialchars(GetValue('Location', $Author)), 'span', array('class' => 'MItem AuthorLocation'));
-               $this->FireEvent('AuthorInfo'); 
+               $this->FireEvent('AuthorInfo');
                ?>
             </span>
          </div>
@@ -53,7 +53,7 @@ $this->FireEvent('BeforeDiscussionDisplay');
             // Include source if one was set
             if ($Source = GetValue('Source', $Discussion))
                echo ' '.Wrap(sprintf(T('via %s'), T($Source.' Source', $Source)), 'span', array('class' => 'MItem MItem-Source')).' ';
-            
+
             // Category
             if (C('Vanilla.Categories.Use')) {
                echo ' <span class="MItem Category">';
@@ -69,15 +69,11 @@ $this->FireEvent('BeforeDiscussionDisplay');
       <?php $this->FireEvent('BeforeDiscussionBody'); ?>
       <div class="Item-BodyWrap">
          <div class="Item-Body">
-            <div class="Message">   
+            <div class="Message">
                <?php
                   echo FormatBody($Discussion);
                ?>
             </div>
-            <?php 
-            $this->FireEvent('AfterDiscussionBody');
-            WriteReactions($Discussion);
-            ?>
          </div>
       </div>
    </div>
