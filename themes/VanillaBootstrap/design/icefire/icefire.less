@@ -317,8 +317,6 @@ h2.CommentHeading {
     margin-top: 10px;
     margin-bottom: 10px;
     thead td {
-        padding: 8px 4px;
-        vertical-align: middle;
         border-top: 1px solid lighten(@tableBorder, 6%);
         border-bottom: 1px solid lighten(@tableBorder, 6%);
     }
@@ -352,7 +350,7 @@ h2.CommentHeading {
         }
     }
     td {
-        padding: 10px 8px;
+        padding: 8px;
         vertical-align: middle;
         border-bottom: 1px solid lighten(@tableBorder, 6%);
         .Wrap {
@@ -454,8 +452,33 @@ blockquote p {
     h2 {
         font-size: 18px;
     }
+    td {
+        padding: 8px 2px;
+        &.BlockColumn {
+            text-align: center;
+            width: 80px;
+        }
+    }
     .CategoryDescription {
         margin-bottom: 10px;
+    }
+    .CategoryName {
+        padding: 8px;
+
+        .Options {
+            margin-top: 3px;
+        }
+        a.Title {
+            font-size: @baseFontSize;
+            font-weight: normal;
+        }
+        .ChildCategories {
+            border: none;
+            padding: 5px 10px 2px;
+            & > b {
+                color: @gray;
+            }
+        }
     }
 }
 
