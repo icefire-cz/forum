@@ -104,6 +104,7 @@ function WriteComment($Comment, $Sender, $Session, $CurrentOffset) {
                echo ' '.WrapIf(htmlspecialchars(GetValue('Title', $Author)), 'span', array('class' => 'MItem AuthorTitle'));
                echo ' '.WrapIf(htmlspecialchars(GetValue('Location', $Author)), 'span', array('class' => 'MItem AuthorLocation'));
                $Sender->FireEvent('AuthorInfo');
+               WriteCommentOptions($Comment);
                ?>
             </span>
          </div>
@@ -151,11 +152,24 @@ function WriteReactions($Row, $Type = 'Comment') {
 
    Gdn::Controller()->EventArguments['RecordType'] = strtolower($RecordType);
    Gdn::Controller()->EventArguments['RecordID'] = $RecordID;
+   $Session = Gdn::Session();
 
    echo '<div class="Reactions">';
    echo '<div class="pull-right">';
       Gdn_Theme::BulletRow();
-      WriteCommentOptions($Row);
+      // Can the user edit the comment?
+      if ($Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
+         $Name = '<i class="icon-wrench"></i> '.T('Edit');
+         $Url = '/vanilla/post/editcomment/'.$Row->CommentID;
+         echo Wrap(Anchor($Name, $Url, 'EditComment'), 'span', array('class' => 'MItem Blink'));
+      }
+      // Can the user delete the comment?
+      if ($Session->CheckPermission('Vanilla.Comments.Delete', TRUE, 'Category', $PermissionCategoryID)) {
+         $Name = '<i class="icon-remove"></i> '.T('Delete');
+         $Url = 'vanilla/discussion/deletecomment/'.$Row->CommentID.'/'.$Session->TransientKey().'/?Target='.urlencode("/discussion/{$Row->DiscussionID}/x");
+         echo Wrap(Anchor($Name, $Url, 'DeleteComment'), 'span', array('class' => 'MItem Blink'));
+      }
+      //WriteCommentOptions($Row);
       Gdn::Controller()->FireEvent('AfterFlag');
       Gdn::Controller()->FireEvent('AfterReactions');
    echo '</div>';
@@ -308,19 +322,6 @@ function GetCommentOptions($Comment) {
 		$TimeLeft = strtotime($Comment->DateInserted) + $EditContentTimeout - time();
 		$TimeLeft = $TimeLeft > 0 ? ' ('.Gdn_Format::Seconds($TimeLeft).')' : '';
 	}
-
-	// Can the user edit the comment?
-	if (($CanEdit && $Session->UserID == $Comment->InsertUserID) || $Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
-      $OptionName = '<i class="icon-wrench"></i> '.T('Edit');
-		$Options['EditComment'] = array('Label' => $OptionName, 'Url' => '/vanilla/post/editcomment/'.$Comment->CommentID, 'EditComment');
-   }
-
-	// Can the user delete the comment?
-	// if (($CanEdit && $Session->UserID == $Comment->InsertUserID) || $Session->CheckPermission('Vanilla.Comments.Delete', TRUE, 'Category', $PermissionCategoryID))
-   if ($Session->CheckPermission('Vanilla.Comments.Delete', TRUE, 'Category', $PermissionCategoryID)) {
-      $OptionName = '<i class="icon-remove"></i> '.T('Delete');
-		$Options['DeleteComment'] = array('Label' => $OptionName, 'Url' => 'vanilla/discussion/deletecomment/'.$Comment->CommentID.'/'.$Session->TransientKey().'/?Target='.urlencode("/discussion/{$Comment->DiscussionID}/x"), 'Class' => 'DeleteComment');
-   }
    // DEPRECATED (as of 2.1)
    $Sender->EventArguments['Type'] = 'Comment';
 
@@ -345,12 +346,6 @@ function WriteCommentOptions($Comment) {
 
    $Id = $Comment->CommentID;
 	$Options = GetCommentOptions($Comment);
-	if (empty($Options))
-		return;
-
-   foreach ($Options as $Code => $Option):
-      echo Wrap(Anchor($Option['Label'], $Option['Url'], GetValue('Class', $Option, $Code)), 'span', array('class' => 'MItem Blink'));
-   endforeach;
 
    if (C('Vanilla.AdminCheckboxes.Use')) {
       // Only show the checkbox if the user has permission to affect multiple items
