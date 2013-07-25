@@ -3,20 +3,17 @@ $ShowAllCategoriesPref = Gdn::Session()->GetPreference('ShowAllCategories');
 $Url = Gdn::Request()->Path();
 ?>
 
-<div class="CategoryFilter">
-   <div class="CategoryFilterTitle"><?php echo T('Category Filter'); ?></div>
-   <div class="CategoryFilterOptions">
-      <?php echo Wrap(T('Viewing'), 'span').': '; ?>
-      <?php 
+<div class="Box">
+   <h4><?php echo T('Category Filter'); ?></h4>
+   <ul class="PanelInfo">
+      <?php
       if ($ShowAllCategoriesPref):
-         echo Wrap(T('all categories'), 'span', array('class' => 'CurrentFilter'));
-         echo ' | ';
-         echo Wrap(Anchor(T('followed categories'), $Url.'?ShowAllCategories=false'), 'span');
+         echo Wrap(Anchor(T('all categories'), $Url), 'li', array('class' => 'active'));
+         echo Wrap(Anchor(T('followed categories'), $Url.'?ShowAllCategories=false'), 'li');
       else:
-         echo Wrap(Anchor(T('all categories'), $Url.'?ShowAllCategories=true'), 'span');
-         echo ' | ';
-         echo Wrap(T('followed categories'), 'span', array('class' => 'CurrentFilter'));
+         echo Wrap(Anchor(T('all categories'), $Url.'?ShowAllCategories=true'), 'li');
+         echo Wrap(Anchor(T('followed categories'), $Url), 'li', array('class' => 'active'));
       endif;
       ?>
-   </div>
+   </ul>
 </div>
