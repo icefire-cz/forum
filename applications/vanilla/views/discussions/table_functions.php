@@ -40,10 +40,6 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
    else {
       $Last = $First;
    }
-//   $Sender->EventArguments['FirstUser'] = &$First;
-//   $Sender->EventArguments['LastUser'] = &$Last;
-//
-//   $Sender->FireEvent('BeforeDiscussionName');
 
    $DiscussionName = $Discussion->Name;
    if ($DiscussionName == '')
@@ -76,20 +72,17 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
          WriteTags($Discussion);
 			echo NewComments($Discussion);
          if ($Sender->Data('_ShowCategoryLink', TRUE))
-            echo CategoryLink($Discussion, ' '.T('in').' ');
+            echo CategoryLink($Discussion, '');
+         echo ' <span class="MItem LastCommentDate">'.Gdn_Format::Date($Discussion->LastDate, 'html').'</span>';
          echo '</div>';
 			?>
 		</div>
 	</td>
    <td class="BlockColumn BlockColumn-User LastUser">
-      <div class="Block Wrap">
+      <div class="Wrap">
          <?php
          if ($Last) {
             echo UserPhoto($Last, array('Size' => 'Small'));
-            echo UserAnchor($Last, 'UserLink BlockTitle');
-            echo '<div class="Meta">';
-            echo Anchor(Gdn_Format::Date($Discussion->LastDate, 'html'), $LastPageUrl, 'CommentDate MItem');
-            echo '</div>';
          } else {
             echo '&nbsp;';
          }
