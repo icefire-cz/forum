@@ -30,13 +30,6 @@ jQuery(document).ready(function() {
 		$backbutton.after($content);
 	});
 
-	// Nice excerpt popovers
-	$('.ItemDiscussion').each(function() {
-		var $item = $(this).find('a.Title');
-		var $title = $item.html();
-		var $excerpt = $(this).find('.Excerpt').remove().text();
-	});
-
 	// Enable Popovers and Tooltips
 	$("a[rel=popover]").popover();
 	$("a[rel=tooltip]").tooltip();

@@ -143,6 +143,16 @@ body.Entry form ul li label {
 }
 
 
+// Icons
+// ------------------------------------------------------------------------- //
+
+.separator {
+    font-size: @baseFontSize;
+    color: @grayLight;
+    padding: 0 1px;
+    &:before {content: "•"}
+}
+
 // Main Navigation
 // ------------------------------------------------------------------------- //
 
@@ -236,6 +246,9 @@ body > .bs-docs-canvas > .container {
         font-size: 100%;
         padding-top: 5px;
     }
+    .Excerpt {
+        display: none;
+    }
 }
 
 .MessageForm h2 {
@@ -315,7 +328,7 @@ h2.CommentHeading {
         }
         .DiscussionName {
             .Options {
-                margin-top: 16px;
+                margin-top: 3px;
             }
             .Meta-Discussion {
                 padding: 5px 10px 2px;
@@ -329,6 +342,9 @@ h2.CommentHeading {
             }
             .MiniPager {
                 visibility: hidden;
+            }
+            .MItem {
+                margin-right: 0;
             }
             &:hover .MiniPager {
                 visibility: visible;
@@ -346,6 +362,10 @@ h2.CommentHeading {
                 height: 1px;
             }
         }
+        &.BlockColumn {
+            text-align: center;
+            width: 70px;
+        }
     }
     &.CategoryTable tbody td {
         vertical-align: middle;
@@ -353,14 +373,6 @@ h2.CommentHeading {
     .Item {
         &.Read {
             background: transparent;
-        }
-    }
-    .CountViews,
-    .CountComments {
-        .Wrap {
-            background-color: @graySuperLight;
-            border: 1px solid @grayLighter;
-            padding: 12px 0;
         }
     }
 }
@@ -411,7 +423,7 @@ h2.CommentHeading {
         margin: 0;
         padding: 5px 0 15px;
     }
-    .Comment {
+    .ItemComment {
         .MItem {
             margin-left: 0;
             &.Blink {
@@ -541,6 +553,11 @@ blockquote p {
     .box-sizing(border-box);
 }
 
+.ProfilePhotoSmall {
+    height: 30px;
+    width: 30px;
+}
+
 .Thumbnail img {
     max-width: inherit;
 }
@@ -587,7 +604,7 @@ table.PreferenceGroup, .Info {
 // ------------------------------------------------------------------------- //
 
 textarea.MultiComplete {
-    height: 30px;
+    height: 60px;
 }
 
 .ac_results {
