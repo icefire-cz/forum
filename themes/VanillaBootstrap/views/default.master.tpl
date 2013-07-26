@@ -154,6 +154,7 @@
 
 <footer class="footer" id="bootstrap-footer">
     <div class="container">
+        <div class="crow"></div>
         {asset name="Foot"}
         <p>Dotazy, náměty či nabídky spolupráce směřujte na alek/zav/icefire.cz.</p>
         <p>Běží na <a href="http://vanillaforums.org">Vanille</a> s pomocí <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. Vývojový tým: Alek, Montezuma3, paulcz</p>

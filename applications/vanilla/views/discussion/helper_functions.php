@@ -348,6 +348,7 @@ function WriteCommentOptions($Comment) {
 	$Options = GetCommentOptions($Comment);
 
    if (C('Vanilla.AdminCheckboxes.Use')) {
+      echo '<div class="pull-right">';
       // Only show the checkbox if the user has permission to affect multiple items
       $Discussion = Gdn::Controller()->Data('Discussion');
       $PermissionCategoryID = GetValue('PermissionCategoryID', $Discussion);
@@ -358,6 +359,7 @@ function WriteCommentOptions($Comment) {
          $ItemSelected = InSubArray($Id, $Controller->CheckedComments);
          echo '<span class="AdminCheck"><input type="checkbox" name="'.'Comment'.'ID[]" value="'.$Id.'"'.($ItemSelected?' checked="checked"':'').' /></span>';
       }
+      echo '</div>';
    }
 }
 endif;

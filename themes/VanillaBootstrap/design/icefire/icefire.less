@@ -10,7 +10,6 @@
 }
 
 body {
-  margin-top: 60px;
   background: @bodyBackground url("@{imageDirectory}/icefire_background.jpg") no-repeat top;
 }
 
@@ -112,6 +111,10 @@ input, textarea {
   }
 }
 
+textarea#Form_Body {
+  min-height: 150px;
+}
+
 input {
   height: auto !important;
   &.InputBox:focus {
@@ -176,11 +179,39 @@ body.Entry form ul li label {
 }
 
 
-// Main Container
+// Main Container and Footer
 // ------------------------------------------------------------------------- //
 
 body > .bs-docs-canvas > .container {
   padding-top: 20px;
+}
+
+#bootstrap-container {
+  margin-top: 60px;
+  box-shadow: 0px 0px 20px #333;
+}
+
+footer.footer {
+  padding: 40px;
+  background-color: @graySuperDark;
+  border-top: none;
+  font-size: @fontSizeSmall;
+  p {
+    color: @grayLight;
+  }
+  a {
+    color: @grayLighter;
+    &:hover {
+      color: @gray;
+    }
+  }
+  .crow {
+    margin: 10px 30px 10px 0;
+    float: left;
+    width: 55px;
+    height: 52px;
+    background-image: url("@{imageDirectory}/crow.png");
+  }
 }
 
 
@@ -189,6 +220,10 @@ body > .bs-docs-canvas > .container {
 
 #content .BoxFilter {
   display: none;
+}
+
+.Item.Checked {
+  background-color: transparent;
 }
 
 // Discussions
@@ -281,8 +316,8 @@ h2.CommentHeading {
   margin-top: 10px;
   margin-bottom: 10px;
   thead td {
-    border-top: 1px solid lighten(@tableBorder, 6%);
-    border-bottom: 1px solid lighten(@tableBorder, 6%);
+    border-top: 1px solid @tableBorderColor;
+    border-bottom: 1px solid @tableBorderColor;
   }
   tbody {
     .BlockColumn {
@@ -316,7 +351,7 @@ h2.CommentHeading {
   td {
     padding: 8px;
     vertical-align: middle;
-    border-bottom: 1px solid lighten(@tableBorder, 6%);
+    border-bottom: 1px solid @tableBorderColor;
     .Wrap {
       position: relative;
       .box-sizing(border-box);
@@ -786,9 +821,11 @@ textarea.MultiComplete {
       background-color: spin(@btnPrimaryBackground, 10%);
     }
   }
-  & > li > a,
-  .nav-header {
+  & > li > a {
     text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    &:hover {
+      background-color: @itemBackground;
+    }
   }
 }
 
@@ -853,7 +890,6 @@ textarea.MultiComplete {
     padding: 0;
   }
   .Body {
-    background: @bodyBackground;
     padding: 0;
   }
   .modal-header {
@@ -915,7 +951,6 @@ textarea.MultiComplete {
 
 .InformMessages {
   .alert, .InformMessage {
-    display: none;
     position: relative;
     margin-bottom: 0;
     a.Icon {
