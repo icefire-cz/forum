@@ -9,6 +9,11 @@
   word-wrap: break-word;
 }
 
+body {
+  margin-top: 60px;
+  background: @bodyBackground url("@{imageDirectory}/icefire_background.jpg") no-repeat top;
+}
+
 a:hover {
   text-decoration: none;
 }
@@ -167,47 +172,6 @@ body.Entry form ul li label {
   }
   .search-query {
     min-width: 260px;
-  }
-}
-
-
-// Subheader Content
-// ------------------------------------------------------------------------- //
-
-.subhead {
-  border-bottom: none;
-}
-
-.bs-docs-social {
-  padding: 0;
-  text-align: left;
-  .border-radius(0);
-  .Breadcrumbs {
-    display: inline-block;
-    padding: 9px 0 11px;
-    .Crumb {
-      padding: 0 5px;
-      .hide-text;
-      &:after {
-        color: @grayLight;
-        font-family: @sansFontFamily;
-        font-size: 14px;
-        content: "/ ";
-      }
-    }
-    .CrumbLabel:last-child a {
-      color: @grayLight;
-    }
-  }
-  li {
-    display: block;
-  }
-  .dropdown-menu {
-    a {
-      color: @dropdownLinkColor;
-      font-weight: normal;
-      text-shadow: none;
-    }
   }
 }
 
@@ -678,17 +642,18 @@ textarea.MultiComplete {
 // ------------------------------------------------------------------------- //
 
 .MeBox {
-  display: inline-block;
-  margin: 0;
-  .WhoIs,
-  .Username,
-  .MeMenu {
-    display: inline-block;
+  display: block;
+  margin: 0 0 20px;
+  .WhoIs {
+    display: block;
   }
   .Username {
+    display: inline-block;
     padding: 10px 8px 11px;
   }
   .MeMenu {
+    float: right;
+    display: block;
     padding: 8px;
   }
   .ProfilePhoto {
@@ -810,6 +775,20 @@ textarea.MultiComplete {
     margin-right: 10px;
     width: 20px;
     height: 20px;
+  }
+}
+
+.nav-list {
+  & > .active {
+    & > a,
+    & > a:hover,
+    & > a:focus {
+      background-color: spin(@btnPrimaryBackground, 10%);
+    }
+  }
+  & > li > a,
+  .nav-header {
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
   }
 }
 
@@ -1107,6 +1086,25 @@ textarea.MultiComplete {
 // Mobile Styles
 // ------------------------------------------------------------------------- //
 
+@media (min-width: 768px) {
+  #wrap,
+  #bootstrap-container {
+    background: @backgroundColor url("@{imageDirectory}/bg-sidebar.jpg") repeat-y;
+    background-position: 790px 0;
+  }
+  #content {
+    margin: 30px 25px 40px 25px;
+    width: 63.5%;
+  }
+  #panel {
+    margin: 30px 0 40px 30px;
+    width: 28%;
+  }
+  .row {
+    margin-left: 0px;
+  }
+}
+
 @media (max-width: 480px) {
   body {
     padding-left: 5px;
@@ -1114,7 +1112,6 @@ textarea.MultiComplete {
   }
   .navbar-fixed-top,
   .navbar-fixed-bottom,
-  .jumbotron,
   .bs-docs-social {
     margin-left: -5px;
     margin-right: -5px;

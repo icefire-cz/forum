@@ -3,6 +3,7 @@
 <head>
   {asset name='Head'}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
   {literal}
     <script type="text/javascript">$('html').hide();</script>
   {/literal}
@@ -126,25 +127,6 @@
   </div>
 </div>
 
-<!-- Header
-================================================== -->
-
-<header class="jumbotron subhead" id="bootstrap-header">
-  <div class="container">
-    <h1>IceFire Fórum</h1>
-    <p class="lead">Diskuzní fórum o knižní sáze Píseň ledu a ohně a seriálu Hra o trůny.</p>
-  </div>
-</header>
-
-<div class="bs-docs-social breadcrumb hidden-phone">
-  <div class="container">
-    {breadcrumbs}
-    <div class="pull-right">
-      {module name="MeModule"}
-    </div>
-  </div>
-</div>
-
 <!-- Container
 ================================================== -->
 
@@ -157,9 +139,11 @@
   </noscript>
   <div class="row">
     <div class="span8" id="content">
+      {breadcrumbs}
       {asset name="Content"}
     </div>
     <div class="span4" id="panel">
+      {module name="MeModule"}
       {asset name="Panel"}
     </div>
   </div>
