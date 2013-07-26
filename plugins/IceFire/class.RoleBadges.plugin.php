@@ -22,10 +22,6 @@ class RoleBadgesPlugin extends Gdn_Plugin {
         $this->attachBadge($Sender, 1);
     }
 
-    public function DiscussionController_AfterDiscussionMeta_Handler($Sender) {
-        $this->attachBadge($Sender, 0);
-    }
-
     protected function attachBadge($Sender, $Comment) {
         $User = $Sender->EventArguments['Author'];
         $UserPrefs = Gdn_Format::Unserialize($User->Preferences);

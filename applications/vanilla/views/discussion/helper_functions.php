@@ -157,17 +157,17 @@ function WriteReactions($Row, $Type = 'Comment') {
    echo '<div class="Reactions">';
    echo '<div class="pull-right">';
       Gdn_Theme::BulletRow();
-      // Can the user edit the comment?
-      if ($Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
-         $Name = '<i class="icon-wrench"></i> '.T('Edit');
-         $Url = '/vanilla/post/editcomment/'.$Row->CommentID;
-         echo Wrap(Anchor($Name, $Url, 'EditComment'), 'span', array('class' => 'MItem Blink'));
-      }
       // Can the user delete the comment?
       if ($Session->CheckPermission('Vanilla.Comments.Delete', TRUE, 'Category', $PermissionCategoryID)) {
          $Name = '<i class="icon-remove"></i> '.T('Delete');
          $Url = 'vanilla/discussion/deletecomment/'.$Row->CommentID.'/'.$Session->TransientKey().'/?Target='.urlencode("/discussion/{$Row->DiscussionID}/x");
          echo Wrap(Anchor($Name, $Url, 'DeleteComment'), 'span', array('class' => 'MItem Blink'));
+      }
+      // Can the user edit the comment?
+      if ($Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
+         $Name = '<i class="icon-wrench"></i> '.T('Edit');
+         $Url = '/vanilla/post/editcomment/'.$Row->CommentID;
+         echo Wrap(Anchor($Name, $Url, 'EditComment'), 'span', array('class' => 'MItem Blink'));
       }
       //WriteCommentOptions($Row);
       Gdn::Controller()->FireEvent('AfterFlag');
