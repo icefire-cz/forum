@@ -20,7 +20,7 @@
         <li class="dropdown menu-knihy">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/knihy/">
             <i class="icon-book icon-white"></i> <span>Knihy</span>
-            <b class="caret"></b>
+            <i class="icon-caret-down"></i>
           </a>
           <ul class="dropdown-menu">
             <li class="menu-rozcestnik">
@@ -39,7 +39,8 @@
         </li>
         <li class="dropdown menu-svet">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/svet/">
-            <i class="icon-flag icon-white"></i> <span>Svět</span> <b class="caret"></b>
+            <i class="icon-flag icon-white"></i> <span>Svět</span>
+            <i class="icon-caret-down"></i>
           </a>
           <ul class="dropdown-menu">
             <li class="menu-rozcestnik">
@@ -67,7 +68,8 @@
         </li>
         <li class="dropdown menu-serial">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/serial/ruzne/">
-            <i class="icon-film icon-white"></i> <span>Seriál</span> <b class="caret"></b>
+            <i class="icon-film icon-white"></i> <span>Seriál</span>
+            <i class="icon-caret-down"></i>
           </a>
           <ul class="dropdown-menu">
             <li class="menu-rozcestnik">
@@ -91,7 +93,8 @@
         </li>
         <li class="dropdown menu-komunita">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/komunita/">
-            <i class="icon-user icon-white"></i> <span>Komunita</span> <b class="caret"></b>
+            <i class="icon-user icon-white"></i> <span>Komunita</span>
+            <i class="icon-caret-down"></i>
           </a>
           <ul class="dropdown-menu">
             <li class="menu-rozcestnik">
@@ -114,7 +117,9 @@
       </ul>
       <ul class="nav pull-right">
         <li class="menu-forum active">
-          <a href="/forum/"><i class="icon-comment icon-white"></i> <span>Fórum</span></a>
+          <a href="/forum/">
+            <i class="icon-comment icon-white"></i> <span>Fórum</span>
+          </a>
         </li>
       </ul>
     </div>
