@@ -1,9 +1,9 @@
 /*
  * Caret insert JS
- * 
+ *
  * This code extends the base object with a method called 'insertAtCaret', which
  * allows text to be added to a textArea at the cursor position.
- * 
+ *
  * Thanks to http://technology.hostei.com/?p=3
  */
 jQuery.fn.insertAtCaret = function (tagName) {
@@ -57,10 +57,10 @@ jQuery.fn.insertRoundCaret = function(strStart, strEnd, strReplace) {
          startPos = this.selectionStart;
          endPos = this.selectionEnd;
          scrollTop = this.scrollTop;
-         
+
          if (!strReplace)
             strReplace = this.value.substring(startPos, endPos);
-         
+
          this.value = this.value.substring(0, startPos) + strStart
                     + strReplace + strEnd
                     + this.value.substring(endPos, this.value.length);
@@ -74,7 +74,7 @@ jQuery.fn.insertRoundCaret = function(strStart, strEnd, strReplace) {
          this.value += strStart + strReplace + strEnd;
          this.focus();
       }
-      
+
    });
 }
 
@@ -90,17 +90,17 @@ jQuery.fn.hasSelection = function() {
          sel = this.value.substring(startPos, endPos);
       }
    });
-   
+
    return sel;
 }
 
 /*
  * Caret insert advanced
- * 
- * This code allows insertion on complex tags, and was extended by @Barrakketh 
- * (barrakketh@gmail.com) from http://forums.penny-arcade.com to allow 
+ *
+ * This code allows insertion on complex tags, and was extended by @Barrakketh
+ * (barrakketh@gmail.com) from http://forums.penny-arcade.com to allow
  * parameters.
- * 
+ *
  * Thanks!
  */
 
@@ -110,13 +110,13 @@ jQuery.fn.hasSelection = function() {
 //      var closer = opts.closer || ']';
 //      var closetype = opts.closetype || 'full';
 //      var shortporp = opts.shortprop;
-//      
+//
 //      strStart = opener + tagName;
 //      strEnd = '';
-//      
+//
 //      if (shortprop)
 //         strStart = strStart + '="' + opt + '"';
-//      
+//
 //      if (props) {
 //         for ( var param in props) {
 //            strStart = strStart + ' ' + param + '="' + props[param] + '"';
@@ -148,24 +148,24 @@ $.fn.insertRoundTag = function(tagName, opts, props){
    var shortprop = opts.shortprop;
    var focusprop = opts.center;
    var hasFocused = false;
-   
+
    strStart = prefix + opener + opentag;
    strEnd = '';
-   
+
    if (shortprop) {
       strStart = strStart + '="' + shortprop;
       if (focusprop == 'short') {
          strEnd = strEnd + '"';
          hasFocused = true;
       }
-      else 
+      else
          strStart = strStart + '"';
    }
    if (props) {
       var focusing = false;
       for ( var param in props) {
          if (hasFocused) {strEnd = strEnd + ' ' + param + '="' + props[param] + '"';continue;}
-         
+
          if (!hasFocused) {
             strStart = strStart + ' ' + param + '="' + props[param];
             if (param == focusprop) {
@@ -173,7 +173,7 @@ $.fn.insertRoundTag = function(tagName, opts, props){
                hasFocused = true;
             }
          }
-         
+
          if (focusing) {
             strEnd = strEnd + '"';
             focusing = false;
@@ -182,7 +182,7 @@ $.fn.insertRoundTag = function(tagName, opts, props){
          }
       }
    }
-   
+
    strReplace = '';
    if (prefix) {
       var selection = $(this).hasSelection();
@@ -190,17 +190,17 @@ $.fn.insertRoundTag = function(tagName, opts, props){
          strReplace = selection.replace(/\n/g, '\n'+prefix);
       }
    }
-   
+
    if (replace != false) {
       strReplace = replace;
    }
-   
+
    if (closetype == 'full') {
       if (!hasFocused)
          strStart = strStart + closer;
       else
          strEnd = strEnd + closer;
-      
+
       strEnd = strEnd + opener + closeslice + closetag + closer + suffix;
    } else {
       if (closeslice && closeslice.length)
@@ -214,42 +214,42 @@ $.fn.insertRoundTag = function(tagName, opts, props){
 }
 
 jQuery(document).ready(function($) {
-   
+
    ButtonBar = {
       AttachTo: function(TextArea) {
          // Load the buttonbar and bind this textarea to it
          var ThisButtonBar = $(TextArea).closest('form').find('.ButtonBar');
          $(ThisButtonBar).data('ButtonBarTarget', TextArea);
-         
+
          var format = $(TextArea).attr('format');
          if (!format)
             format = gdn.definition('InputFormat', 'Html');
          if (format == 'Raw')
             format = 'Html';
-         
+
          // Apply the page's InputFormat to this textarea.
          $(TextArea).data('InputFormat', format);
-         
+
          // Build button UIs
          $(ThisButtonBar).find('.ButtonWrap').each(function(i, el){
             var Operation = $(el).find('span').text();
-            
+
             var UIOperation = Operation.charAt(0).toUpperCase() + Operation.slice(1);
             $(el).attr('title', UIOperation);
-            
+
             var Action = "ButtonBar"+UIOperation;
             $(el).addClass(Action);
          });
-         
+
          // Attach shortcut keys
          ButtonBar.BindShortcuts(TextArea);
-         
+
          // Attach events
          $(ThisButtonBar).find('.ButtonWrap').mousedown(function(event){
             var MyButtonBar = $(event.target).closest('.ButtonBar');
             var Button = $(event.target).find('span').closest('.ButtonWrap');
             if ($(Button).hasClass('ButtonOff')) return;
-            
+
             var TargetTextArea = $(MyButtonBar).data('ButtonBarTarget');
             if (!TargetTextArea) return false;
 
@@ -257,40 +257,35 @@ jQuery(document).ready(function($) {
             ButtonBar.Perform(TargetTextArea, Operation, event);
             return false;
          });
-      
+
          ButtonBar.Prepare(ThisButtonBar, TextArea);
       },
-      
+
       BindShortcuts: function(TextArea) {
          ButtonBar.BindShortcut(TextArea, 'bold', 'ctrl+B');
          ButtonBar.BindShortcut(TextArea, 'italic', 'ctrl+I');
-         ButtonBar.BindShortcut(TextArea, 'underline', 'ctrl+U');
-         ButtonBar.BindShortcut(TextArea, 'strike', 'ctrl+S');
-         ButtonBar.BindShortcut(TextArea, 'url', 'ctrl+L');
          ButtonBar.BindShortcut(TextArea, 'code', 'ctrl+O');
-         ButtonBar.BindShortcut(TextArea, 'quote', 'ctrl+Q');
-         ButtonBar.BindShortcut(TextArea, 'quickurl', 'ctrl+shift+L');
          ButtonBar.BindShortcut(TextArea, 'post', 'tab');
       },
-      
+
       BindShortcut: function(TextArea, Operation, Shortcut, ShortcutMode, OpFunction) {
          if (OpFunction == undefined)
             OpFunction = function(e){ButtonBar.Perform(TextArea, Operation, e);}
-         
+
          if (ShortcutMode == undefined)
             ShortcutMode = 'keydown';
-         
+
          $(TextArea).bind(ShortcutMode,Shortcut,OpFunction);
-         
+
          var UIOperation = Operation.charAt(0).toUpperCase() + Operation.slice(1);
          var Action = "ButtonBar"+UIOperation;
-         
+
          var ButtonBarObj = $(TextArea).closest('form').find('.ButtonBar');
          var Button = $(ButtonBarObj).find('.'+Action);
          Button.attr('title', Button.attr('title')+', '+Shortcut);
-         
+
       },
-      
+
       DisableButton: function(ButtonBarObj, Operation) {
          $(ButtonBarObj).find('.ButtonWrap').each(function(i,Button){
             var ButtonOperation = $(Button).find('span').text();
@@ -298,61 +293,62 @@ jQuery(document).ready(function($) {
                $(Button).addClass('ButtonOff');
          });
       },
-      
+
       Prepare: function(ButtonBarObj, TextArea) {
          var InputFormat = $(TextArea).data('InputFormat');
          var PrepareMethod = 'Prepare'+InputFormat;
          if (ButtonBar[PrepareMethod] == undefined)
             return;
-         
+
          // Call preparer
          ButtonBar[PrepareMethod](ButtonBarObj, TextArea);
       },
-      
+
       PrepareBBCode: function(ButtonBarObj, TextArea) {
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
             .html('You can use <b><a href="http://en.wikipedia.org/wiki/BBCode" target="_new">BBCode</a></b> in your post.')
             .insertAfter(TextArea);
       },
-      
+
       PrepareHtml: function(ButtonBarObj, TextArea) {
-         ButtonBar.DisableButton(ButtonBarObj, 'spoiler');
-         
+         ButtonBar.DisableButton(ButtonBarObj, 'underline');
+         ButtonBar.DisableButton(ButtonBarObj, 'code');
+
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
             .html('You can use <b><a href="http://htmlguide.drgrog.com/cheatsheet.php" target="_new">Simple Html</a></b> in your post.')
             .insertAfter(TextArea);
       },
-      
+
       PrepareMarkdown: function(ButtonBarObj, TextArea) {
          ButtonBar.DisableButton(ButtonBarObj, 'underline');
-         ButtonBar.DisableButton(ButtonBarObj, 'spoiler');
-         
+         ButtonBar.DisableButton(ButtonBarObj, 'code');
+
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
             .html('You can use <b><a href="http://en.wikipedia.org/wiki/Markdown" target="_new">Markdown</a></b> in your post.')
             .insertAfter(TextArea);
       },
-      
+
       Perform: function(TextArea, Operation, Event) {
          Event.preventDefault();
-         
+
          var InputFormat = $(TextArea).data('InputFormat');
          var PerformMethod = 'Perform'+InputFormat;
          if (ButtonBar[PerformMethod] == undefined)
             return;
-         
+
          // Call performer
          ButtonBar[PerformMethod](TextArea,Operation);
-         
+
          switch (Operation) {
             case 'post':
                $(TextArea).closest('form').find('.CommentButton').focus();
                break;
          }
       },
-      
+
       PerformBBCode: function(TextArea, Operation) {
          bbcodeOpts = {
             opener: '[',
@@ -381,16 +377,16 @@ jQuery(document).ready(function($) {
 
             case 'image':
                var thisOpts = $.extend(bbcodeOpts,{});
-               
+
                NewURL = prompt("Enter image URL:");
-               thisOpts.replace = NewURL; 
-                           
+               thisOpts.replace = NewURL;
+
                $(TextArea).insertRoundTag('img',thisOpts);
                break;
 
             case 'quickurl':
                var thisOpts = $.extend(bbcodeOpts,{});
-               
+
                var hasSelection = $(TextArea).hasSelection();
                console.log("sel: "+hasSelection);
                var NewURL = '';
@@ -398,9 +394,9 @@ jQuery(document).ready(function($) {
                   NewURL = hasSelection;
                else
                   NewURL = prompt("Enter your URL:",'http://');
-               
+
                thisOpts.shortprop = NewURL;
-               
+
                $(TextArea).insertRoundTag('url',thisOpts);
                break;
 
@@ -414,23 +410,23 @@ jQuery(document).ready(function($) {
 
             case 'url':
                var thisOpts = $.extend(bbcodeOpts, {});
-               
+
                var NewURL = prompt("Enter your URL:",'http://');
                var GuessText = NewURL.replace('http://','').replace('www.','');
                thisOpts.shortprop = NewURL;
-               
+
                var CurrentSelectText = GuessText;
                var CurrentSelect = $(TextArea).hasSelection();
                if (CurrentSelect)
                   CurrentSelectText = CurrentSelect.toString();
-               
+
                thisOpts.replace = CurrentSelectText;
-               
+
                $(TextArea).insertRoundTag('url',thisOpts);
                break;
          }
       },
-      
+
       PerformHtml: function(TextArea, Operation) {
          var htmlOpts = {
             opener: '<',
@@ -474,10 +470,10 @@ jQuery(document).ready(function($) {
                var thisOpts = $.extend(htmlOpts, {
                   closetype: 'short'
                });
-               
+
                NewURL = prompt("Enter image URL:");
-               urlOpts.src = NewURL;         
-               
+               urlOpts.src = NewURL;
+
                $(TextArea).insertRoundTag('img',thisOpts,urlOpts);
                break;
 
@@ -486,7 +482,7 @@ jQuery(document).ready(function($) {
                var thisOpts = $.extend(htmlOpts, {
                   center: 'href'
                });
-               
+
                var hasSelection = $(TextArea).hasSelection();
                var NewURL = '';
                if (hasSelection !== false) {
@@ -494,9 +490,9 @@ jQuery(document).ready(function($) {
                   delete thisOpts.center;
                } else
                   NewURL = prompt("Enter your URL:",'http://');
-               
+
                urlOpts.href = NewURL;
-               
+
                $(TextArea).insertRoundTag('a',thisOpts,urlOpts);
                break;
 
@@ -511,24 +507,24 @@ jQuery(document).ready(function($) {
             case 'url':
                var urlOpts = {};
                var thisOpts = $.extend(htmlOpts, {});
-               
+
                var NewURL = prompt("Enter your URL:",'http://');
                var GuessText = NewURL.replace('http://','').replace('www.','');
                urlOpts.href = NewURL;
-               
+
                var CurrentSelectText = GuessText;
-               
+
                var CurrentSelect = $(TextArea).hasSelection();
                if (CurrentSelect)
                   CurrentSelectText = CurrentSelect.toString();
-               
+
                thisOpts.replace = CurrentSelectText;
-               
+
                $(TextArea).insertRoundTag('a',thisOpts,urlOpts);
                break;
          }
       },
-      
+
       PerformMarkdown: function(TextArea, Operation) {
          var markdownOpts = {
             opener: '',
@@ -587,7 +583,7 @@ jQuery(document).ready(function($) {
                   opentag:'(',
                   closetag:')'
                });
-               
+
                var hasSelection = $(TextArea).hasSelection();
                if (hasSelection !== false)
                   var NewURL = hasSelection;
@@ -595,10 +591,10 @@ jQuery(document).ready(function($) {
                   var NewURL = prompt("Enter your URL:",'http://');
                   thisOpts.prepend = NewURL;
                }
-               
+
                var GuessText = NewURL.replace('http://','').replace('www.','');
                thisOpts.prefix = '['+GuessText+']';
-               
+
                $(TextArea).insertRoundTag('',thisOpts);
                break;
 
@@ -621,12 +617,12 @@ jQuery(document).ready(function($) {
             case 'url':
                var NewURL = prompt("Enter your URL:",'http://');
                var GuessText = NewURL.replace('http://','').replace('www.','');
-               
+
                var CurrentSelectText = GuessText;
                var CurrentSelect = $(TextArea).hasSelection();
                if (CurrentSelect)
                   CurrentSelectText = CurrentSelect.toString();
-               
+
                var thisOpts = $.extend(markdownOpts, {
                   prefix: '['+CurrentSelectText+']',
                   opentag:'(',
@@ -639,13 +635,13 @@ jQuery(document).ready(function($) {
                break;
          }
       }
-      
+
    }
-   
+
    // Always find new button bars and handle their events
    $('.ButtonBar').livequery(function(){
       var TextArea = $(this).closest('form').find('div.TextBoxWrapper textarea')[0];
       ButtonBar.AttachTo(TextArea);
    });
-   
+
 });
