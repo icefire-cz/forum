@@ -63,6 +63,28 @@ hr {
   .box-shadow(0 2px 5px rgba(0,0,0,0.2));
 }
 
+textarea,
+input[type="url"],
+input[type="tel"],
+input[type="date"],
+input[type="time"],
+input[type="week"],
+input[type="text"],
+input[type="month"],
+input[type="email"],
+input[type="color"],
+input[type="search"],
+input[type="number"],
+input[type="password"],
+input[type="datetime-local"] {
+  border-radius: 0;
+  border: 1px solid @grayBorder;
+  &:focus {
+    .box-shadow(none);
+    border: 1px solid @grayLight;
+    .transition(border .2s linear);
+  }
+}
 
 // Grouped Buttons
 // ------------------------------------------------------------------------- //
@@ -233,6 +255,13 @@ footer.footer {
   background-color: transparent;
 }
 
+.Breadcrumbs {
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  display: block;
+  border-bottom: 1px solid @tableBorderColor;
+}
+
 // Discussions
 // ------------------------------------------------------------------------- //
 
@@ -243,6 +272,10 @@ footer.footer {
 
 .DiscussionHeader {
   margin-bottom: 0;
+  .ProfilePhotoMedium {
+    height: 48px;
+    width: 48px;
+  }
 }
 
 .ItemDiscussion {
@@ -523,6 +556,13 @@ blockquote p {
       min-height: 80px;
     }
   }
+  .Preview {
+    min-height: 150px;
+    border: 1px solid @grayBorder;
+    color: @gray;
+    padding: 0 6px;
+    margin-bottom: 20px;
+  }
 }
 
 .CommentForm {
@@ -576,18 +616,28 @@ blockquote p {
 // Profile Page
 // ------------------------------------------------------------------------- //
 
-.Photo .ProfilePhotoLarge {
-  width: 100%;
-  .box-sizing(border-box);
+.Photo {
+  .ProfilePhotoLarge {
+    width: 100%;
+    .box-sizing(border-box);
+  }
+  .ChangePicture:hover {
+    color: @grayBorder;
+  }
+}
+
+.Thumbnail img {
+  max-width: inherit;
+}
+
+.ProfilePhotoMedium {
+  height: 44px;
+  width: 44px;
 }
 
 .ProfilePhotoSmall {
   height: 30px;
   width: 30px;
-}
-
-.Thumbnail img {
-  max-width: inherit;
 }
 
 .ProfileOptions .btn {
@@ -683,6 +733,9 @@ textarea.MultiComplete {
 // ------------------------------------------------------------------------- //
 
 .MeBox {
+  background-color: @backgroundColor;
+  border: 1px @itemBackground solid;
+  border-radius: 3px;
   display: block;
   margin: 0 0 20px;
   .WhoIs {
@@ -701,6 +754,7 @@ textarea.MultiComplete {
     width: 28px;
     height: 28px;
     margin-top: 6px;
+    margin-left: 10px;
     .border-radius(2px);
   }
   .Flyout {
@@ -728,8 +782,11 @@ textarea.MultiComplete {
       }
       .ProfilePhoto {
         margin-top: 0;
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
+      }
+      .ItemContent {
+        margin-left: 60px;
       }
     }
     &:before,
@@ -747,7 +804,14 @@ textarea.MultiComplete {
 }
 
 .Profile .MeBox {
-  display: inline-block;
+  display: block;
+}
+
+.PasswordStrength {
+  .box-sizing(border-box);
+  .Background {
+    background-color: @itemBackground;
+  }
 }
 
 .MeBox-SignIn {
@@ -1134,11 +1198,11 @@ textarea.MultiComplete {
     background-position: 790px 0;
   }
   #content {
-    margin: 30px 25px 40px 25px;
+    margin: 25px 25px 40px 25px;
     width: 63.5%;
   }
   #panel {
-    margin: 30px 0 40px 30px;
+    margin: 25px 0 40px 30px;
     width: 28%;
   }
   .row {
