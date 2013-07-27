@@ -16,7 +16,6 @@
 <div class="navbar navbar-inverse navbar-fixed-top" id="bootstrap-navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="/"></a>
       <ul id="menu-primary-navigation" class="nav">
         <li class="dropdown menu-knihy">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/knihy/">
@@ -158,7 +157,7 @@
         {asset name="Foot"}
         <p>Dotazy, náměty či nabídky spolupráce směřujte na alek/zav/icefire.cz.</p>
         <p>Běží na <a href="http://vanillaforums.org">Vanille</a> s pomocí <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>. Vývojový tým: Alek, Montezuma3, paulcz</p>
-        <p>Copyright &copy; 2006 - 2013 Ice &amp; Fire</p>
+        <p>Copyright &copy; 2006&mdash;2013 Ice &amp; Fire</p>
     </div>
 </footer>
 

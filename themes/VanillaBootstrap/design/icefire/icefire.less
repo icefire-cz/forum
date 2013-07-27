@@ -208,20 +208,16 @@ body.Entry form ul li label {
 }
 
 
-// Main Container and Footer
+// Content, Panel and Footer
 // ------------------------------------------------------------------------- //
 
 body > .bs-docs-canvas > .container {
   padding-top: 20px;
 }
 
-#bootstrap-container {
-  margin-top: 60px;
-  box-shadow: 0px 0px 20px #333;
-}
-
 footer.footer {
-  padding: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   background-color: @graySuperDark;
   border-top: none;
   font-size: @fontSizeSmall;
@@ -1188,25 +1184,102 @@ textarea.MultiComplete {
 }
 
 
-// Mobile Styles
+// Responsive layout
 // ------------------------------------------------------------------------- //
 
-@media (min-width: 768px) {
-  #wrap,
+#bootstrap-container {
+  margin-top: 100px;
+  box-shadow: 0px 0px 20px #333;
+  background: @backgroundColor url("@{imageDirectory}/bg-sidebar.jpg") repeat-y;
+  background-position: 790px 0;
+}
+
+.row,
+.container,
+.navbar .container {
+  width: 1170px;
+}
+
+.row {
+  margin-left: 0;
+}
+
+#content {
+  margin: 25px 25px 40px 25px;
+  width: 743px;
+}
+
+#panel {
+  margin: 25px 0 40px 30px;
+  width: 325px;
+}
+
+@media screen and (max-width: 1240px) {
   #bootstrap-container {
-    background: @backgroundColor url("@{imageDirectory}/bg-sidebar.jpg") repeat-y;
-    background-position: 790px 0;
+    background-position: 705px 0;
   }
   #content {
-    margin: 25px 25px 40px 25px;
-    width: 63.5%;
+    width: 658px;
   }
   #panel {
-    margin: 25px 0 40px 30px;
-    width: 28%;
+    width: 300px;
   }
-  .row {
-    margin-left: 0px;
+  .row,
+  .container,
+  .navbar .container {
+    width: 1060px;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  #bootstrap-container {
+    background-position: 655px 0;
+  }
+  #content {
+    width: 608px;
+  }
+  #panel {
+    width: 268px;
+  }
+  .row,
+  .container,
+  .navbar .container {
+    width: 980px;
+  }
+}
+
+@media screen and (max-width: 1020px) {
+  #bootstrap-container {
+    background-image: none;
+  }
+  #panel,
+  #content {
+    width: 700px;
+    margin: 25px;
+  }
+  .row,
+  .container,
+  .navbar .container {
+    width: 750px;
+  }
+}
+
+@media screen and (max-width: 820px) {
+  #bootstrap-container {
+    background-image: none;
+  }
+  #panel,
+  #content {
+    width: 93%;
+    margin: 25px;
+  }
+  .row,
+  .container,
+  .navbar .container {
+    width: 100%;
+  }
+  body {
+    margin: 0 20px;
   }
 }
 
