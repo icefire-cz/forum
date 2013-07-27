@@ -57,8 +57,8 @@
     background: url('images/arrow.png') 0 0 no-repeat;
     position: absolute;
     text-align: left;
-    top: 0;
-    right: -7px;
+    top: -23px;
+    right: 2px;
     cursor: pointer;
 }
 
@@ -71,17 +71,17 @@
 }
 .EmoticonContainer {
     position: absolute;
-    top: 0px;
-    right: -8px;
+    top: 0;
+    right: 0;
     border: 1px solid #aaa;
     border-bottom: 0;
     border-right: 0;
     width: 161px;
     text-align: left;
     float: right;
-    box-shadow: 2px 2px 4px #777;
-    -moz-box-shadow: 2px 2px 4px #777;
-    -webkit-box-shadow: 2px 2px 4px #777;
+    box-shadow: 0 2px 5px #777;
+    -moz-box-shadow: 0 2px 5px #777;
+    -webkit-box-shadow: 0 2px 5px #777;
     z-index: 1000;
      background: #eee;
 }
