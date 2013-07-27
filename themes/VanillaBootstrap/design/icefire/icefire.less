@@ -41,7 +41,7 @@ hr {
 // Buttons, Inputs and Textareas
 // ------------------------------------------------------------------------- //
 
-// Basic Buttons
+// Basic
 // ------------------------------------------------------------------------- //
 
 .btn {
@@ -56,6 +56,13 @@ hr {
   font-size: 16px;
   font-weight: normal;
 }
+
+.dropdown-menu {
+  min-width: 120px;
+  border-radius: 3px;
+  .box-shadow(0 2px 5px rgba(0,0,0,0.2));
+}
+
 
 // Grouped Buttons
 // ------------------------------------------------------------------------- //
@@ -276,6 +283,15 @@ h2.CommentHeading {
   p:last-child {
     margin-bottom: 0;
   }
+  img,
+  embed {
+    margin: 10px 0;
+  }
+  embed,
+  object {
+    width: 100%;
+    max-width: 640px;
+  }
 }
 
 .Category label {
@@ -297,16 +313,6 @@ h2.CommentHeading {
 
 .HomepageTitle {
   margin-bottom: 22px;
-}
-
-.VideoPreview {
-  width: 640px;
-  height: 385px;
-  max-width: 100%;
-  overflow: hidden;
-  img {
-    margin-top: -48px;
-  }
 }
 
 // Data Tables

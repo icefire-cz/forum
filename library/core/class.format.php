@@ -1022,17 +1022,21 @@ class Gdn_Format {
          && C('Garden.Format.YouTube')) {
          $ID = $Matches['ID'];
          $TimeMarker = isset($Matches['HasTime']) ? '&amp;start='.$Matches['Time'] : '';
-         $Result = '<span class="VideoWrap">';
-            $Result .= '<span class="Video YouTube" id="youtube-'.$ID.'">';
-               $Result .= '<span class="VideoPreview"><a href="http://youtube.com/watch?v='.$ID.'"><img src="http://img.youtube.com/vi/'.$ID.'/0.jpg" width="'.$Width.'" height="'.$Height.'" border="0" /></a></span>';
-               $Result .= '<span class="VideoPlayer"></span>';
-            $Result .= '</span>';
-         $Result .= '</span>';
+         $Result = '<object width="'.$Width.'" height="'.$Height.'">';
+         $Result .= '<param name="movie" value="https://www.youtube.com/v/'.$ID.'?version=3"></param>';
+         $Result .= '<param name="allowScriptAccess" value="always"></param>';
+         $Result .= '<embed src="https://www.youtube.com/v/'.$ID.'?version=3" type="application/x-shockwave-flash" allowscriptaccess="always" width="'.$Width.'" height="'.$Height.'"></embed>';
+         $Result .= '</object>';
       } elseif (preg_match('`(?:https?|ftp)://(www\.)?vimeo\.com\/(\d+)`', $Url, $Matches) && C('Garden.Format.Vimeo')) {
          $ID = $Matches[2];
-         $Result = <<<EOT
-<div class="VideoWrap"><div class="Video Vimeo"><object width="$Width" height="$Height"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=$ID&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=$ID&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="$Width" height="$Height"></embed></object></div></div>
-EOT;
+         $Result = '<div class="VideoWrap">';
+         $Result .= '<div class="Video Vimeo">';
+         $Result .= '<object width="'.$Width.'" height="'.$Height.'">';
+         $Result .= '<param name="allowfullscreen" value="true" />';
+         $Result .= '<param name="allowscriptaccess" value="always" />';
+         $Result .= '<param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id='.$ID.'&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" />';
+         $Result .= '<embed src="http://vimeo.com/moogaloop.swf?clip_id='.$ID.'&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="'.$Width.'" height="'.$Height.'">';
+         $Result .= '</embed></object></div></div>';
       } elseif (!self::$FormatLinks) {
          $Result = $Url;
       } else {
