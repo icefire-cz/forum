@@ -63,14 +63,15 @@ class LatestCommentModule extends Gdn_Module {
                     foreach($this->_LatestComments->Result() as $Discussion) {
                         $UnreadComments = Gdn_Format::BigNumber($this->_NewCommentsCount[$Discussion->DiscussionID]);
                         if ($UnreadComments > 0) {
-                            $Count = ' <span class="Aside"><span class="Count">'.$UnreadComments.'</span></span>';
+                            $Count = ' <span class="Aside Latest"><span class="Count">'.$UnreadComments.'</span></span>';
                         } else {
                             $Count = '';
                         }
                 ?>
                     <li>
+                        <?php echo $Count; ?>
                         <a href="<?php echo DiscussionUrl($Discussion); ?>#latest">
-                            <?php echo $Discussion->Name; ?><?php echo $Count; ?>
+                            <?php echo $Discussion->Name; ?>
                         </a>
                     </li>
                 <?php

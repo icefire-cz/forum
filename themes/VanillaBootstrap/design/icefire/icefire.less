@@ -392,13 +392,10 @@ h2.CommentHeading {
         min-height: 53px;
       }
       .MiniPager {
-        visibility: hidden;
+        margin-right: 7px;
       }
       .MItem {
         margin-right: 0;
-      }
-      &:hover .MiniPager {
-        visibility: visible;
       }
     }
   }
@@ -496,18 +493,29 @@ blockquote p {
   line-height: @baseLineHeight;
 }
 
-.spoiler {
+div.spoiler {
   margin: 8px 0;
   padding: 10px 15px;
-  background: #f1eedf;
-  color: #f1eedf;
+  background: @spoilerColor;
+  color: @spoilerColor;
   &:hover {
     color: @gray;
+    &:before {
+      content: none;
+    }
   }
   &:before {
     color: @gray;
     font-style: italic;
-    content: "Pozor spoiler! ";
+    content: "Pozor, komentář obsahuje spoilery! ";
+  }
+}
+
+span.spoiler {
+  background: @spoilerColor;
+  color: @spoilerColor;
+  &:hover {
+    color: @gray;
   }
 }
 
@@ -882,6 +890,9 @@ textarea.MultiComplete {
   position: relative;
   float: right;
   top: -1px;
+  &.Latest {
+    top: 2px;
+  }
 }
 
 .PanelInfo {
