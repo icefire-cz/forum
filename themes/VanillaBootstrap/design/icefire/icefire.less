@@ -86,6 +86,25 @@ input[type="datetime-local"] {
   }
 }
 
+blockquote {
+  margin: 1em 0;
+  padding: 1ex 16px;
+  min-height: 50px;
+  background: rgba(0, 0, 0, 0.05);
+  border-left: 4px solid rgba(0, 0, 0, 0.1);
+  &:before {
+    float: left;
+    padding: 15px 15px 15px 0;
+    font-size: 40px;
+    color: rgba(0, 0, 0, 0.15);
+    font-family: "FontAwesome";
+    content: "\f10d";
+  }
+  & > div {
+    padding-left: 55px;
+  }
+}
+
 // Grouped Buttons
 // ------------------------------------------------------------------------- //
 
@@ -275,7 +294,7 @@ footer.footer {
 }
 
 .ItemDiscussion {
-  padding: 8px 0;
+  padding: 8px 0 28px;
   margin: 0;
   .Message {
     font-size: 100%;
@@ -298,10 +317,10 @@ footer.footer {
 
 h2.CommentHeading {
   margin-top: 0;
-  font-size: 18px;
+  margin-bottom: 30px;
+  font-size: @fontSizeLarge + 5;
   line-height: 1.2;
 }
-
 
 .MessageList .Message {
   padding-top: 0;
@@ -416,8 +435,9 @@ h2.CommentHeading {
   margin-top: 10px;
   margin-bottom: 10px;
   &.Comments .Item {
-    padding: 20px 5px 10px;
-    margin: 0;
+    background: @commentBackground;
+    margin: 15px 0;
+    padding: 20px 15px 10px;
     .Message {
       margin: 10px 0 0;
     }
@@ -428,9 +448,6 @@ h2.CommentHeading {
     }
     &.Read {
       background: transparent;
-    }
-    &:first-child {
-      border-top-width: 1px;
     }
   }
   .Item-Header {
@@ -477,6 +494,21 @@ h2.CommentHeading {
 blockquote p {
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
+}
+
+.spoiler {
+  margin: 8px 0;
+  padding: 10px 15px;
+  background: #f1eedf;
+  color: #f1eedf;
+  &:hover {
+    color: @gray;
+  }
+  &:before {
+    color: @gray;
+    font-style: italic;
+    content: "Pozor spoiler! ";
+  }
 }
 
 // Category Tables
@@ -562,6 +594,7 @@ blockquote p {
 }
 
 .CommentForm {
+  margin-top: 30px;
   .H {
     display: none;
   }

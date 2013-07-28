@@ -501,7 +501,7 @@ jQuery(document).ready(function($) {
                break;
 
             case 'spoiler':
-               $(TextArea).insertRoundTag('div',htmlOpts,{'class':'Spoiler'});
+               $(TextArea).insertRoundTag('div',htmlOpts,{'class':'spoiler'});
                break;
 
             case 'url':
