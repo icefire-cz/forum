@@ -3276,8 +3276,8 @@ only screen and (max-device-width: 480px) {
 
 /* Inform Sprites */
 .InformMessages .InformWrapper.HasIcon .InformMessage {
-	padding-left: 42px !important;
-	min-height: 20px;
+	padding-left: 50px !important;
+	min-height: 35px;
 }
 .InformMessages .InformWrapper.HasSprite .InformMessage {
 	padding-left: 40px !important;

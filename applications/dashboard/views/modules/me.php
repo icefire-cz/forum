@@ -31,7 +31,7 @@ if ($Session->IsValid()):
          $CNotifications = is_numeric($CountNotifications) && $CountNotifications > 0 ? '<span class="Alert">'.$CountNotifications.'</span>' : '';
 
          echo '<span class="ToggleFlyout" rel="/profile/notificationspopin">';
-         echo Anchor(Sprite('SpNotifications', 'Sprite Sprite16').Wrap(T('Notifications'), 'em').$CNotifications, UserUrl($User), 'MeButton FlyoutButton', array('title' => T('Notifications')));
+         echo Anchor(Sprite('SpNotifications', 'icon-globe').Wrap(T('Notifications'), 'em').$CNotifications, UserUrl($User), 'MeButton FlyoutButton', array('title' => T('Notifications')));
          echo Sprite('SpFlyoutHandle', 'Arrow');
          echo '<div class="Flyout FlyoutMenu"></div></span>';
 
@@ -40,7 +40,7 @@ if ($Session->IsValid()):
             $CountInbox = GetValue('CountUnreadConversations', Gdn::Session()->User);
             $CInbox = is_numeric($CountInbox) && $CountInbox > 0 ? ' <span class="Alert">'.$CountInbox.'</span>' : '';
             echo '<span class="ToggleFlyout" rel="/messages/popin">';
-            echo Anchor(Sprite('SpInbox', 'Sprite Sprite16').Wrap(T('Inbox'), 'em').$CInbox, '/messages/all', 'MeButton FlyoutButton', array('title' => T('Inbox')));
+            echo Anchor(Sprite('SpInbox', 'icon-inbox').Wrap(T('Inbox'), 'em').$CInbox, '/messages/all', 'MeButton FlyoutButton', array('title' => T('Inbox')));
             echo Sprite('SpFlyoutHandle', 'Arrow');
             echo '<div class="Flyout FlyoutMenu"></div></span>';
          }
@@ -48,7 +48,7 @@ if ($Session->IsValid()):
          // Bookmarks
          if (Gdn::ApplicationManager()->CheckApplication('Vanilla')) {
             echo '<span class="ToggleFlyout" rel="/discussions/bookmarkedpopin">';
-            echo Anchor(Sprite('SpBookmarks', 'Sprite Sprite16').Wrap(T('Bookmarks'), 'em'), '/discussions/bookmarked', 'MeButton FlyoutButton', array('title' => T('Bookmarks')));
+            echo Anchor(Sprite('SpBookmarks', 'icon-star').Wrap(T('Bookmarks'), 'em'), '/discussions/bookmarked', 'MeButton FlyoutButton', array('title' => T('Bookmarks')));
             echo Sprite('SpFlyoutHandle', 'Arrow');
             echo '<div class="Flyout FlyoutMenu"></div></span>';
          }
@@ -56,7 +56,7 @@ if ($Session->IsValid()):
          // Profile Settings & Logout
          echo '<span class="ToggleFlyout">';
          $CDashboard = $DashboardCount > 0 ? Wrap($DashboardCount, 'span class="Alert"') : '';
-         echo Anchor(Sprite('SpOptions', 'Sprite Sprite16').Wrap(T('Account Options'), 'em').$CDashboard, '/profile/edit', 'MeButton FlyoutButton', array('title' => T('Account Options')));
+         echo Anchor(Sprite('SpOptions', 'icon-cog').Wrap(T('Account Options'), 'em').$CDashboard, '/profile/edit', 'MeButton FlyoutButton', array('title' => T('Account Options')));
          echo Sprite('SpFlyoutHandle', 'Arrow');
             echo '<ul class="Flyout MenuItems">';
                // echo Wrap(Wrap(T('My Account'), 'strong'), 'li');
