@@ -41,6 +41,47 @@ hr {
 // Buttons, Inputs and Textareas
 // ------------------------------------------------------------------------- //
 
+.navbar-inverse {
+  .navbar-inner {
+    background-color: rgba(1, 1, 1, 0.85);
+    background-image: none;
+    height: 50px;
+    border: none;
+    li.dropdown,
+    li.menu-forum {
+      & > a {
+        font-size: @baseFontSize;
+        padding-top: 13px;
+        padding-bottom: 14px;
+        color: @white;
+      }
+      &.open,
+      &.active {
+        & > a, & > .dropdown-toggle {background-color: inherit}
+      }
+      &:hover .dropdown-menu {
+        display: block;
+      }
+      .dropdown-menu {
+        margin-top: 0;
+      }
+    }
+  }
+  .logo {
+    background: transparent url("@{imageDirectory}/logo.png") no-repeat 0 -29px;
+    float: left;
+    margin: 10px 15px 11px 15px;
+    width: 129px;
+    height: 29px;
+    &:hover {
+      background-position: 0 0;
+    }
+  }
+}
+
+// Buttons, Inputs and Textareas
+// ------------------------------------------------------------------------- //
+
 // Basic
 // ------------------------------------------------------------------------- //
 

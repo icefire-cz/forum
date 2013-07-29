@@ -16,6 +16,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top" id="bootstrap-navbar">
   <div class="navbar-inner">
     <div class="container">
+      <a class="logo" href="/"></a>
       <ul id="menu-primary-navigation" class="nav">
         <li class="dropdown menu-knihy">
           <a class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="/knihy/">
