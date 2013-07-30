@@ -63,18 +63,18 @@ if ($Session->IsValid()):
                // echo Wrap('<hr />', 'li');
                echo Wrap(Anchor(Sprite('SpEditProfile').' '.T('Edit Profile'), 'profile/edit'), 'li');
 
+               echo Wrap('<hr />', 'li');
                if ($Session->CheckPermission('Garden.Settings.Manage') || $Session->CheckPermission('Garden.Moderation.Manage')) {
-                  echo Wrap('<hr />', 'li');
                   $CApplicant = $ApplicantCount > 0 ? ' '.Wrap($ApplicantCount, 'span class="Alert"') : '';
                   $CSpam = $SpamCount > 0 ? ' '.Wrap($SpamCount, 'span class="Alert"') : '';
                   $CModeration = $ModerationCount > 0 ? ' '.Wrap($ModerationCount, 'span class="Alert"') : '';
-                  echo Wrap(Anchor(Sprite('SpApplicants').' '.T('Applicants').$CApplicant, '/dashboard/user/applicants'), 'li');
+                  // echo Wrap(Anchor(Sprite('SpApplicants').' '.T('Applicants').$CApplicant, '/dashboard/user/applicants'), 'li');
+                  echo Wrap(Anchor(Sprite('SpDashboard').' '.T('Dashboard'), '/dashboard/settings'), 'li');
                   echo Wrap(Anchor(Sprite('SpSpam').' '.T('Spam Queue').$CSpam, '/dashboard/log/spam'), 'li');
                   echo Wrap(Anchor(Sprite('SpMod').' '.T('Moderation Queue').$CModeration, '/dashboard/log/moderation'), 'li');
-                  echo Wrap(Anchor(Sprite('SpDashboard').' '.T('Dashboard'), '/dashboard/settings'), 'li');
                }
-
                $this->FireEvent('FlyoutMenu');
+               echo Wrap(Anchor(' Vyhledávač', 'search'), 'li');
                echo Wrap('<hr />', 'li');
                echo Wrap(Anchor(Sprite('SpSignOut').' '.T('Sign Out'), SignOutUrl()), 'li');
          echo '</span>';
