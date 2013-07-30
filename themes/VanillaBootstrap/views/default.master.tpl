@@ -27,6 +27,7 @@
             <li class="menu-rozcestnik">
               <a href="/knihy/pisen-ledu-a-ohne/pisen-ledu-a-ohne/">Rozcestník</a>
             </li>
+            <li><hr></li>
             <li class="menu-pisen-ledu-a-ohne">
               <a href="/knihy/pisen-ledu-a-ohne/">Píseň ledu a ohně</a>
             </li>
@@ -47,6 +48,7 @@
             <li class="menu-rozcestnik">
               <a href="/svet/svet-ledu-a-ohne/">Rozcestník</a>
             </li>
+            <li><hr></li>
             <li class="menu-historie">
               <a href="/svet/historie/">Historie</a>
             </li>
@@ -74,7 +76,9 @@
           </a>
           <ul class="dropdown-menu">
             <li class="menu-rozcestnik">
-              <a href="/serial/hra-o-truny-na-hbo/">Rozcestník</a></li>
+              <a href="/serial/hra-o-truny-na-hbo/">Rozcestník</a>
+            </li>
+            <li><hr></li>
             <li class="menu-1-rada">
               <a href="/serial/1-rada/">1. řada</a>
             </li>
@@ -101,6 +105,7 @@
             <li class="menu-rozcestnik">
               <a href="/komunita/nocni-hlidka-komunita-ice-fire/">Rozcestník</a>
             </li>
+            <li><hr></li>
             <li class="menu-povidky">
               <a href="/komunita/povidky/">Povídky</a>
             </li>

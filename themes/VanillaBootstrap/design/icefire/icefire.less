@@ -1031,62 +1031,40 @@ textarea.MultiComplete {
 }
 
 
-// Modal Windows
+// Modals
 // ------------------------------------------------------------------------- //
 
-.Loading {
-  width: 40px;
-  margin: 0 auto;
-}
-
 .Overlay {
-  display: none;
-  #translucent > .background(black, 0.8);
-  filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr=#CC0000,endColorstr=#CC0000);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
-#Popup {
-  .Border {
-    padding: 0;
-  }
+div.Popup {
+  position: fixed;
+  top: 70px !important;
   .Body {
-    padding: 0;
+    padding: 20px;
+    border-radius: 4px;
   }
-  .modal-header {
-    margin: 0;
-  }
-  .modal-body {
-    padding: 15px;
-  }
-  .Content {
-    .modal-header {
-      font-size: 24px;
-      font-weight: bold;
-      line-height: 40px;
-      margin-bottom: 0;
-    }
-  }
-  .Footer {
-    .modal-footer;
-  }
-  a.Close {
-    top: 12px;
-    right: 15px;
-  }
-  .close {
-    font-size: 22px;
-  }
-  p:not(.modal-body) {
-    padding: 0;
-  }
-  .radio {
-    margin: 0;
+  h1, h2, h3 {
+    margin-top: 0;
   }
 }
 
 .Buttons-Confirm {
   text-align: left;
+}
+
+#Form_User_SignIn {
+  #Form_SignIn {
+    float: left;
+  }
+  .InputBox {
+    width: 250px;
+  }
+  .Buttons label {
+    padding: 6px;
+    margin-left: 130px;
+  }
 }
 
 // Alerts
@@ -1140,141 +1118,6 @@ textarea.MultiComplete {
   span.InformSprite {
     top: 3px;
     left: 4px;
-  }
-}
-
-
-// Forms
-// ------------------------------------------------------------------------- //
-
-.MainForm,
-#Popup .MainForm {
-  float: none !important;
-  width: auto !important;
-  padding: 15px;
-  .InputBox {
-    max-width: none;
-  }
-}
-
-// Sign-in Popup form
-// ------------------------------------------------------------------------- //
-
-.SingleEntryMethod,
-.MultipleEntryMethods,
-#Popup .SingleEntryMethod,
-#Popup .MultipleEntryMethods {
-  input {
-    max-width: 100%;
-    width: 100%;
-    margin-bottom: 0;
-    &[type="password"] {
-      margin-bottom: 0;
-      padding-right: 77px;
-    }
-    &[type="checkbox"] {
-      width: auto;
-    }
-  }
-  label {
-    margin-bottom: 9px;
-  }
-  li {
-    clear: both;
-    &:first-child label {
-      margin-top: 0;
-    }
-  }
-  input.btn {
-    width: auto;
-    float: right;
-  }
-  .Buttons {
-    width: 100%;
-    line-height: 30px;
-    margin-top: 9px;
-  }
-  .SignInRememberMe {
-    height: 30px;
-    margin: 0 5px 0 0;
-  }
-}
-
-.SingleEntryMethod #Form_User_SignIn,
-.MultipleEntryMethods #Form_User_SignIn,
-#Popup .SingleEntryMethod #Form_User_SignIn,
-#Popup .MultipleEntryMethods #Form_User_SignIn {
-  margin: 0 auto;
-  padding: 0;
-  max-width: 350px;
-  a.ForgotPassword {
-    float: right;
-    position: relative;
-    margin-top: -30px;
-    .border-radius(0 3px 3px 0);
-  }
-  .CreateAccount {
-    clear: both;
-    color: rgba(0,0,0,.5);
-  }
-}
-
-.SingleEntryMethod #Form_User_Password,
-.MultipleEntryMethods #Form_User_Password,
-#Popup .SingleEntryMethod #Form_User_Password,
-#Popup .MultipleEntryMethods #Form_User_Password {
-  margin: 0 auto;
-  padding: 0;
-  max-width: 350px;
-  .btn {
-    .box-sizing(border-box);
-  }
-  .Buttons {
-    overflow: auto;
-  }
-  a.ForgotPassword {
-    margin-left: 0;
-    float: left;
-  }
-}
-
-// Multiple Entry Sign-in
-// ------------------------------------------------------------------------- //
-
-.MultipleEntryMethods .Methods {
-  margin: 0 auto;
-  max-width: 350px;
-  .Method {
-    width: 50%;
-    min-width: 155px;
-    display: inline-block;
-    .box-sizing(border-box);
-  }
-  b {
-    display: inline-block;
-    margin-bottom: 9px;
-  }
-}
-
-// Registration
-// ------------------------------------------------------------------------- //
-
-.Entry.register #content {
-  input {
-    width: 100%;
-    &[type="radio"],
-    &[type="checkbox"] {
-      width: auto;
-      height: 18px;
-      margin-right: 5px;
-    }
-  }
-  .FormWrapper {
-    padding: 15px 25px;
-    .border-radius(5px);
-  }
-  .CaptchaInput {
-    margin-bottom: 10px;
   }
 }
 

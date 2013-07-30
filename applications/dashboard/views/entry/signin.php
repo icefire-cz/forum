@@ -29,13 +29,15 @@ echo '<div class="Entry'.$CssClass.'">';
       <li>
          <?php
             echo $this->Form->Label('Password', 'Password');
-            echo $this->Form->Input('Password', 'password', array('class' => 'InputBox Password'));
-            echo Anchor(T('Forgot?'), '/entry/passwordrequest', 'ForgotPassword');
+            echo '<div class="input-append">';
+               echo $this->Form->Input('Password', 'password', array('class' => 'InputBox Password'));
+               echo Anchor(T('Forgot?'), '/entry/passwordrequest', 'ForgotPassword');
+            echo '</div>';
          ?>
       </li>
    </ul>
    <?php
-   
+
 //   echo $this->Data('MainForm');
 
    echo '</div>';

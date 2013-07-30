@@ -188,27 +188,6 @@ jQuery(document).ready(function() {
 		$(this).remove();
 	});
 
-	// Modals
-	$('.Popup').livequery(function() {
-		$(this).find('.Body').addClass('modal');
-	});
-	$('.Popup .Content').livequery(function() {
-		$(this).children('h1, h2').addClass('modal-header');
-		$(this).children('*:not(.modal-header):not(.Entry)').addClass('modal-body');
-	});
-	$('.Popup .Content h1, .Popup .Content h2').livequery(function() {
-		$(this).addClass('modal-header');
-	});
-	$('.Popup .Content').find('> *:not(.modal-header):not(.Entry)').livequery(function() {
-		$(this).addClass('modal-body');
-	});
-	$('.Popup .Footer').livequery(function() {
-		$(this).find('span').addClass('close');
-	});
-	$('.Overlay').livequery(function() {
-		$(this).fadeIn(150);
-	});
-
 	// Grouped Buttons
 	$('.ButtonGroup').livequery(function() {
 		$(this).find('.Dropdown').addClass('dropdown-menu');
@@ -217,9 +196,9 @@ jQuery(document).ready(function() {
 	// Plugin specific Javascript
 	// ------------------
 
-		// QnA plugin
-		$('.DataBox-Comments .QnA-Item-Accepted').remove();
-		$('.QnA-Tag-Answered, .QnA-Tag-Accepted').addClass('label-success');
+	// QnA plugin
+	$('.DataBox-Comments .QnA-Item-Accepted').remove();
+	$('.QnA-Tag-Answered, .QnA-Tag-Accepted').addClass('label-success');
 
 });
 
