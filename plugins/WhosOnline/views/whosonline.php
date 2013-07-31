@@ -26,13 +26,13 @@ echo $this->Form->Errors();
                 </tr>
          </tbody>
       </table>
-			<table class="AltRows">  
+			<table class="AltRows">
          <tbody>
                <tr>
                   <th><?php
                      echo $this->Form->Checkbox('WhosOnline.Hide', "Hide for non members of the site");
                   ?></th>
-               </tr>             
+               </tr>
          </tbody>
       </table>
       <table class="AltRows">
