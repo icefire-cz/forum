@@ -4,38 +4,38 @@
  $Session = Gdn::Session();
  if     (!((CheckPermission('Plugins.MembersListEnh.GenView')) ||
         (CheckPermission('Plugins.MembersListEnh.IPEmailView')))) die();
-    
-    
-    
+
+
+
     $RequestArgs = Gdn::Request()->GetRequestArguments();
-    
+
     $UserField = $RequestArgs['get']['ufield'];
-    
+
     if (!$UserField)
-         $UserField = 'UserID'; 
-  
-    $SortOrder = $RequestArgs['get']['sort'];   
-    if (!$SortOrder) 
+         $UserField = 'UserID';
+
+    $SortOrder = $RequestArgs['get']['sort'];
+    if (!$SortOrder)
          $SortOrder = 'asc';
-    
-    
+
+
     $Limit = Gdn::Config("Plugins.MembersListEnh.DCount");
-    
-   
+
+
    if (!is_numeric($Limit) || $Limit < 0)
        $Limit = 20;
-       
-     $MLUrl = $this->SelfUrl; 
-     
+
+     $MLUrl = $this->SelfUrl;
+
      $Arg = $MLUrl;
      $MColUrl = 'members/p1';
-     
+
      $Page = 1;
-    
+
     if (preg_match("|p(\d+)|", $Arg,$matches)){
                   $Page = $matches[1];
     }
-    
+
     $SortOrder = strtolower($SortOrder);
     if (($SortOrder == 'asc') ||(!$SortOrder)) {
             $NewSort = 'desc';
@@ -44,8 +44,8 @@
             $NewSort = 'asc';
             $SortOrder = 'desc';
             }
-   
-  
+
+
      switch (strtolower($UserField))
        {
        case 'userid':
@@ -53,19 +53,19 @@
             break;
        case 'name':
             $UserField  = 'Name';
-           break;     
+           break;
       case 'userid':
             $UserField  = 'UserId';
-           break;   
+           break;
       case 'balance':
             $UserField  = 'Balance';
-           break;  
+           break;
       case 'receivedthankcount':
             $UserField  = 'ReceivedThankCount';
-           break;  
+           break;
      case 'liked':
             $UserField  = 'Liked';
-           break;     
+           break;
       case 'email':
             $UserField  = 'Email';
            break;
@@ -90,7 +90,7 @@
       default:
           $UserField  = 'Name';
       }
-    
+
 
 
 
@@ -111,10 +111,10 @@ $this->AddCssFile('ml.css', 'plugins/MembersListEnh');?>
 
 
 <h1><?php echo T('Members List Enhanced'); ?></h1>
-<table id="Users" class="AltColumns" style="width: 100%;">
+<table id="Users" class="table">
    <thead>
-      <tr class="Info">
-       <?php 
+      <tr>
+       <?php
        if ($ShowPhoto)
        echo  '<th>' . Anchor(T('Photo'),$MColUrl . '&ufield=' . 'Name' . '&sort=' . $NewSort ) .'</th>';
        echo  '<th>' . Anchor(T('Username'),$MColUrl . '&ufield=' . 'Name' . '&sort=' . $NewSort ) .'</th>';
@@ -145,64 +145,64 @@ $this->AddCssFile('ml.css', 'plugins/MembersListEnh');?>
        echo '<th>' . Anchor(T('Comment Count'),$MColUrl. '&ufield=' . 'CountComments' . '&sort=' . $NewSort ).'</th>';
        echo   '</tr></thead><tbody>';
     $Alt = FALSE;
- 
+
 
     $Sender->Offset = ($Page * $Limit) - $Limit ;
     $Offset = $Sender->Offset;
-  
+
 
    $this->MembersListEnh = MembersListEnhModel::GetMembersListEnh($Limit, $Offset,$SortOrder,$UserField);
    $MemNumRows = MembersListEnhModel::GetMembersCount();
-   
-  
-   
+
+
+
    $mydata = $this->MembersListEnh;
-    
+
 
         $PagerFactory = new Gdn_PagerFactory();
         $Sender->Pager = $PagerFactory->GetPager('Pager', $Sender);
         $Sender->Pager->MoreCode = '>';
         $Sender->Pager->LessCode = '<';
         $Sender->Pager->ClientID = 'Pager';
-     
+
         $Sender->Pager->Configure(
         $Sender->Offset,
         $Limit,
         $MemNumRows,
          'members' . '/{Page}' . '&sort=' . $SortOrder . '&ufield=' .$UserField
         );
-       
- 
-        
+
+
+
         $mypager = $Sender->Pager;
 
-      
+
     echo $Sender->Pager->ToString('more');
- 
- 
+
+
    foreach ($mydata as $User) {
      $Alt = $Alt ? FALSE : TRUE;
      ?>
      <tr<?php echo $Alt ? ' class="Alt"' : ''; ?>>
-      <?php  
+      <?php
          if ($ShowPhoto)
          echo '<td>' .UserPhoto($User,array('LinkClass'=>'ProfilePhotoCategory','ImageClass'=>'ProfilePhotoMedium')) . '</td>';
-        
-        
-         echo '<td>' . UserAnchor($User). '</td>';  
- 
 
-        if ($ShowThank) { 
-           $Anchor = '/profile/receivedthanks/'. $User->UserID .'/'. $User->Name; 
-           echo '<td>' . Anchor($User->ReceivedThankCount,$Anchor) . '</td>'; } 
-      
-        if ($ShowKarma) { 
-           $Anchor = '/profile/karmabank/'. $User->UserID .'/'. $User->Name; 
-           echo '<td>' . Anchor($User->Balance,$Anchor) . '</td>'; }  
-         
+
+         echo '<td>' . UserAnchor($User). '</td>';
+
+
+        if ($ShowThank) {
+           $Anchor = '/profile/receivedthanks/'. $User->UserID .'/'. $User->Name;
+           echo '<td>' . Anchor($User->ReceivedThankCount,$Anchor) . '</td>'; }
+
+        if ($ShowKarma) {
+           $Anchor = '/profile/karmabank/'. $User->UserID .'/'. $User->Name;
+           echo '<td>' . Anchor($User->Balance,$Anchor) . '</td>'; }
+
          if ($ShowLike)
          echo '<td>' . $User->Liked . '</td>';
-         if ($ShowID);
+         if ($ShowID)
          echo '<td>' . $User->UserID . '</td>';
          if  ($ShowRoles) {
            $Roles = GetValue('Roles', $User, array());
@@ -217,35 +217,35 @@ $this->AddCssFile('ml.css', 'plugins/MembersListEnh');?>
            }
           echo $RolesString . '</td>';
          }
-         
+
            if  ($ShowFVisit)
          echo  '<td>' . Gdn_Format::Date($User->DateFirstVisit, 'html') . '</td>';
-         
+
           if  ($ShowLVisit)
          echo  '<td>' . Gdn_Format::Date($User->DateLastActive, 'html') . '</td>';
-         
+
          if  (($ShowEmail) && ($Session->CheckPermission('Garden.Users.Add')))
-         echo  '<td>' . $User->Email  . '</td>'; 
-        
+         echo  '<td>' . $User->Email  . '</td>';
+
          if  (($ShowIP) && ($Session->CheckPermission('Garden.Users.Add')))
-         echo  '<td>' . $User->LastIPAddress . '</td>'; 
-        
+         echo  '<td>' . $User->LastIPAddress . '</td>';
+
          if  ($ShowVisits)
-         echo  '<td>' . $User->CountVisits . '</td>'; 
-         
+         echo  '<td>' . $User->CountVisits . '</td>';
+
          if  ($ShowDiCount){
          $Anchor = '/profile/discussions/'. $User->UserID .'/'. $User->Name;
-         echo  '<td>' . Anchor($User->CountDiscussions,$Anchor) . '</td>'; 
+         echo  '<td>' . Anchor($User->CountDiscussions,$Anchor) . '</td>';
          }
           if  ($ShowCoCount){
          $Anchor = '/profile/comments/'. $User->UserID .'/'.$User->Name;
-         echo  '<td>' . Anchor($User->CountComments,$Anchor) . '</td>'; 
+         echo  '<td>' . Anchor($User->CountComments,$Anchor) . '</td>';
          }
-     
+
          echo '</tr>';
      }
-  
-        echo  '</tbody></table>'; 
+
+        echo  '</tbody></table>';
         echo "</br>";
         echo $Sender->Pager->ToString('more');
 

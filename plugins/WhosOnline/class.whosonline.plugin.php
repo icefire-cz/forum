@@ -119,19 +119,35 @@ class WhosOnlinePlugin extends Gdn_Plugin {
 
    // User Settings
    public function ProfileController_AfterAddSideMenu_Handler($Sender) {
+      if (!Gdn::Session()->CheckPermission('Garden.SignIn.Allow'))
+         return;
+
       $SideMenu = $Sender->EventArguments['SideMenu'];
-      $Session = Gdn::Session();
-      $ViewingUserID = $Session->UserID;
+      $ViewingUserID = Gdn::Session()->UserID;
 
       if ($Sender->User->UserID == $ViewingUserID) {
-         $SideMenu->AddLink('Options', T('Who\'s Online Settings'), '/profile/whosonline', FALSE, array('class' => 'Popup'));
+         $SideMenu->AddLink('Options', T('Who\'s Online Settings'), '/profile/whosonline',
+                            FALSE, array('class' => 'Popup'));
+      } else {
+         $SideMenu->AddLink('Options', T('Who\'s Online Settings'), UserUrl($Sender->User, '', 'whosonline'),
+                            'Garden.Users.Edit', array('class' => 'Popup'));
       }
    }
 
    public function ProfileController_Whosonline_Create($Sender) {
-
+      $Sender->Permission('Garden.SignIn.Allow');
       $Session = Gdn::Session();
       $UserID = $Session->IsValid() ? $Session->UserID : 0;
+
+      $Args = $Sender->RequestArgs;
+
+      if (sizeof($Args) < 2)
+         $Args = array_merge($Args, array(0,0));
+      elseif (sizeof($Args) > 2)
+         $Args = array_slice($Args, 0, 2);
+
+      list($UserReference, $Username) = $Args;
+      $Sender->GetUserInfo($UserReference, $Username);
 
       // Get the data
       $UserMetaData = $this->GetUserMeta($UserID, '%');

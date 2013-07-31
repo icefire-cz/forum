@@ -7,8 +7,7 @@ echo $this->Form->Errors();
 <ul>
    <li>
       <?php
-         echo $this->Form->Label('Hide My Name');
-         echo $this->Form->CheckBox('Plugin.WhosOnline.Invisible','This will remove your name from the list. (You will still be counted)');
+         echo $this->Form->CheckBox('Plugin.WhosOnline.Invisible','Skrýt mé jméno');
       ?>
    </li>
 

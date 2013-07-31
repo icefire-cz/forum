@@ -32,22 +32,19 @@ class MembersListEnhPlugin extends Gdn_Plugin {
         $ConfigurationModel = new Gdn_ConfigurationModel($Validation);
         $ConfigurationModel->SetField(array(
             'Plugins.MembersListEnh.DCount',
-            'Plugins.MembersListEnh.ShowPhoto', 
-            'Plugins.MembersListEnh.ShowLike', 
-            'Plugins.MembersListEnh.ShowThank', 
-            'Plugins.MembersListEnh.ShowKarma', 
-            'Plugins.MembersListEnh.ShowID',     
-            'Plugins.MembersListEnh.ShowRoles', 
-            'Plugins.MembersListEnh.ShowFVisit', 
+            'Plugins.MembersListEnh.ShowPhoto',
+            'Plugins.MembersListEnh.ShowLike',
+            'Plugins.MembersListEnh.ShowThank',
+            'Plugins.MembersListEnh.ShowKarma',
+            'Plugins.MembersListEnh.ShowID',
+            'Plugins.MembersListEnh.ShowRoles',
+            'Plugins.MembersListEnh.ShowFVisit',
             'Plugins.MembersListEnh.ShowLVisit',
-            'Plugins.MembersListEnh.ShowEmail', 
-            'Plugins.MembersListEnh.ShowIP',  
+            'Plugins.MembersListEnh.ShowEmail',
+            'Plugins.MembersListEnh.ShowIP',
             'Plugins.MembersListEnh.ShowVisits',
             'Plugins.MembersListEnh.ShowDiCount',
             'Plugins.MembersListEnh.ShowCoCount'
-      
-      
-      
         ));
         $Sender->Form->SetModel($ConfigurationModel);
 
@@ -78,18 +75,18 @@ class MembersListEnhPlugin extends Gdn_Plugin {
     }
     public function OnDisable() {
 	          $matchroute = '^members(/.*)?$';
-             
-	           Gdn::Router()-> DeleteRoute($matchroute); 
-	
+
+	           Gdn::Router()-> DeleteRoute($matchroute);
+
 	}
     public function Setup() {
-  
+
              $matchroute = '^members(/.*)?$';
              $target = 'plugin/MembersListEnh$1';
-        
+
              if(!Gdn::Router()->MatchRoute($matchroute))
-                  Gdn::Router()->SetRoute($matchroute,$target,'Internal'); 
-          
+                  Gdn::Router()->SetRoute($matchroute,$target,'Internal');
+
     }
 }
 

@@ -31,9 +31,9 @@ echo $this->Form->Errors();
 <?php echo Gdn::Translate('Enter the number of Users to list per page'); ?>
             </td>
         </tr>
-    
+
         <tr> <td>  Column Selections</td></tr>
-      
+
         <tr>
             <td>
                 <?php
@@ -47,7 +47,7 @@ echo $this->Form->Errors();
             </td>
         </tr>
 
-     
+
        <tr>
             <td>
                 <?php
@@ -60,7 +60,7 @@ echo $this->Form->Errors();
                 <?php echo Gdn::Translate('Display Liked Column in Members List (LikeThis Plugin must be Enabled)'); ?>
             </td>
         </tr>
-       
+
          <tr>
             <td>
                 <?php
@@ -73,7 +73,7 @@ echo $this->Form->Errors();
                 <?php echo Gdn::Translate('Display Thank Count Column in Members List (Thankful People Plugin must Be Enabled)'); ?>
             </td>
         </tr>
-       
+
          <tr>
             <td>
                 <?php
@@ -86,12 +86,12 @@ echo $this->Form->Errors();
                 <?php echo Gdn::Translate('Display Karma Balance Column in Members List (KarmaBalance Plugin must be enabled)'); ?>
             </td>
         </tr>
-       
-       
-       
-       
-       
-       
+
+
+
+
+
+
         <tr>
             <td>
                 <?php
@@ -218,7 +218,7 @@ echo $this->Form->CheckBox(
 </table>
 
 <br />
-<br />    
+<br />
 
 <?php
 echo $this->Form->Close('Save'); ?>
@@ -239,7 +239,7 @@ echo $this->Form->Close('Save'); ?>
 </table>
 <table>
 <tr><td>
-     <h1>Important:  After Completion of Checking Columns </h1> 
+     <h1>Important:  After Completion of Checking Columns </h1>
               <p> The GenView - is generally for Logged in users who do not have Administrative Roles.
               <p> Please Select GenView in the Roles and Permission (see side panel) for any Roles that you want to permit viewing of the table.  The Genview checkbox option in Roles and Permissions will display every column you check here EXCEPT email and ipaddress (even if you check the ip address and email boxes).
                <p> The IPEmailView - is generally for Administration roles.

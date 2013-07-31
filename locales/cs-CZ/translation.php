@@ -390,7 +390,7 @@ $Definition['GenderSuffix.First.f'] = '';
 $Definition['GenderSuffix.First.m'] = 'a';
 $Definition['GenderSuffix.Third.f'] = '';
 $Definition['GenderSuffix.Third.m'] = 'a';
-$Definition['General'] = 'Obecná diskuze';
+$Definition['General'] = 'Obecné';
 $Definition['Generate Password'] = 'Vygenerovat heslo';
 $Definition['Generate import SQL only'] = 'Generate import SQL only';
 $Definition['Give'] = 'Darovat';
@@ -1056,4 +1056,5 @@ $Definition['Discussion Count'] = 'Diskuzí';
 $Definition['Comment Count'] = 'Komentářů';
 $Definition['Nickname'] = 'Nick';
 $Definition['FirstName'] = 'není vyplněn Nick';
+$Definition['Members List Enhanced'] = 'Bratrstvo noční hlídky';
 

@@ -62,7 +62,7 @@ class QuotesPlugin extends Gdn_Plugin {
 
    public function ProfileController_Quotes_Create($Sender) {
       $Sender->Permission('Garden.SignIn.Allow');
-      $Sender->Title("Quotes Settings");
+      $Sender->Title("Skládání citací");
 
       $Args = $Sender->RequestArgs;
       if (sizeof($Args) < 2)
@@ -89,12 +89,12 @@ class QuotesPlugin extends Gdn_Plugin {
       $Sender->Form->SetValue('QuoteFolding', $QuoteFolding);
 
       $Sender->SetData('QuoteFoldingOptions', array(
-          'None' => "Don't ever fold quotes",
-          '1' => 'One level deep',
-          '2' => 'Two levels deep',
-          '3' => 'Three levels deep',
-          '4' => 'Four levels deep',
-          '5' => 'Five levels deep'
+          'None' => "Nikdy neskládat citace",
+          '1' => 'V první úrovni zanoření',
+          '2' => 'Ve druhé úrovni zanoření',
+          '3' => 'Ve třetí úrovni zanoření',
+          '4' => 'Ve čtvrté úrovni zanoření',
+          '5' => 'V páté úrovni zanoření'
       ));
 
       // If seeing the form for the first time...

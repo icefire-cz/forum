@@ -12,7 +12,7 @@ Contact Vanilla Forums Inc. at support [at] vanillaforums [dot] com
  * Displays profile options like "Message", "Edit Profile", or "Back to Profile" buttons on the top of the profile page.
  */
 class ProfileOptionsModule extends Gdn_Module {
-   
+
    public function AssetTarget() {
       return 'Content';
    }
@@ -27,7 +27,7 @@ class ProfileOptionsModule extends Gdn_Module {
       $Controller->EventArguments['ProfileOptions'] = &$ProfileOptions;
       $Controller->EventArguments['MemberOptions'] = &$MemberOptions;
       if ($Controller->EditMode) {
-         return '<div class="ProfileOptions">'.Anchor(T('Back to Profile'), UserUrl($Controller->User), array('class' => 'ProfileButtons')).'</div>';
+         return '<div class="ProfileOptions">'.Anchor(T('Back to Profile'), UserUrl($Controller->User), array('class' => 'ProfileButtons btn')).'</div>';
 //         $ProfileOptions[] = array('Text' => T('Back to Profile'), 'Url' => UserUrl($Controller->User), 'CssClass' => 'BackToProfile');
       } else {
          if ($Controller->User->UserID != $Session->UserID) {
