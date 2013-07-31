@@ -12,7 +12,7 @@
             array('title' => sprintf(T('%s has left this conversation.'), htmlspecialchars(GetValue('Name', $User))))
             );
       else
-         echo UserPhoto($User, array('ImageClass' => 'ProfilePhotoSmall')).' '.UserAnchor($User, 'UserLink');
+         echo UserAnchor($User, 'UserLink');
 
       echo '</li>';
    }

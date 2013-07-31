@@ -81,7 +81,7 @@ function WriteComment($Comment, $Sender, $Session, $CurrentOffset) {
       <?php
       // Write a stub for the latest comment so it's easy to link to it from outside.
       if ($CurrentOffset == Gdn::Controller()->Data('_LatestItem')) {
-         echo '<span id="latest"></span>';
+         echo '<span id="latest" title="Nové ↓"></span>';
       }
       $Sender->FireEvent('BeforeCommentMeta'); ?>
       <div class="Item-Header CommentHeader">

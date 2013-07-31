@@ -501,7 +501,8 @@ h2.CommentHeading {
 .DataList {
   margin-top: 10px;
   margin-bottom: 10px;
-  &.Comments .Item {
+  &.Comments .Item,
+  &.Conversation .Item {
     background: @commentBackground;
     margin: 15px 0;
     padding: 20px 15px 10px;
@@ -558,6 +559,10 @@ h2.CommentHeading {
   margin: 15px 0 0;
 }
 
+
+// Comments and Discussion
+// ------------------------------------------------------------------------- //
+
 blockquote p {
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
@@ -587,6 +592,16 @@ span.spoiler {
   &:hover {
     color: @gray;
   }
+}
+
+#latest {
+  background: transparent url("@{imageDirectory}/crow_new.png") bottom left no-repeat;
+  left: -30px;
+  top: -55px;
+  position: absolute;
+  width: 53px;
+  height: 53px;
+  padding-top: 55px;
 }
 
 // Category Tables
