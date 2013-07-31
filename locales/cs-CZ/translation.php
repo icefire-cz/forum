@@ -338,6 +338,7 @@ $Definition['EmbeddedNoBodyFormat'] = '{Url}';
 $Definition['EmbededDiscussionFormat'] = '<div class="EmbeddedContent">{Image}<strong>{Title}</strong>
 <p>{Excerpt}</p>
 <p><a href="{Url}">Celou konverzaci přečíst zde</a></p><div class="ClearFix"></div></div>';
+$Definition['EmbededDiscussionLinkText'] = 'Číst celý článek zde';
 $Definition['English'] = 'Angličtina';
 $Definition['Enter Your OpenID Url'] = 'Zadej Url tvého OpenID';
 $Definition['Enter your Email address'] = 'Zadej svoji e-mailovou adresu';
