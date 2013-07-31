@@ -167,6 +167,16 @@
     </div>
 </footer>
 
+<div style="display:none;" class="nav_up" id="nav_up" title="nahoru">
+  <i class="icon-chevron-up"></i>
+</div>
+<div style="display:none;" class="nav_comments" id="nav_comments" title="komentáře">
+  <i class="icon-comments"></i>
+</div>
+<div style="display:none;" class="nav_down" id="nav_down" title="dolů">
+  <i class="icon-chevron-down"></i>
+</div>
+
 {event name="AfterBody"}
 
 </body>

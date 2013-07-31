@@ -1160,6 +1160,48 @@ div.Popup {
 }
 
 
+// Up, Down, Comments Navigator
+// ------------------------------------------------------------------------- //
+
+.nav_up,
+.nav_down,
+.nav_comments {
+  background-color: @graySuperDark;
+  position: fixed;
+  width: 35px;
+  height: 35px;
+  opacity: 0.6;
+  white-space: nowrap;
+  cursor: pointer;
+  right: 20px;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+  &:hover {
+    opacity: 1;
+  }
+  i[class*="icon-"] {
+    color: @white;
+    font-size: @fontSizeLarge + 3;
+    position: relative;
+    left: 7px;
+    top: 5px;
+  }
+}
+
+.nav_up {
+  .border-top-radius(5px);
+  bottom: 90px;
+}
+
+.nav_down {
+  .border-bottom-radius(5px);
+  bottom: 20px;
+}
+
+.nav_comments {
+  bottom: 55px;
+}
+
+
 // Responsive layout
 // ------------------------------------------------------------------------- //
 
