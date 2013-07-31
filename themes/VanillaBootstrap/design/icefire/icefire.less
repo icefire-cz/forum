@@ -656,14 +656,17 @@ span.spoiler {
 }
 
 .ChildCategoryList {
+  margin-bottom: 20px;
+  margin-top: 0;
   .Item {
     padding: 0;
-  }
-  &:nth-child(2) {
-    border-top-width: 1px;
+    border-bottom: none;
   }
   .ItemContent {
-    padding: 8px 0;
+    padding: 0 8px;
+  }
+  .TitleWrap a {
+    font-size: 21px;
   }
 }
 
@@ -1224,6 +1227,7 @@ div.Popup {
 
 .row {
   margin-left: 0;
+  min-height: 1000px;
 }
 
 #content {
