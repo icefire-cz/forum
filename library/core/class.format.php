@@ -1016,6 +1016,7 @@ class Gdn_Format {
       if (!isset($Matches[4]) || $InTag || $InAnchor)
          return $Matches[0];
       $Url = $Matches[4];
+      // return $Url;
 
       if ((preg_match('`(?:https?|ftp)://(www\.)?youtube\.com\/watch\?(.*)?v=(?P<ID>[^&#]+)([^#]*)(?P<HasTime>#t=(?P<Time>[0-9]+))?`', $Url, $Matches)
          || preg_match('`(?:https?)://(www\.)?youtu\.be\/(?P<ID>[^&#]+)(?P<HasTime>#t=(?P<Time>[0-9]+))?`', $Url, $Matches))
