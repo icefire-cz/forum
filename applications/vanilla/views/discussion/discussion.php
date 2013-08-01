@@ -74,6 +74,7 @@ $this->FireEvent('BeforeDiscussionDisplay');
                   echo FormatBody($Discussion);
                ?>
             </div>
+            <?php $this->FireEvent('AfterDiscussionBody'); ?>
          </div>
       </div>
    </div>
