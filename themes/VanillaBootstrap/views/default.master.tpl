@@ -6,7 +6,6 @@
   <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
   {literal}
     <script type="text/javascript">$('html').hide();</script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
   {/literal}
 </head>
 <body id="{$BodyID}" class="{$BodyClass}">

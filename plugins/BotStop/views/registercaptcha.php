@@ -7,7 +7,7 @@
    $CaptchaPublicKey = Gdn::Config('Garden.Registration.CaptchaPublicKey');
    $Request = Gdn::Request();
    $CaptchaSSL = (StringBeginsWith(Url('/', TRUE), 'https') || Gdn::Request()->GetValueFrom(Gdn_Request::INPUT_SERVER, 'SERVER_PORT') == 443) ? TRUE : FALSE;
-   
+
    // Make sure to force this form to post to the correct place in case the view is
    // rendered within another view (ie. /dashboard/entry/index/):
    echo $this->Form->Open(array('Action' => Url('/entry/register'), 'id' => 'Form_User_Register'));
@@ -51,16 +51,15 @@
          echo $this->Form->Label("Security Check", '');
          echo recaptcha_get_html($CaptchaPublicKey, NULL, $CaptchaSSL);
       ?></li>
-			
+
 			<li>
          <?php
-            echo "<br><hr>".$this->Form->Label('Humanity Check...  Not bots allowed!', '');
-$q = C('Plugins.BotStop.Question');
+            $q = C('Plugins.BotStop.Question');
             echo $this->Form->Label($q, 'BotCheck');
-            echo $this->Form->TextBox('BotCheck');	  
-         ?>	
+            echo $this->Form->TextBox('BotCheck');
+         ?>
 			</li>
-					
+
       <li>
          <?php
             echo $this->Form->CheckBox('TermsOfService', $TermsOfServiceText, array('value' => '1'));

@@ -160,6 +160,7 @@ class QuotesPlugin extends Gdn_Plugin {
    protected function PrepareController($Sender) {
       //if (!$this->RenderQuotes) return;
       $Sender->AddJsFile('quotes.js', 'plugins/Quotes');
+      $Sender->AddJsFile('mention.js', 'plugins/Quotes');
    }
 
    /**
@@ -186,9 +187,12 @@ class QuotesPlugin extends Gdn_Plugin {
          return;
 
       $Reply = T('Reply'); // help capture translation.
+      $Author = $Sender->EventArguments['Author'];
 
       echo Wrap(Anchor('<i class="icon-quote-left"></i> '.T('Quote'), Url("post/quote/{$Object->DiscussionID}/{$ObjectID}", TRUE),
                 'ReactButton Quote Visible'), 'span', array('class' => 'MItem'));
+      echo Wrap('<a href="#" title="'.$Author->Name.'"><i class="icon-reply"></i> Zmínit</a>',
+                'span', array('class' => 'MItem realusername'));
    }
 
    public function DiscussionController_BeforeCommentDisplay_Handler($Sender) {
