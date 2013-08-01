@@ -37,6 +37,18 @@ hr {
   margin: 5px 0;
 }
 
+pre,
+code {
+  background-color: lighten(@spoilerColor, 5%);
+  border-radius: 0;
+  border: 1px solid @grayLight;
+  color: @gray;
+}
+
+pre {
+  padding: 10px 15px !important;
+}
+
 
 // Buttons, Inputs and Textareas
 // ------------------------------------------------------------------------- //
@@ -669,6 +681,7 @@ span.spoiler {
     font-size: 21px;
   }
 }
+
 
 // Leave a Comment
 // ------------------------------------------------------------------------- //
