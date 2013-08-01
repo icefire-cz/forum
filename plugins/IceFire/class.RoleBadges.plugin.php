@@ -19,39 +19,47 @@ class RoleBadgesPlugin extends Gdn_Plugin {
     }
 
     public function DiscussionController_CommentOptions_Handler($Sender) {
-        $this->attachBadge($Sender, 1);
+        $this->AddInfo($Sender);
     }
 
-    protected function attachBadge($Sender, $Comment) {
+    protected function AddInfo($Sender) {
         $User = $Sender->EventArguments['Author'];
         $UserPrefs = Gdn_Format::Unserialize($User->Preferences);
         if (!is_array($UserPrefs))
             $UserPrefs = array();
 
         $Books = GetValue('IceFire.Books', $UserPrefs, NULL);
+        $Words = GetValue('IceFire.Words', $UserPrefs, NULL);
+
+        if ($Words !== NULL && $Words != '') {
+            echo '<i class="separator"></i>';
+            echo '<span class="UserWords">';
+                echo $Words;
+            echo '</span>';
+        }
 
         if (!empty($Books)) {
             echo '<i class="separator"></i>';
-        }
-        echo '<span class="UserBooks">';
+            echo '<span class="UserBooks">';
 
-        for ($i = 1; $i <= 5; $i++) {
-            if ($Books[$i] == '1') {
-                if ($i == 1) {
-                    echo '<a href="/knihy/pisen-ledu-a-ohne/hra-o-truny/" rel="tooltip" title="Hra o trůny">';
-                } elseif ($i == 2) {
-                    echo '<a href="/knihy/pisen-ledu-a-ohne/stret-kralu/" rel="tooltip" title="Střet králů">';
-                } elseif ($i == 3) {
-                    echo '<a href="/knihy/pisen-ledu-a-ohne/boure-mecu/" rel="tooltip" title="Bouře mečů">';
-                } elseif ($i == 4) {
-                    echo '<a href="/knihy/pisen-ledu-a-ohne/hostina-pro-vrany/" rel="tooltip" title="Hostina pro vrány">';
-                } elseif ($i == 5) {
-                    echo '<a href="/knihy/pisen-ledu-a-ohne/tanec-s-draky/" rel="tooltip" title="Tanec s draky">';
+            for ($i = 1; $i <= 5; $i++) {
+                if ($Books[$i] == '1') {
+                    if ($i == 1) {
+                        echo '<a href="/knihy/pisen-ledu-a-ohne/hra-o-truny/" rel="tooltip" title="Hra o trůny">';
+                    } elseif ($i == 2) {
+                        echo '<a href="/knihy/pisen-ledu-a-ohne/stret-kralu/" rel="tooltip" title="Střet králů">';
+                    } elseif ($i == 3) {
+                        echo '<a href="/knihy/pisen-ledu-a-ohne/boure-mecu/" rel="tooltip" title="Bouře mečů">';
+                    } elseif ($i == 4) {
+                        echo '<a href="/knihy/pisen-ledu-a-ohne/hostina-pro-vrany/" rel="tooltip" title="Hostina pro vrány">';
+                    } elseif ($i == 5) {
+                        echo '<a href="/knihy/pisen-ledu-a-ohne/tanec-s-draky/" rel="tooltip" title="Tanec s draky">';
+                    }
+                    echo '<span class="Books Book'.$i.'"></span></a>';
                 }
-                echo '<span class="Books Book'.$i.'"></span></a>';
             }
+            echo '</span>';
         }
-        echo '</span>';
     }
 
     public function ProfileController_AfterAddSideMenu_Handler($Sender) {
@@ -98,13 +106,25 @@ class RoleBadgesPlugin extends Gdn_Plugin {
             $Sender->Form->SetValue('Book'.$i, $CheckBoxes[$i]);
         }
 
+        $TextBox = GetValue('IceFire.Words', $UserPrefs, '');
+        $Sender->Form->SetValue('Words', $TextBox);
+
         if ($Sender->Form->IsPostBack()) {
-            $Books = array();
-            for ($i = 1; $i <= 5; $i++) {
-                $Books[$i] = $Sender->Form->GetValue('Book'.$i, NULL);
+            $Words = $Sender->Form->GetValue('Words', NULL);
+            if (strlen($Words) > 30) {
+                $Sender->Form->AddError('Délka textu nesmí přesahovat 30 znaků.');
+            } else {
+                $Books = array();
+                for ($i = 1; $i <= 5; $i++) {
+                    $Books[$i] = $Sender->Form->GetValue('Book'.$i, NULL);
+                }
+
+                $Model = Gdn::UserModel();
+                $Model->SavePreference($UserID, 'IceFire.Books', $Books);
+                $Model->SavePreference($UserID, 'IceFire.Words', $Words);
+
+                $Sender->InformMessage(T("Your changes have been saved."));
             }
-            Gdn::UserModel()->SavePreference($UserID, 'IceFire.Books', $Books);
-            $Sender->InformMessage(T("Your changes have been saved."));
         }
 
         $Sender->Render('icefire','','plugins/IceFire');

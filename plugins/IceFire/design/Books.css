@@ -8,7 +8,13 @@
 }
 
 .UserBooks {
-    margin-left: 4px;
+    padding-left: 3px;
+}
+
+.UserWords {
+	padding: 0 4px;
+	font-size: 12px;
+	color: #555;
 }
 
 .Book1 {

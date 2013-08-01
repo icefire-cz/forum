@@ -313,7 +313,6 @@ jQuery(document).ready(function($) {
 
       PrepareHtml: function(ButtonBarObj, TextArea) {
          ButtonBar.DisableButton(ButtonBarObj, 'underline');
-         ButtonBar.DisableButton(ButtonBarObj, 'code');
 
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
@@ -323,7 +322,6 @@ jQuery(document).ready(function($) {
 
       PrepareMarkdown: function(ButtonBarObj, TextArea) {
          ButtonBar.DisableButton(ButtonBarObj, 'underline');
-         ButtonBar.DisableButton(ButtonBarObj, 'code');
 
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
