@@ -179,6 +179,16 @@ blockquote {
   }
 }
 
+.Form-Tags {
+  input[type="text"] {
+    border: none;
+    .box-shadow(none);
+  }
+  .token-input-list {
+    .box-sizing(border-box);
+  }
+}
+
 // Grouped Buttons
 // ------------------------------------------------------------------------- //
 
@@ -1221,13 +1231,6 @@ div.Popup {
 // Responsive layout
 // ------------------------------------------------------------------------- //
 
-#bootstrap-container {
-  margin-top: 110px;
-  box-shadow: 0px 0px 20px #333;
-  background: @backgroundColor url("@{imageDirectory}/bg-sidebar.jpg") repeat-y;
-  background-position: 790px 0;
-}
-
 .row,
 .container,
 .navbar .container {
@@ -1240,7 +1243,11 @@ div.Popup {
 
 .row {
   margin-left: 0;
-  min-height: 1000px;
+  margin-top: 110px;
+  min-height: 600px;
+  box-shadow: 0px 0px 20px #333;
+  background: @backgroundColor url("@{imageDirectory}/bg-sidebar.jpg") repeat-y;
+  background-position: 790px 0;
 }
 
 #content {
@@ -1254,7 +1261,7 @@ div.Popup {
 }
 
 @media screen and (max-width: 1240px) {
-  #bootstrap-container {
+  .row {
     background-position: 705px 0;
   }
   #content {
@@ -1271,7 +1278,7 @@ div.Popup {
 }
 
 @media screen and (max-width: 1140px) {
-  #bootstrap-container {
+  .row {
     background-position: 655px 0;
   }
   #content {
@@ -1288,7 +1295,7 @@ div.Popup {
 }
 
 @media screen and (max-width: 1020px) {
-  #bootstrap-container {
+  .row {
     background-image: none;
   }
   #panel,
@@ -1304,7 +1311,7 @@ div.Popup {
 }
 
 @media screen and (max-width: 820px) {
-  #bootstrap-container {
+  .row {
     background-image: none;
   }
   #panel,
