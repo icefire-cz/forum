@@ -2,6 +2,7 @@
 
 $Controller = Gdn::Controller();
 $Session = Gdn::Session();
+$CategoryID = isset($this->_Sender->CategoryID) ? $this->_Sender->CategoryID : '';
 $Title = property_exists($Controller, 'Category') ? GetValue('Name', $Controller->Category, '') : '';
 if ($Title == '')
    $Title = T('All Discussions');
@@ -44,7 +45,15 @@ if (C('Vanilla.Discussions.ShowCounts', TRUE)) {
          echo '<li class="'.$CssClass.'">'.Anchor(Sprite('SpAllCategories').' '.T('Categories'), '/categories').'</li> ';
 //      }
       ?>
-      <li class="Discussions<?php echo strtolower($Controller->ControllerName) == 'discussionscontroller' && strtolower($Controller->RequestMethod) == 'index' ? ' Active' : ''; ?>"><?php echo Gdn_Theme::Link('forumroot', Sprite('SpDiscussions').' '.T('Recent Discussions')); ?></li>
+      <?php
+      if ($CategoryID != 47) {
+         $Active = strtolower($Controller->ControllerName) == 'discussionscontroller' && strtolower($Controller->RequestMethod) == 'index' ? ' Active' : '';
+      } else {
+         $Active = '';
+      }
+      ?>
+      <li class="Discussions<?php echo $Active ?>"><?php echo Gdn_Theme::Link('forumroot', Sprite('SpDiscussions').' '.T('Recent Discussions')); ?></li>
+      <li class="Competitions<?php echo $CategoryID == 47 ? ' Active' : '' ?>"><?php echo Anchor('Povídky', '/categories/povidky'); ?></li>
       <?php echo Gdn_Theme::Link('activity', Sprite('SpActivity').' '.T('Activity'), '<li class="Activities"><a href="%url" class="%class">%text</a></li>'); ?>
       <?php if ($CountBookmarks > 0 || $Controller->RequestMethod == 'bookmarked') { ?>
       <li class="MyBookmarks<?php echo $Controller->RequestMethod == 'bookmarked' ? ' Active' : ''; ?>"><?php echo Anchor(Sprite('SpBookmarks').' '.$Bookmarked, '/discussions/bookmarked'); ?></li>
