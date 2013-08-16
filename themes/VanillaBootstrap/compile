@@ -1,9 +1,0 @@
-#!/bin/bash
-
-lessc design/app.less > temp.css
-java -jar yui.jar temp.css -o design/custom.css
-rm -f temp.css
-
-cat js/app.js js/modules/* > temp.js
-java -jar yui.jar temp.js -o js/custom.js
-rm -f temp.js
