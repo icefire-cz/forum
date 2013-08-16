@@ -1,3 +1,5 @@
+.PHONY: design/custom.css js/custom.js
+
 all: css js
 
 css: design/custom.css
