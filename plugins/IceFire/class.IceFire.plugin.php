@@ -2,14 +2,15 @@
 
 $PluginInfo['IceFire'] = array(
     'Name' => 'IceFire',
-    'Description' => "Implements extra settings for a czech fan site <a href=\"www.icefire.cz\">www.icefire.cz</a>.",
+    'Description' => "Implements extra settings for a czech fan site <a href=\"www.icefire.cz\">www.icefire.cz</a>. Based on RoleBadges plugin by Thomas Martin.",
     'Version' => '0.1',
     'RequiredApplications' => array('Vanilla' => '2.0.17'),
     'RequiredTheme' => FALSE,
     'RequiredPlugins' => FALSE,
     'HasLocale' => FALSE,
     'RegisterPermissions' => FALSE,
-    'Author' => "Thomas Martin, paulcz"
+    'Author' => 'Thomas Martin, PavelDedik',
+    'AuthorEmail' => 'dedikx@gmail.com'
 );
 
 class IceFirePlugin extends Gdn_Plugin {
