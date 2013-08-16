@@ -45,7 +45,7 @@ __When you update your IceFireBootstrap theme, make sure to backup your custom t
 You will need [LESS compiler](http://lesscss.org/) and [JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html) in order to run the YUI compressor for minification. If you have npm package manager already installed, LESS compiler can be installed running this command:
 
 ```bash
-# npm install -g less
+$ npm install -g less
 ```
 
 To compile the LESS and javascript resources use the following command:
