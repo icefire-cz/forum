@@ -12,7 +12,7 @@ $PluginInfo['IceFire'] = array(
     'Author' => "Thomas Martin, paulcz"
 );
 
-class RoleBadgesPlugin extends Gdn_Plugin {
+class IceFirePlugin extends Gdn_Plugin {
 
     public function Base_Render_Before($Sender) {
         $Sender->AddCssFile($this->GetResource( 'design/Books.css', FALSE, FALSE ));
