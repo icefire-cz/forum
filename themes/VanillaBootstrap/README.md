@@ -1,30 +1,27 @@
 IceFireBootstrap
 ================
 
-IceFire theme based on Bootstrap from Twitter and VanillaBoostrap.
+IceFire theme based on Bootstrap from Twitter and VanillaBoostrap by Kasper Isager.
 
 Table of contents
 -----------------
 
-1. [About](#about)
-2. [Installation](#installation)
-3. [Customization](#customization)
-	1. [Prerequisites](#prerequisites)
-	2. [Themes](#themes)
-	3. [Compilation](#compilation)
+1. [Prerequisites](#prerequisites)
+2. [Themes](#themes)
+3. [Compilation](#compilation)
 
 Customization
 -------------
 
-Customizing VanillaBootstrap whilst still maintaining the ability to easily update it, is dead easy! There's some things you'll need to know beforehand though, if you wish to master the art of customization.
+Customizing IceFireBootstrap whilst still maintaining the ability to easily update it, is dead easy! There's some things you'll need to know beforehand though, if you wish to master the art of customization.
 
 #### Prerequisites
 
-VanillaBootstrap is built on LESS all the way through. If you don't like LESS, don't worry! You don't have to use it. You can still write plain CSS instead of LESS, but you _will_ have to use the .less file extension. If you don't already know what LESS is all about, I suggest you go read about it here: http://lesscss.org/
+IceFireBootstrap is built on LESS all the way through. If you don't like LESS, don't worry! You don't have to use it. You can still write plain CSS instead of LESS, but you _will_ have to use the .less file extension. If you don't already know what LESS is all about, I suggest you go read about it here: http://lesscss.org/
 
 Before we go any further, there's one important rule you'll have to remember: __*Never* alter the core files unless specifically instructed to__.
 
-Now to some technical stuff: Compiling the LESS files! Don't worry, you actually won't have to do a thing - VanillaBootstrap uses the lessphp compiler by leafo to automatically compile, compress and cache the most important file of all: `main.less`.
+Now to some technical stuff: Compiling the LESS files! Don't worry, you actually won't have to do a thing - IceFireBootstrap uses the lessphp compiler by leafo to automatically compile, compress and cache the most important file of all: `main.less`.
 This file imports _all other_ LESS files used by the theme, so if you make a change in _any_ of the active LESS files, the compiler automatically does its magic on your next visit to your site. Here's perhaps the most important fact about the compiler: Its output file is custom.css __so don't ever, *never* alter custom.css__. If you do so, anything you put in it will be overridden by the compiler.
 
 #### Themes
@@ -37,11 +34,11 @@ A theme is a file that contains all of Bootstraps variables but with your defini
 
     @linkColor: your-color;
 
-This way you can change all of the colors and fonts in VanillaBootstrap by simply redefining a couple of variables. Easy huh? And if you want to do some more advanced stuff, you're free to do so too!
+This way you can change all of the colors and fonts in IceFireBootstrap by simply redefining a couple of variables. Easy huh? And if you want to do some more advanced stuff, you're free to do so too!
 
-I guess you'll want to start doing some customizations now - go to the `themes` folder found in the main VanillaBootstrap directory and locate the file `template.less`. This is the basic template that you'll need to copy to start your own VanillaBootstrap theme. You can find more instructions in this file too.
+I guess you'll want to start doing some customizations now - go to the `themes` folder found in the main IceFireBootstrap directory and locate the file `template.less`. This is the basic template that you'll need to copy to start your own IceFireBootstrap theme. You can find more instructions in this file too.
 
-__When you update your VanillaBootstrap theme, make sure to backup your custom theme so you don't accidentally override it.__
+__When you update your IceFireBootstrap theme, make sure to backup your custom theme so you don't accidentally override it.__
 
 #### Compilation
 

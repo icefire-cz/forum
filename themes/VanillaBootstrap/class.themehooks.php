@@ -1,6 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-class VanillaBootstrapThemeHooks implements Gdn_IPlugin {
+class IceFireBootstrapThemeHooks implements Gdn_IPlugin {
 
 	public function Setup() {
 		return TRUE;

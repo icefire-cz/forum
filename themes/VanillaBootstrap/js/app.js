@@ -1,4 +1,4 @@
-// Javascript for the VanillaBootstrap theme by Kasper Kronborg Isager
+// Javascript for the IceFireBootstrap theme.
 // Requires jQuery > v1.7.2 in order to function properly
 
 jQuery(document).ready(function() {
