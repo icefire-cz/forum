@@ -638,7 +638,7 @@ class DiscussionController extends VanillaController {
             $DefaultTarget = DiscussionUrl($Discussion);
 
             // Make sure comment is this user's or they have Delete permission
-            if ($Comment->InsertUserID != $Session->UserID)
+            if ($Comment->InsertUserID != $Session->UserID || !C('Vanilla.Comments.AllowSelfDelete'))
                $this->Permission('Vanilla.Comments.Delete', TRUE, 'Category', $Discussion->PermissionCategoryID);
 
             // Make sure that content can (still) be edited
@@ -693,8 +693,8 @@ body { background: transparent !important; }
       $Session = Gdn::Session();
       $this->AddJsFile('jquery.gardenmorepager.js');
       $this->AddJsFile('jquery.autogrow.js');
-      $this->AddJsFile('discussion.js');
       $this->RemoveJsFile('autosave.js');
+      $this->AddJsFile('discussion.js');
       $this->MasterView = 'empty';
 
       // Define incoming variables (prefer querystring parameters over method parameters)

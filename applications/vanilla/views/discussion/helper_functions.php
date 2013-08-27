@@ -322,6 +322,7 @@ function GetCommentOptions($Comment) {
 		$TimeLeft = strtotime($Comment->DateInserted) + $EditContentTimeout - time();
 		$TimeLeft = $TimeLeft > 0 ? ' ('.Gdn_Format::Seconds($TimeLeft).')' : '';
 	}
+
    // DEPRECATED (as of 2.1)
    $Sender->EventArguments['Type'] = 'Comment';
 
