@@ -3,7 +3,8 @@
 <head>
   {asset name='Head'}
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash&subset=latin,latin-ext'
+        rel='stylesheet' type='text/css'>
   {literal}
     <script type="text/javascript">$('html').hide();</script>
   {/literal}
