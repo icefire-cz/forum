@@ -439,12 +439,13 @@ function WriteEmbedCommentForm() {
       <div class="Note Closed"><?php echo T('This discussion has been closed.'); ?></div>
    </div>
    <?php } else { ?>
-   <h2><?php echo T('Leave a comment'); ?></h2>
+   <h3><?php echo T('Leave a comment'); ?></h3>
    <div class="MessageForm CommentForm EmbedCommentForm">
       <?php
       echo $Controller->Form->Open(array('id' => 'Form_Comment'));
       echo $Controller->Form->Errors();
       echo $Controller->Form->Hidden('Name');
+      $Controller->FireEvent('BeforeBodyField');
       echo Wrap($Controller->Form->TextBox('Body', array('MultiLine' => TRUE)), 'div', array('class' => 'TextBoxWrapper'));
       echo "<div class=\"Buttons\">\n";
 
