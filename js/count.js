@@ -1,7 +1,7 @@
 (function () {
    var span_identifiers = vanilla_collect_identifiers('span'),
       a_identifiers = vanilla_collect_identifiers('a');
-      
+
    var identifiers = span_identifiers.concat(a_identifiers);
    if (identifiers.length > 0) {
       // Grab the comment counts
@@ -39,13 +39,13 @@ function vanilla_assign_comment_counts(data) {
 
 function vanilla_assign_comment_counts_by_tag(data, tagName) {
    if (typeof vanilla_comments_none =="undefined")
-      vanilla_comments_none = 'No Comments';
+      vanilla_comments_none = '0';
 
    if (typeof vanilla_comments_singular =="undefined")
-      vanilla_comments_singular = '1 Comment';
+      vanilla_comments_singular = '1';
 
    if (typeof vanilla_comments_plural =="undefined")
-      vanilla_comments_plural = '{num} Comments';
+      vanilla_comments_plural = '{num}';
 
    var tags = document.getElementsByTagName(tagName);
    for (i = 0; i < tags.length; i++) {
@@ -55,13 +55,13 @@ function vanilla_assign_comment_counts_by_tag(data, tagName) {
             var count = data.CountData[tags[i].attributes[j].value.toString()];
             if (typeof(count) == "undefined")
                count = 0;
-               
+
             if (count == 0)
                tags[i].innerHTML = vanilla_comments_none.replace('{num}', count).replace('[num]', count);
             else {
                tags[i].innerHTML = ((count == 1) ? vanilla_comments_singular.replace('{num}', count).replace('[num]', count) : vanilla_comments_plural.replace('{num}', count).replace('[num]', count));
             }
-               
+
             // Add our hashtag to the href so we jump to comments
             var anchorNode = tagName == 'a' ? tags[i] : tags[i].parentNode;
             if (anchorNode.href) {
