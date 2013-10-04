@@ -100,7 +100,6 @@ function Gdn_FirstLastNames() {
    };
 
    Gdn_FirstLastNames.prototype.Mention = function(RealUsernameLink) {
-      console.log(RealUsernameLink);
       this.InsertMention(RealUsernameLink.attr('title'));
 
       switch (this.InsertMode) {
@@ -115,6 +114,7 @@ function Gdn_FirstLastNames() {
       }
 
       $('html,body').animate({scrollTop: ScrollY}, 800);
+      moveCursorToEnd($('textarea.TextBox'))
    };
 
    Gdn_FirstLastNames.prototype.InsertMention = function(Text) {
@@ -139,3 +139,9 @@ jQuery(document).ready(function(){
    GdnFirstLastNames = new Gdn_FirstLastNames();
    GdnFirstLastNames.Prepare();
 });
+
+function moveCursorToEnd(input) {
+    var originalValue = input.val();
+    input.val('');
+    input.blur().focus().val(originalValue);
+}
