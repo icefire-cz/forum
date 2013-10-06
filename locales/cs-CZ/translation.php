@@ -271,6 +271,7 @@ $Definition['Edit My Thumbnail'] = 'Upravit náhled';
 $Definition['Edit Profile'] = 'Upravit profil';
 $Definition['Edit Tag'] = 'Upravit štítek';
 $Definition['Edit Thumbnail'] = 'Upravit náhled';
+$Definition['edited %s'] = 'upraveno %s';
 $Definition['Eighth Anniversary'] = 'Osmé výročí';
 $Definition['Email'] = 'E-mail';
 $Definition['Email Notifications'] = 'Upozornění e-mailem';
