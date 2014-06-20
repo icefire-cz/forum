@@ -107,9 +107,6 @@
               <a href="/komunita/nocni-hlidka-komunita-ice-fire/">Rozcestník</a>
             </li>
             <li><hr></li>
-            <li class="menu-povidky">
-              <a href="/komunita/povidky/">Povídky</a>
-            </li>
             <li class="menu-deskove-hry">
               <a href="/komunita/deskove-hry/">Deskové hry</a>
             </li>
@@ -149,8 +146,10 @@
       {asset name="Content"}
     </div>
     <div class="span4" id="panel">
-      {module name="MeModule"}
-      {asset name="Panel"}
+      <div>
+        {module name="MeModule"}
+        {asset name="Panel"}
+      </div>
     </div>
   </div>
 </div>

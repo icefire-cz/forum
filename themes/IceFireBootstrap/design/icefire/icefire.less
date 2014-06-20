@@ -98,11 +98,6 @@ pre {
 // Basic
 // ------------------------------------------------------------------------- //
 
-.btn {
-  text-shadow: none;
-  .box-shadow(none);
-}
-
 .BigButton.btn {
   display: block;
   padding: 10px 14px;
@@ -723,6 +718,11 @@ span.spoiler {
   .FormWrapper {
     padding: 0 0 0 50px;
     background: transparent;
+  }
+  .WriteButton,
+  .PreviewButton,
+  .DraftButton {
+    margin-left: 0;
   }
 }
 
@@ -1444,3 +1444,11 @@ body.embed {
 @media (max-width: 480px) and (max-height: 300px){.modal{ height: 250px}}
 @media (max-width: 480px) and (max-height: 250px){.modal{ height: 200px}}
 @media (max-width: 480px) and (max-height: 200px){.modal{ height: 150px}}
+
+
+// Other
+// ------------------------------------------------------------------------- //
+
+.Hidden {
+  display: none;
+}
