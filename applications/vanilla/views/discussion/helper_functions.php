@@ -154,7 +154,7 @@ function WriteReactions($Row, $Type = 'Comment') {
    Gdn::Controller()->EventArguments['RecordID'] = $RecordID;
    $Session = Gdn::Session();
 
-   echo '<div class="Reactions">';
+   echo '<div class="Reactions Vole">';
    echo '<div class="pull-right">';
       Gdn_Theme::BulletRow();
       // Can the user delete the comment?
@@ -169,7 +169,7 @@ function WriteReactions($Row, $Type = 'Comment') {
          $Url = '/vanilla/post/editcomment/'.$Row->CommentID;
          echo Wrap(Anchor($Name, $Url, 'EditComment'), 'span', array('class' => 'MItem Blink'));
       }
-      //WriteCommentOptions($Row);
+      // WriteCommentOptions($Row);
       Gdn::Controller()->FireEvent('AfterFlag');
       Gdn::Controller()->FireEvent('AfterReactions');
    echo '</div>';
