@@ -53,7 +53,7 @@ v1.1.1 28SEPT2011 - Linc
 $PluginInfo['cleditor'] = array(
    'Name' => 'WYSIWYG (CLEditor)',
    'Description' => 'Adds a <a href="http://en.wikipedia.org/wiki/WYSIWYG">WYSIWYG</a> editor to your forum so that your users can enter rich text comments.',
-   'Version' => '1.2.7',
+   'Version' => '1.3.1',
    'Author' => "Mirabilia Media",
    'AuthorEmail' => 'info@mirabiliamedia.com',
    'AuthorUrl' => 'http://mirabiliamedia.com',
@@ -105,6 +105,10 @@ class cleditorPlugin extends Gdn_Plugin {
       }
       $Sender->SetValue('Format', 'Wysiwyg');
    }
+   
+   public function AddClEditor() {
+      $this->_AddCLEditor(Gdn::Controller());
+   }
 	
 	private function _AddCLEditor($Sender, $Column = 'Body') {
       static $Added = FALSE;
@@ -133,14 +137,14 @@ a.PreviewButton {
 		// Make sure the removal of autogrow does not break anything
 		$.fn.autogrow = function(o) { return; }
 		// Attach the editor to comment boxes.
-		$("#Form_$Column").livequery(function() {
+		$("textarea.BodyBox").livequery(function() {
 			var frm = $(this).closest("form");
 			ed = jQuery(this).cleditor({
             width:"100%", height:"100%",
             controls: "bold italic strikethrough | font size " +
                     "style | color highlight removeformat | bullets numbering | outdent indent | " +
                     "alignleft center alignright | undo redo | " +
-                    "image link unlink | source fullscreen",
+                    "image link unlink | pastetext source",
             docType: '<!DOCTYPE html>',
             docCSSFile: "$CssPath"
          })[0];
@@ -155,6 +159,12 @@ a.PreviewButton {
 EOT
 );
       $Added = TRUE;
+   }
+   
+   public function PostController_Quote_Before($Sender, $Args) {
+      // Make sure quotes know that we are hijacking the format to wysiwyg.
+      if (!C('Garden.ForceInputFormatter'))
+         SaveToConfig('Garden.InputFormatter', 'Wysiwyg', FALSE);
    }
 
 	public function Setup() {

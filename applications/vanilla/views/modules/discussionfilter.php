@@ -37,13 +37,14 @@ if (C('Vanilla.Discussions.ShowCounts', TRUE)) {
       <?php
       $Controller->FireEvent('BeforeDiscussionFilters');
 //      if (C('Vanilla.Categories.ShowTabs')) {
+      if (C('Vanilla.Categories.Use')) {
          $CssClass = 'AllCategories';
          if (strtolower($Controller->ControllerName) == 'categoriescontroller' && in_array(strtolower($Controller->RequestMethod), array('index', 'all'))) {
             $CssClass .= ' Active';
          }
 
          echo '<li class="'.$CssClass.'">'.Anchor(Sprite('SpAllCategories').' '.T('Categories'), '/categories').'</li> ';
-//      }
+      }
       ?>
       <?php
       if ($CategoryID != 47) {

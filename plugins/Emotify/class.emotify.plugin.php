@@ -21,8 +21,6 @@ $PluginInfo['Emotify'] = array(
  * Note: Added jquery events required for proper display/hiding of emoticons
  * as write & preview buttons are clicked on forms in Vanilla 2.0.14. These
  * are necessary in order for this plugin to work properly.
- *
- * 2.0.5 - Adds html_entity_decode to DoEmoticons so html entities stop breaking. -LR
  */
 
 class EmotifyPlugin implements Gdn_IPlugin {
@@ -128,7 +126,7 @@ class EmotifyPlugin implements Gdn_IPlugin {
 	 * Thanks to punbb 1.3.5 (GPL License) for this function - ported from their do_smilies function.
 	 */
 	public static function DoEmoticons($Text) {
-		$Text = ' '.html_entity_decode($Text).' ';
+		$Text = ' '.$Text.' ';
 		$Emoticons = EmotifyPlugin::GetEmoticons();
 		foreach ($Emoticons as $Key => $Replacement) {
 			if (strpos($Text, $Key) !== FALSE)

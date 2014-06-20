@@ -78,12 +78,12 @@ $Construct
    ->Column('DateOfBirth', 'datetime', TRUE)
    ->Column('DateFirstVisit', 'datetime', TRUE)
    ->Column('DateLastActive', 'datetime', TRUE, 'index')
-   ->Column('LastIPAddress', 'varchar(40)', TRUE)
+   ->Column('LastIPAddress', 'varchar(39)', TRUE)
    ->Column('AllIPAddresses', 'varchar(100)', TRUE)
    ->Column('DateInserted', 'datetime', FALSE, 'index')
-   ->Column('InsertIPAddress', 'varchar(40)', TRUE)
+   ->Column('InsertIPAddress', 'varchar(39)', TRUE)
    ->Column('DateUpdated', 'datetime', TRUE)
-   ->Column('UpdateIPAddress', 'varchar(40)', TRUE)
+   ->Column('UpdateIPAddress', 'varchar(39)', TRUE)
    ->Column('HourOffset', 'int', '0')
 	->Column('Score', 'float', NULL)
    ->Column('Admin', 'tinyint(1)', '0')
@@ -234,8 +234,9 @@ $PermissionModel->Define(array(
    'Garden.Activity.View' => 1,
    'Garden.Profiles.View' => 1,
    'Garden.Profiles.Edit' => 'Garden.SignIn.Allow',
+   'Garden.Moderation.Manage' => 0,
    'Garden.Curation.Manage' => 'Garden.Moderation.Manage',
-   'Garden.Moderation.Manage',
+   'Garden.PersonalInfo.View' => 'Garden.Moderation.Manage',
    'Garden.AdvancedNotifications.Allow'
    ));
 
@@ -389,7 +390,7 @@ $Construct
 //   ->Column('CountComments', 'int', '0')
    ->Column('InsertUserID', 'int', TRUE, 'key')
    ->Column('DateInserted', 'datetime')
-   ->Column('InsertIPAddress', 'varchar(40)', TRUE)
+   ->Column('InsertIPAddress', 'varchar(39)', TRUE)
    ->Column('DateUpdated', 'datetime', !$DateUpdatedExists, array('index', 'index.Recent', 'index.Feed'))
    ->Column('Notified', 'tinyint(1)', 0, 'index.Notify')
    ->Column('Emailed', 'tinyint(1)', 0)
@@ -450,7 +451,7 @@ $Construct
    ->Column('Format', 'varchar(20)')
    ->Column('InsertUserID', 'int')
    ->Column('DateInserted', 'datetime')
-   ->Column('InsertIPAddress', 'varchar(40)', TRUE)
+   ->Column('InsertIPAddress', 'varchar(39)', TRUE)
    ->Set($Explicit, $Drop);
 
 // Move activity comments to the activity comment table.
@@ -602,10 +603,10 @@ $Construct->Table('Log')
    ->Column('RecordID', 'int', NULL, 'index')
    ->Column('RecordUserID', 'int', NULL) // user responsible for the record
    ->Column('RecordDate', 'datetime')
-   ->Column('RecordIPAddress', 'varchar(40)', NULL, 'index')
+   ->Column('RecordIPAddress', 'varchar(39)', NULL, 'index')
    ->Column('InsertUserID', 'int') // user that put record in the log
    ->Column('DateInserted', 'datetime') // date item added to log
-   ->Column('InsertIPAddress', 'varchar(40)', NULL)
+   ->Column('InsertIPAddress', 'varchar(39)', NULL)
    ->Column('OtherUserIDs', 'varchar(255)', NULL)
    ->Column('DateUpdated', 'datetime', NULL)
    ->Column('ParentRecordID', 'int', NULL, 'index')
@@ -693,6 +694,10 @@ $Construct
    ->Column('OldUserID', 'int')
    ->Column('NewUserID', 'int')
    ->Set();
+
+// Save the current input formatter to the user's config.
+// This will allow us to change the default later and grandfather existing forums in.
+SaveToConfig('Garden.InputFormatter', C('Garden.InputFormatter'));
 
 // Make sure the smarty folders exist.
 if (!file_exists(PATH_CACHE.'/Smarty')) @mkdir(PATH_CACHE.'/Smarty');
