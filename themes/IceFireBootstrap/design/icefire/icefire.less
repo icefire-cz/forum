@@ -390,7 +390,7 @@ footer.footer {
 
 .ItemDiscussion {
   background: transparent !important;
-  padding: 8px 0 8px;
+  padding: 8px;
   margin: 0;
   .Message {
     font-size: 100%;
@@ -512,6 +512,16 @@ h2.CommentHeading {
         height: 1px;
       }
     }
+    &:first-child {
+      padding-left: 14px;
+    }
+    &:last-child {
+      padding-right: 8px;
+    }
+    &.CheckBoxColumn {
+      padding-right: 0;
+      padding-left: 4px;
+    }
   }
   &.CategoryTable tbody td {
     vertical-align: middle;
@@ -527,6 +537,9 @@ h2.CommentHeading {
     .UserLink.BlockTitle {
       font-weight: normal;
     }
+  }
+  .BlockColumn-User {
+    width: 17%;
   }
 }
 
