@@ -66,7 +66,6 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 
 			echo Anchor($DiscussionName, $DiscussionUrl, 'Title').' ';
 			$Sender->FireEvent('AfterDiscussionTitle');
-         WriteMiniPager($Discussion);
 
          echo '<div class="Meta Meta-Discussion">';
          WriteTags($Discussion);
@@ -74,6 +73,7 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
          if ($Sender->Data('_ShowCategoryLink', TRUE))
             echo CategoryLink($Discussion, '');
          echo ' <span class="MItem LastCommentDate">'.Gdn_Format::Date($Discussion->LastDate, 'html').'</span>';
+         WriteMiniPager($Discussion);
          echo '</div>';
 			?>
 		</div>
