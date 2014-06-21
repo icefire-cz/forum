@@ -149,6 +149,26 @@
       <div>
         {module name="MeModule"}
         {asset name="Panel"}
+        <div class="Box">
+          <h4>Sociální Sítě</h4>
+          <div class="socsite text-center">
+            <a href="http://www.youtube.com/icefirecz">
+              <span class="icon-youtube-sign icon-3x" title="YouTube"></span>
+            </a>
+            <a href="http://www.pinterest.com/icefirecz/">
+              <span class="icon-pinterest-sign icon-3x" title="Pinterest"></span>
+            </a>
+            <a href="http://www.icefire.cz/feed/">
+              <span class="icon-rss-sign icon-3x" title="RSS"></span>
+            </a>
+            <a href="http://www.twitter.com/icefirecz">
+              <span class="icon-twitter-sign icon-3x" title="Twitter"></span>
+            </a>
+            <a href="http://plus.google.com/106413913643255962911/">
+              <span class="icon-google-plus-sign icon-3x" title="Twitter"></span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
