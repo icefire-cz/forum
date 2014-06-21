@@ -216,9 +216,9 @@ function WriteTableHead() {
    ?>
    <tr>
       <td class="CategoryName"><div class="Wrap"><?php echo CategoryHeading(); ?></div></td>
-      <td class="BlockColumn LatestPost"><div class="Wrap"><?php echo T('Latest Post'); ?></div></td>
       <td class="BigCount CountDiscussions"><div class="Wrap"><?php echo T('Discussions'); ?></div></td>
       <td class="BigCount CountComments"><div class="Wrap"><?php echo T('Comments'); ?></div></td>
+      <td class="BlockColumn LatestPost"><div class="Wrap"><?php echo T('Latest Post'); ?></div></td>
    </tr>
    <?php
 }
@@ -260,16 +260,6 @@ function WriteTableRow($Row, $Depth = 1) {
             <?php endif; ?>
          </div>
       </td>
-      <td class="BlockColumn LatestPost">
-         <div class="Wrap">
-            <?php if ($Row['LastTitle']): ?>
-            <?php
-            echo UserPhoto($Row, array('Size' => 'Small', 'Px' => 'Last'));
-               ?>
-            </div>
-            <?php endif; ?>
-         </div>
-      </td>
       <td class="BigCount CountDiscussions">
          <div class="Wrap">
             <?php
@@ -282,6 +272,16 @@ function WriteTableRow($Row, $Depth = 1) {
             <?php
             echo BigPlural($Row['CountAllComments'], '%s comment');
             ?>
+         </div>
+      </td>
+      <td class="BlockColumn LatestPost">
+         <div class="Wrap">
+            <?php if ($Row['LastTitle']): ?>
+            <?php
+            echo UserPhoto($Row, array('Size' => 'Small', 'Px' => 'Last'));
+               ?>
+            </div>
+            <?php endif; ?>
          </div>
       </td>
    </tr>

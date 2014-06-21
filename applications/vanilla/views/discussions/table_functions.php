@@ -7,9 +7,9 @@ if (!function_exists('WriteDiscussionHeading')):
    <tr>
       <?php echo AdminCheck(NULL, array('<td class="CheckBoxColumn"><div class="Wrap">', '</div></td>')); ?>
       <td class="DiscussionName"><div class="Wrap"><?php echo DiscussionHeading() ?></div></td>
-      <td class="BlockColumn BlockColumn-User LastUser"><div class="Wrap"><?php echo T('Most Recent Comment', 'Most Recent'); ?></div></td>
       <td class="BigCount CountReplies"><div class="Wrap"><?php echo T('Replies'); ?></div></td>
       <td class="BigCount CountView"><div class="Wrap"><?php echo T('Views'); ?></div></td>
+      <td class="BlockColumn BlockColumn-User LastUser"><div class="Wrap"><?php echo T('Most Recent Comment', 'Most Recent'); ?></div></td>
    </tr>
    <?php
    }
@@ -78,17 +78,6 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
 			?>
 		</div>
 	</td>
-   <td class="BlockColumn BlockColumn-User LastUser">
-      <div class="Wrap">
-         <?php
-         if ($Last) {
-            echo UserPhoto($Last, array('Size' => 'Small'));
-         } else {
-            echo '&nbsp;';
-         }
-         ?>
-      </div>
-   </td>
 	<td class="BigCount CountComments">
       <div class="Wrap">
          <?php
@@ -111,6 +100,21 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
          ?>
       </div>
 	</td>
+   <td class="BlockColumn BlockColumn-User LastUser">
+      <div class="Block Wrap">
+         <?php
+         if ($Last) {
+            echo UserPhoto($Last, array('Size' => 'Small'));
+            echo UserAnchor($Last, 'UserLink BlockTitle');
+            echo '<div class="Meta">';
+            echo Anchor(Gdn_Format::Date($Discussion->LastDate, 'html'), $LastPageUrl, 'CommentDate MItem');
+            echo '</div>';
+         } else {
+            echo '&nbsp;';
+         }
+         ?>
+      </div>
+   </td>
 </tr>
 <?php
 }

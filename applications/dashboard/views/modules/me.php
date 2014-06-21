@@ -40,7 +40,7 @@ if ($Session->IsValid()):
             $CountInbox = GetValue('CountUnreadConversations', Gdn::Session()->User);
             $CInbox = is_numeric($CountInbox) && $CountInbox > 0 ? ' <span class="Alert">'.$CountInbox.'</span>' : '';
             echo '<span class="ToggleFlyout" rel="/messages/popin">';
-            echo Anchor(Sprite('SpInbox', 'icon-inbox').Wrap(T('Inbox'), 'em').$CInbox, '/messages/all', 'MeButton FlyoutButton', array('title' => T('Inbox')));
+            echo Anchor(Sprite('SpInbox', 'icon-envelope').Wrap(T('Inbox'), 'em').$CInbox, '/messages/all', 'MeButton FlyoutButton', array('title' => T('Inbox')));
             echo Sprite('SpFlyoutHandle', 'Arrow');
             echo '<div class="Flyout FlyoutMenu"></div></span>';
          }
