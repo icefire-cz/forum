@@ -2,9 +2,6 @@
    /* color: black; */
    font-size: 11px;
 }
-#DiscussionForm .ButtonBar {
-   margin-bottom: -6px;
-}
 #DiscussionForm .ButtonBarMarkupHint {
    margin-top: -6px;
 }
@@ -24,7 +21,7 @@
    z-index: 50;
    display: inline-block;
 }
-/** This causes clearing problems when the panel is taller than the content 
+/** This causes clearing problems when the panel is taller than the content
 #DiscussionForm .TextBoxWrapper,
 .CommentForm .TextBoxWrapper {
    clear: left;
