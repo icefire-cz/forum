@@ -150,7 +150,7 @@
         {module name="MeModule"}
         {asset name="Panel"}
         <div class="Box">
-          <h4>Sociální Sítě</h4>
+          <h4>Sociální sítě</h4>
           <div class="socsite text-center">
             <a href="http://www.youtube.com/icefirecz">
               <span class="icon-youtube-sign icon-3x" title="YouTube"></span>
