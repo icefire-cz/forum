@@ -313,8 +313,6 @@ jQuery(document).ready(function($) {
       },
 
       PrepareHtml: function(ButtonBarObj, TextArea) {
-         ButtonBar.DisableButton(ButtonBarObj, 'spoiler');
-
          var HelpText = gdn.definition('ButtonBarHtmlHelpText', 'ButtonBar.HtmlHelp');
          $("<div></div>")
             .addClass('ButtonBarMarkupHint')
@@ -324,7 +322,6 @@ jQuery(document).ready(function($) {
 
       PrepareMarkdown: function(ButtonBarObj, TextArea) {
          ButtonBar.DisableButton(ButtonBarObj, 'underline');
-         ButtonBar.DisableButton(ButtonBarObj, 'spoiler');
 
          var HelpText = gdn.definition('ButtonBarMarkdownHelpText', 'ButtonBar.MarkdownHelp');
          $("<div></div>")
@@ -617,11 +614,6 @@ jQuery(document).ready(function($) {
                   closer:''
                });
                $(TextArea).insertRoundTag('',thisOpts);
-               break;
-
-            case 'spoiler':
-               // DISABLED
-               return;
                break;
 
             case 'url':
