@@ -276,8 +276,8 @@ class SettingsController extends DashboardController {
     * @param int $ID Ban ID we're editing or deleting.
     */
    public function Bans($Action = '', $Search = '', $Page = '', $ID = '') {
-      $this->Permission('Garden.Moderation.Manage');
-      
+      $this->Permission('Garden.Settings.Manage');
+
       // Page setup
       $this->AddSideMenu();
       $this->Title(T('Banning Options'));
@@ -294,11 +294,13 @@ class SettingsController extends DashboardController {
             $this->Form->SetModel($BanModel);
 
             if ($this->Form->AuthenticatedPostBack()) {
-               if ($ID)
+               if ($ID) {
                   $this->Form->SetFormValue('BanID', $ID);
+               }
+
                try {
                   // Save the ban.
-                  $this->Form->Save();
+                  $NewID = $this->Form->Save();
                } catch (Exception $Ex) {
                   $this->Form->AddError($Ex);
                }
@@ -592,7 +594,7 @@ class SettingsController extends DashboardController {
             
             // Set default locale field if just doing enable/disable
             $this->Form->SetValue('Locale', C('Garden.Locale', 'en-CA'));
-         } elseif ($this->Form->IsPostBack()) {
+         } elseif ($this->Form->AuthenticatedPostBack()) {
             // Save the default locale.
             SaveToConfig('Garden.Locale', $this->Form->GetFormValue('Locale'));
             $Refresh = TRUE;
@@ -913,7 +915,7 @@ class SettingsController extends DashboardController {
          $ThemeManager = new Gdn_ThemeManager();
          $this->SetData('ThemeInfo', $ThemeManager->EnabledThemeInfo());
 
-         if ($this->Form->IsPostBack()) {
+         if ($this->Form->AuthenticatedPostBack()) {
             // Save the styles to the config.
             $StyleKey = $this->Form->GetFormValue('StyleKey');
 

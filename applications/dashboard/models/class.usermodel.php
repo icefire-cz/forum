@@ -615,8 +615,8 @@ class UserModel extends Gdn_Model {
       
       return $UserID;
    }
-   
-   public function FilterForm($Data) {
+
+   public function FilterForm($Data, $Register = FALSE) {
       $Data = parent::FilterForm($Data);
       $Data = array_diff_key($Data, 
          array('Admin' => 0, 'Deleted' => 0, 'CountVisits' => 0, 'CountInvitations' => 0, 'CountNotifications' => 0, 'Preferences' => 0, 
@@ -628,7 +628,7 @@ class UserModel extends Gdn_Model {
       if (!Gdn::Session()->CheckPermission('Garden.Moderation.Manage')) {
          unset($Data['RankID']);
       }
-      if (!Gdn::Session()->CheckPermission('Garden.Users.Edit') && !C("Garden.Profile.EditUsernames")) {
+      if (!$Register && !Gdn::Session()->CheckPermission('Garden.Users.Edit') && !C("Garden.Profile.EditUsernames")) {
          unset($Data['Name']);
       }
       
@@ -643,7 +643,11 @@ class UserModel extends Gdn_Model {
    protected function _Insert($Fields, $Options = array()) {
       $this->EventArguments['InsertFields'] =& $Fields;
       $this->FireEvent('BeforeInsertUser');
-      
+
+      if (!val('Setup', $Options)) {
+         unset($Fields['Admin']);
+      }
+
       // Massage the roles for email confirmation.
       if (self::RequireConfirmEmail() && !GetValue('NoConfirmEmail', $Options)) {
          $ConfirmRoleID = C('Garden.Registration.ConfirmEmailRole');
@@ -1428,6 +1432,11 @@ class UserModel extends Gdn_Model {
       if (array_key_exists('Banned', $FormPostValues))
          $FormPostValues['Banned'] = ForceBool($FormPostValues['Banned'], '0', '1', '0');
 
+      if (array_key_exists('Confirmed', $FormPostValues))
+         $FormPostValues['Confirmed'] = ForceBool($FormPostValues['Confirmed'], '0', '1', '0');
+
+      unset($FormPostValues['Admin']);
+
       // Validate the form posted values
       $UserID = GetValue('UserID', $FormPostValues);
       $Insert = $UserID > 0 ? FALSE : TRUE;
@@ -1648,8 +1657,8 @@ class UserModel extends Gdn_Model {
          $Fields = $this->Validation->SchemaValidationFields(); // Only fields that are present in the schema
          
          // Insert the new user
-         $UserID = $this->_Insert($Fields, array('NoConfirmEmail' => TRUE));
-         
+         $UserID = $this->_Insert($Fields, array('NoConfirmEmail' => TRUE, 'Setup' => TRUE));
+
          if ($UserID) {
             $ActivityModel = new ActivityModel();
             $ActivityModel->Save(array(
@@ -2560,7 +2569,10 @@ class UserModel extends Gdn_Model {
       
       // Remove activity comments.
       $this->GetDelete('ActivityComment', array('InsertUserID' => $UserID), $Content);
-      
+
+      // Remove comments in moderation queue
+      $this->GetDelete('Log', array('RecordUserID' => $UserID, 'Operation' => 'Pending'), $Content);
+
       // Clear out information on the user.
       $this->SetField($UserID, array(
           'About' => NULL,
@@ -3196,9 +3208,12 @@ class UserModel extends Gdn_Model {
          if (!$User->Email) {
             continue;
          }
-         
-         $PasswordResetKey = RandomString(6);
+
+         $Email = new Gdn_Email(); // Instantiate in loop to clear previous settings
+         $PasswordResetKey = BetterRandomString(20, 'Aa0');
+         $PasswordResetExpires = strtotime('+1 hour');
          $this->SaveAttribute($User->UserID, 'PasswordResetKey', $PasswordResetKey);
+         $this->SaveAttribute($User->UserID, 'PasswordResetExpires', $PasswordResetExpires);
          $AppTitle = C('Garden.Title');
          $Email->Subject(sprintf(T('[%s] Password Reset Request'), $AppTitle));
          $Email->To($User->Email);
@@ -3229,6 +3244,7 @@ class UserModel extends Gdn_Model {
 
       $this->SQL->Update('User')->Set('Password', $Password)->Set('HashMethod', 'Vanilla')->Where('UserID', $UserID)->Put();
       $this->SaveAttribute($UserID, 'PasswordResetKey', '');
+      $this->SaveAttribute($UserID, 'PasswordResetExpires', '');
 
       $this->EventArguments['UserID'] = $UserID;
       $this->FireEvent('AfterPasswordReset');

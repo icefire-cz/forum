@@ -40,6 +40,10 @@ function WriteDiscussionRow($Discussion, &$Sender, &$Session, $Alt2) {
    else {
       $Last = $First;
    }
+   $Sender->EventArguments['FirstUser'] = &$First;
+   $Sender->EventArguments['LastUser'] = &$Last;
+
+   $Sender->FireEvent('BeforeDiscussionName');
 
    $DiscussionName = $Discussion->Name;
    if ($DiscussionName == '')
