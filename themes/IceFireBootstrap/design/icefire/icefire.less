@@ -935,6 +935,10 @@ textarea.MultiComplete {
     float: right;
     display: block;
     padding: 7px 8px 9px;
+
+    span[class*="icon-"] {
+      text-decoration: none;
+    }
   }
   .ProfilePhoto {
     width: 28px;
@@ -1082,7 +1086,8 @@ textarea.MultiComplete {
   }
   & > li > a {
     text-shadow: 0 1px 0 rgba(0,0,0,0.15);
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: @itemBackground;
     }
   }
