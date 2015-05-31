@@ -42,7 +42,7 @@ $a2 = C('Plugins.BotStop.Answer2');
 
 if ($test != $a1 && $test != $a2)
 {
-        $Sender->Validation->AddValidationResult('BotCheck','Your humanity is suspect... Please try again.');
+        $Sender->Validation->AddValidationResult('BotCheck', 'Odpověď na kontrolní otázku nebyla správná.');
         $Sender->EventArguments['Valid'] = FALSE;
 }
        // return FALSE;
