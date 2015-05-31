@@ -153,6 +153,9 @@ function WriteReactions($Row, $Type = 'Comment') {
    Gdn::Controller()->EventArguments['RecordType'] = strtolower($RecordType);
    Gdn::Controller()->EventArguments['RecordID'] = $RecordID;
    $Session = Gdn::Session();
+   $Discussion = Gdn::Controller()->Data('Discussion');
+
+   $PermissionCategoryID = GetValue('PermissionCategoryID', $Discussion);
 
    echo '<div class="Reactions Vole">';
    echo '<div class="pull-right">';
