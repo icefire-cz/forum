@@ -71,6 +71,6 @@ if (C('Vanilla.Discussions.ShowCounts', TRUE)) {
       }
       $Controller->FireEvent('AfterDiscussionFilters');
       ?>
-      <li class="Members"><?php echo Anchor('Bratrstvo noční hlídky', '/members'); ?></li>
+      <li class="Members"><?php echo Anchor(T('Members List Enhanced'), '/members'); ?></li>
    </ul>
 </div>

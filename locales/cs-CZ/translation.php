@@ -1058,5 +1058,5 @@ $Definition['Discussion Count'] = 'Diskuzí';
 $Definition['Comment Count'] = 'Komentářů';
 $Definition['Nickname'] = 'Nick';
 $Definition['FirstName'] = 'není vyplněn Nick';
-$Definition['Members List Enhanced'] = 'Bratrstvo noční hlídky';
+$Definition['Members List Enhanced'] = 'Noční hlídka';
 
