@@ -10,11 +10,11 @@ $PluginInfo['BotStop'] = array(
 );
 
 
-class BotStop extends Gdn_Plugin 
+class BotStop extends Gdn_Plugin
 
 {
 
-public function Setup() 
+public function Setup()
         {
         SaveToConfig('Plugins.BotStop.Question', 'What is three plus three?');
         SaveToConfig('Plugins.BotStop.Answer1', '6');
@@ -40,7 +40,7 @@ public function Setup()
 $a1 = C('Plugins.BotStop.Answer1');
 $a2 = C('Plugins.BotStop.Answer2');
 
-if ($test != $a1 && $test != $a2)
+if (strtolower($test) != strtolower($a1) && strtolower($test) != strtolower($a2))
 {
         $Sender->Validation->AddValidationResult('BotCheck', 'Odpověď na kontrolní otázku nebyla správná.');
         $Sender->EventArguments['Valid'] = FALSE;
@@ -69,11 +69,11 @@ if ($test != $a1 && $test != $a2)
 		$Sender->Title('BotStop Plugin Settings');
 		$Sender->AddSideMenu('settings/botstop');
 
-    if ($Sender->Form->AuthenticatedPostBack() === FALSE) 
+    if ($Sender->Form->AuthenticatedPostBack() === FALSE)
      {
      $Sender->Form->SetData($ConfigurationModel->Data);
-     } 
-     else 
+     }
+     else
      {
      $Data = $Sender->Form->FormValues();
      if ($Sender->Form->Save() !== FALSE) $Sender->StatusMessage = T("Your settings have been saved.");
