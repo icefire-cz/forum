@@ -183,7 +183,7 @@
         {asset name="Foot"}
         <p>Dotazy, náměty či nabídky spolupráce směřujte na alek/zav/icefire.cz. Fórum běží na <a href="{vanillaurl}">Vanille</a> s pomocí <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.</p>
         <p>Obsahový tým: Alek, heavy-head, Nevada, sveva | Vývojový tým: Alek, Montezuma3, paulcz</p>
-        <p>Copyright &copy; 2006&mdash;2014 Ice &amp; Fire</p>
+        <p>Copyright &copy; 2006&mdash;2015 Ice &amp; Fire</p>
     </div>
 </footer>
 
