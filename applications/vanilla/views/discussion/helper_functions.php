@@ -164,7 +164,10 @@ function WriteReactions($Row, $Type = 'Comment') {
          echo Wrap(Anchor($Name, $Url, 'DeleteComment'), 'span', array('class' => 'MItem Blink'));
       }
       // Can the user edit the comment?
-      if ($Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
+      $EditContentTimeout = C('Garden.EditContentTimeout', -1);
+      $CanEdit = $EditContentTimeout == -1 || strtotime($Row->DateInserted) + $EditContentTimeout > time();
+
+      if (($CanEdit && $Session->UserID == $Row->InsertUserID) || $Session->CheckPermission('Vanilla.Comments.Edit', TRUE, 'Category', $PermissionCategoryID)) {
          $Name = '<i class="icon-wrench"></i> '.T('Edit');
          $Url = '/vanilla/post/editcomment/'.$Row->CommentID;
          echo Wrap(Anchor($Name, $Url, 'EditComment'), 'span', array('class' => 'MItem Blink'));
