@@ -201,6 +201,7 @@ $Definition['Change My Password'] = 'Změnit heslo';
 $Definition['Change My Picture'] = 'Změnit obrázek';
 $Definition['Change Password'] = 'Změnit heslo';
 $Definition['Change Picture'] = 'Změnit obrázek';
+$Definition['Your password must be at least %d characters long.'] = 'Heslo musí být alespoň %d znaků dlouhé.';
 $Definition['Check all roles that apply to this user:'] = 'Zatrhni všechny funkce tohoto uživatele:';
 $Definition['Child Categories'] = 'Subkategorie';
 $Definition['Child Categories:'] = 'Subkategorie:';
