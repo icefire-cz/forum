@@ -1047,7 +1047,7 @@ $Definition['%s new plural'] = '%s nových';
 
 //plugins
 $Definition['Photo'] = 'Foto';
-$Definition['Username'] = 'Jméno';
+$Definition['Username'] = 'Přezdívka';
 $Definition['User ID'] = 'User ID';
 $Definition['Roles'] = 'Role';
 $Definition['First Visit'] = 'První návštěva';
@@ -1060,4 +1060,3 @@ $Definition['Comment Count'] = 'Komentářů';
 $Definition['Nickname'] = 'Nick';
 $Definition['FirstName'] = 'není vyplněn Nick';
 $Definition['Members List Enhanced'] = 'Bratrstvo Noční hlídky';
-
