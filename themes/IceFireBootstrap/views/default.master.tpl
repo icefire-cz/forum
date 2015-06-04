@@ -89,6 +89,12 @@
             <li class="menu-3-rada">
               <a href="/serial/3-rada/">3. řada</a>
             </li>
+            <li class="menu-4-rada">
+              <a href="/serial/4-rada/">4. řada</a>
+            </li>
+            <li class="menu-5-rada">
+              <a href="/serial/5-rada/">5. řada</a>
+            </li>
             <li class="menu-video">
               <a href="/serial/video/">Video</a>
             </li>
@@ -107,6 +113,9 @@
               <a href="/komunita/nocni-hlidka-komunita-ice-fire/">Rozcestník</a>
             </li>
             <li><hr></li>
+            <li class="menu-povidky">
+              <a href="/komunita/povidky/">Povídky</a>
+            </li>
             <li class="menu-deskove-hry">
               <a href="/komunita/deskove-hry/">Deskové hry</a>
             </li>
@@ -115,6 +124,9 @@
             </li>
             <li class="menu-rpg-hry-na-hrdiny">
               <a href="/komunita/rpg-hry-na-hrdiny/">RPG – hry na hrdiny</a>
+            </li>
+            <li class="menu-thronecon">
+              <a href="/komunita/thronecon/">ThroneCon</a>
             </li>
           </ul>
         </li>
