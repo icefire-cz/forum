@@ -71,6 +71,7 @@ if (C('Vanilla.Discussions.ShowCounts', TRUE)) {
       }
       $Controller->FireEvent('AfterDiscussionFilters');
       ?>
+      <li class="Search"><?php echo Anchor(T('Vyhledávač'), '/search'); ?></li>
       <li class="Members"><?php echo Anchor(T('Members List Enhanced'), '/members'); ?></li>
    </ul>
 </div>
