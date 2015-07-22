@@ -13,7 +13,7 @@ echo $this->Form->Errors();
          echo $this->Form->CheckBox('Book5','Tanec s draky');
       echo '</li>';
       echo '<li>';
-         echo $this->Form->Label('Vepiš text, který se zobrazí vedle nicku (max 30 znaků).', 'Words');
+         echo $this->Form->Label('Vepiš text, který se zobrazí vedle nicku (max 32 znaků).', 'Words');
          echo $this->Form->TextBox('Words');
       echo '</li>';
    echo '</ul>';

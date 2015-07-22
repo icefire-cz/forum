@@ -49,12 +49,12 @@ if ($this->DiscussionData->NumRows() > 0 || (isset($this->AnnounceData) && is_ob
 				WriteDiscussionRow($Discussion, $this, $Session, $Alt);
 			}
 		}
-		
+
 		$Alt = '';
 		foreach ($this->DiscussionData->Result() as $Discussion) {
 			$Alt = $Alt == ' Alt' ? '' : ' Alt';
 			WriteDiscussionRow($Discussion, $this, $Session, $Alt);
-		}	
+		}
 	?>
 	</tbody>
 </table>
@@ -65,7 +65,7 @@ if ($this->DiscussionData->NumRows() > 0 || (isset($this->AnnounceData) && is_ob
       PagerModule::Write($PagerOptions);
       echo Gdn_Theme::Module('NewDiscussionModule', $this->Data('_NewDiscussionProperties', array('CssClass' => 'Button Action Primary')) );
    echo '</div>';
-   
+
 } else {
    ?>
    <div class="Empty"><?php echo T('No discussions were found.'); ?></div>

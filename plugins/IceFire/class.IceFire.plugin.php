@@ -112,8 +112,8 @@ class IceFirePlugin extends Gdn_Plugin {
 
         if ($Sender->Form->IsPostBack()) {
             $Words = $Sender->Form->GetValue('Words', NULL);
-            if (strlen($Words) > 30) {
-                $Sender->Form->AddError('Délka textu nesmí přesahovat 30 znaků.');
+            if (mb_strlen($Words, 'UTF-8') > 32) {
+                $Sender->Form->AddError('Délka textu nesmí přesahovat 32 znaků.');
             } else {
                 $Books = array();
                 for ($i = 1; $i <= 5; $i++) {
