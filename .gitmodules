@@ -1,0 +1,3 @@
+[submodule "themes/IceFireBootstrap"]
+	path = themes/IceFireBootstrap
+	url = git@github.com:icefire-cz/theme.git
