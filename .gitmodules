@@ -4,3 +4,6 @@
 [submodule "plugins/IceFire"]
 	path = plugins/IceFire
 	url = git@github.com:icefire-cz/asoiaf-plugin.git
+[submodule "locales/cs-CZ"]
+	path = locales/cs-CZ
+	url = git@github.com:icefire-cz/czech-locale.git
