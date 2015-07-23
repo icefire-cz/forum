@@ -1,3 +1,6 @@
 [submodule "themes/IceFireBootstrap"]
 	path = themes/IceFireBootstrap
 	url = git@github.com:icefire-cz/theme.git
+[submodule "plugins/IceFire"]
+	path = plugins/IceFire
+	url = git@github.com:icefire-cz/asoiaf-plugin.git
